@@ -1,0 +1,129 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.divPathHome{
+    width: 100%;
+}
+
+.divDevicesHome{
+    border-radius: 10px;
+}  
+
+
+.containerHome{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 10px;
+    justify-content: center;
+
+    /* background-color: red; */
+    box-sizing: border-box;
+}
+
+.divDataDeviceHome{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2fr;
+    gap: 1rem;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: center;
+
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(43,43,43,0.8); 
+    box-shadow: 0px 0px 8px 0px rgba(43,43,43,0.8);
+    
+}
+
+.dataDevicesHome{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-content: center;
+    justify-items: center;
+    gap: 1rem;
+
+}
+
+.squareDataHome{
+    width: 90%;
+    height: 10rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 15px;
+    box-sizing: border-box;
+    text-align: center;
+
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(43,43,43,0.8); 
+    box-shadow: 0px 0px 8px 0px rgba(43,43,43,0.8);
+}
+
+.squareDataHome  p{
+    font-weight: 600;
+}
+
+.squareDataHome span{
+    color: #737373;
+}
+
+.listDevicesHome{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.listDevicesHome > h2{
+    align-self: flex-start;
+}
+
+.divMapHome{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+
+    /* background-color: #43E255; */
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(43,43,43,0.8); 
+    box-shadow: 0px 0px 8px 0px rgba(43,43,43,0.8);
+}
+
+
+@media screen and (max-width:1000px) {
+
+    .containerHome{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 20px;
+        justify-items: center;
+    
+        /* background-color: red; */
+        box-sizing: border-box;
+    }
+
+    .divDevicesHome{
+        padding: 10px;
+    }
+
+    .divMapHome{
+        width: 100%;
+    }
+    
+}

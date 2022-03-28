@@ -1,0 +1,30 @@
+.containerNotificationAlert{
+    width: 40%;
+    max-height: 100%;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    /* background-color:bisque */
+}
+
+.containerNotificationAlert > label{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+
+    /* background-color: aquamarine; */
+}
+
+@media screen and (max-width: 703px) {
+
+    .containerNotificationAlert{
+        width: 100%;
+   
+    }
+
+}

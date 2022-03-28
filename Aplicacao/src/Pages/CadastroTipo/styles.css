@@ -1,0 +1,34 @@
+.bitIni {
+    margin-bottom: 7px;
+    margin-left: -23px;
+    width: 100%;
+}
+
+.bitFinal {
+    margin-bottom: 7px;
+    margin-left: -25px;
+    width: 90%;
+}
+
+.bits {
+    display: flex;
+}
+
+.variavel {
+    margin-right: -10%;
+    margin-bottom: 7px;
+    margin-left: -4%;
+}
+
+.operacaoCampo {
+    width: 0%;
+    
+}
+
+.botoes {
+    margin-left: auto;
+}
+
+
+
+

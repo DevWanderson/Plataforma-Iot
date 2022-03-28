@@ -1,0 +1,160 @@
+.containerGeralLogicAlerts{
+    position: relative;
+    min-width: 60%;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    margin: auto;
+
+    /* background-color: blue; */
+}
+
+.containerBoxLogicAlerts{
+    position: relative;
+    top: 0;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0px 10px 10px 10px;
+    border: 2px solid #D6D6D6;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    
+    /* background-color: pink; */
+}
+
+.containerBoxLogicAlerts > h5{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 0;
+    transform: translateY(-120%);
+}
+
+.fecharLogicAlerts{
+    max-width: 30px;
+    min-width: 25px;
+    max-height: 25px;
+    min-height: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(-50%);
+    background-color: #C60606;
+    color: white;
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all ease 0.5s;
+}
+
+.fecharLogicAlerts:hover{
+    background-color:  #FF4D4D;
+}
+
+.containerAddMoreLogicAlerts{
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    gap: 10px;
+    width: 80%;
+
+}
+
+.containerAddMoreLogicAlerts > div{
+    max-width: 30px;
+    min-width: 25px;
+    max-height: 25px;
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #22A14D;
+    color: white;
+    cursor: pointer;
+    transition: all ease 0.5s;
+}
+
+.containerAddMoreLogicAlerts > div:hover{
+    background-color: #2FED6F;
+}
+
+.containerAddMoreLogicAlerts > p{
+    margin-bottom: 0;
+}
+
+.alinhadorLogicAlerts{
+    width: 80%;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+.tableOpLogicAlerts{
+    position: relative;
+    width: 80%;
+    max-height: 20vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 5px;
+    margin-top: 10px;
+    align-items: center;
+    justify-items: center;
+    border: 2px solid #D6D6D6;
+    border-radius: 20px;
+    padding: 0px 10px 10px 10px;
+    overflow: auto;
+    /* background-color: yellow; */
+}
+
+.tableOpLogicAlerts > p{
+    margin: 0;
+}
+
+.headerTableLogicAlerts{
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    font-weight: 600;
+    position:sticky;
+    top:0px;
+    padding: 10px;
+}
+
+.deleteLogicAlerts{
+    cursor: pointer;
+   transition: all ease .5s;
+}
+
+.deleteLogicAlerts:hover{
+    transform: scale(1.2);
+}
+
+@media screen and (max-width: 970px){
+    
+    .containerBoxLogicAlerts{
+        flex-direction: column;
+        margin-top: 20px;
+    
+    }
+
+    .containerGeralLogicAlerts{
+       
+        padding: 20px 5px ;
+  
+    }
+
+    .tableOpLogicAlerts{
+        padding: 10px 20px 10px 20px;
+    }
+
+
+}

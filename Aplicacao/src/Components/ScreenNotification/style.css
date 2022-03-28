@@ -1,0 +1,65 @@
+.containerScreenNotification{
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(238, 238, 238, 0.75);
+
+}
+
+.WhiteBlock{
+    display: flex;
+    min-width: 50vh;
+    min-height: 30vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 16px -6px rgba(0,0,0,0.68); 
+    box-shadow: 0px 0px 16px -6px rgba(0,0,0,0.68);
+
+}
+
+
+.WhiteBlock > h2{
+    color: #757575;
+    font-weight: 700;
+}
+
+.WhiteBlock > p{
+    color: #757575;
+    
+}
+
+.WhiteBlock > button{
+    background-color: #56F118;
+    color: white;
+    padding: 10px 40px;
+    transition: all ease 0.5s;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    transition: all ease 0.5s;
+}
+
+
+.WhiteBlock > button:hover{
+    background-color: #7BF74A;
+}
+
+@media screen and (max-width: 703px) {
+    .WhiteBlock{
+        min-width: unset;
+        width: 90%;
+
+    }
+}

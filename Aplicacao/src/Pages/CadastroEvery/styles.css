@@ -1,0 +1,72 @@
+.btnAdd{
+    margin-bottom: 2%;    
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.toggle{
+    align-items: center;
+    display: flex;
+}
+
+.badges .badge{
+    display: flex;
+    margin-left: 5%;
+    
+}
+
+.badges{
+    display: flex;
+    margin-left: 77%;
+}
+
+.camposEUI{
+    margin-bottom: 2%;
+}
+
+.nextCad{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    text-decoration: none;
+}
+
+.nextCad button{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 16px 10px;
+    width: auto;
+    text-decoration: none;
+}
+
+
+
+.TagList{
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2%;
+}
+
+.Tag{
+    background: rgb(47, 124, 3);
+    border-radius: 3px;
+    padding: 8px 12px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #ffefef;
+}
+
+.Tag:not(:last-child){
+    margin-right: 8px;
+}
+
+.activationGrid{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}

@@ -1,0 +1,19 @@
+.containerModalAlerts{
+    width: 100%;
+    max-height: 80vh;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* background-color: #5063d1; */
+}
+
+.containerButtonsAlerts{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}

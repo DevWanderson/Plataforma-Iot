@@ -1,0 +1,52 @@
+.ContainerSelectedDeviceAlerts{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.headerTableSelectedDeviceAlerts{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.ulSelectedDeviceAlerts{
+    max-height: 50vh;
+    list-style: none;
+    border: 1px solid #C3C3C3;
+    border-radius: 5px;
+    min-width: 50%;
+    max-width: 70%;
+    margin-top: 10px;
+    overflow: auto;
+}
+
+.liSelectedDeviceAlerts{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 15px;
+}
+
+.linhaSelectedDeviceAlerts{
+    width: 100%;
+    height: 1px;
+    background-color: #C3C3C3;    
+}
+
+@media screen and (max-width:776px ){
+    
+    .ulSelectedDeviceAlerts{
+        height: auto;
+        width: 100%;
+    }
+}

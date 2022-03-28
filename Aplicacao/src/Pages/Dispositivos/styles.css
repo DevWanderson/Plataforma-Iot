@@ -1,0 +1,114 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family:Arial, Helvetica, sans-serif
+}
+
+/* .cardDirection {
+    display: flex;
+    align-items: center;
+} */
+
+.cardImg{
+    margin: 20px 15px;
+    height: 190px;
+    background-color: #000;
+}
+
+.tableStyle{
+   width: 100%; 
+}
+
+.btnFooter{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 1px 15px;
+    margin-top: -2%;
+}
+
+.btnFooter button{
+    margin: 10px 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+/* ----------------------------------------------------------- */
+
+.divAddButton{
+    width: 100%;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.dataDevices{
+    font-weight: 700;
+}
+
+.dataDevices > span{
+    font-weight: 500;
+    color: #808080;
+}
+
+.cardBtn{      
+    /* float: right; */
+    width: calc(100% + 8px);
+    display: inline-flex;
+    flex-wrap: wrap;
+    margin: -8px 0 0 -8px;
+    justify-content: flex-end;
+}
+
+.cardBtn > * {
+    margin: 8px 0 0 8px;
+}
+
+.bt{
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    color:white;
+    padding: 7px 15px 7px 15px;
+    font-size: 18px;
+
+}
+
+.btAdd{
+    background-color: #23ce59;
+    padding: 10px 40px 10px 40px;
+    font-weight: 700;
+    transition: all ease .5s;
+}
+
+.btAdd:hover{
+    background-color: #55d67e;
+}
+
+.btOptionsUpdate{
+    background-color: transparent;
+    border: solid 1px gray;
+    color: darkgoldenrod;
+    padding-right: 20px;
+    padding-left:20px ;
+    transition: all ease .5s;    
+}
+
+.btOptionsDelete{
+    background-color: transparent;
+    border: solid 1px gray;
+    color: red;
+    padding-right: 20px;
+    padding-left:20px ;
+    transition: all ease .5s;
+}
+
+
+.btOptionsUpdate:hover, .btOptionsDelete:hover{
+    background-color: gray;
+    color: white;
+}
