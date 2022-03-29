@@ -40,6 +40,6 @@ jobs:
           server: ${{ secrets.sftp_host }}
           port: ${{ secrets.sftp_port }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          local_path: '.API/credentials.py' # Arquivo que será alterado
+          local_path: 'API/credentials.py' # Arquivo que será alterado
           remote_path: '/home/iotuser/plataforma/dados/' # Pasta de destino
           args: '-o ConnectTimeout=5'
