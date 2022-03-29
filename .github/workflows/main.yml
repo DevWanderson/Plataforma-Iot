@@ -1,45 +1,83 @@
-name: Testes e Deploy
+# name: Testes e Deploy
 
-on: 
-  push:
-    branches: [ main ]
+# on: 
+#   push:
+#     branches: [ main ]
 
-jobs:
-  # pylint: # Verifica erros no código 
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v2
+# jobs:
+#   # pylint: # Verifica erros no código 
+#   #   runs-on: ubuntu-latest
+#   #   steps:
+#   #   - name: Checkout
+#   #     uses: actions/checkout@v2
 
-  #   - name: Set up do Python
-  #     uses: actions/setup-python@v2
-  #     with:
-  #       python-version: 3.x
+#   #   - name: Set up do Python
+#   #     uses: actions/setup-python@v2
+#   #     with:
+#   #       python-version: 3.x
 
-  #   - name: Instalando dependencias
-  #     run: |
-  #       python -m pip install --upgrade pip
-  #       pip install pylint
+#   #   - name: Instalando dependencias
+#   #     run: |
+#   #       python -m pip install --upgrade pip
+#   #       pip install pylint
 
-  #   - name: Análise do código com Pylint
-  #     run: |
-  #       pylint $(git ls-files '*.py')
+#   #   - name: Análise do código com Pylint
+#   #     run: |
+#   #       pylint $(git ls-files '*.py')
 
-  deploy: # Faz deploy no servidor Azure
-    runs-on: ubuntu-latest
-    name: deploy
-    # needs: pylint # Só será executado se o Pylint for aprovado
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+#   deploy_api: # Faz deploy da API no servidor Azure
+#     runs-on: ubuntu-latest
+#     name: deploy
+#     # needs: pylint # Só será executado se o Pylint for aprovado
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
 
-      - name: Deploy do Arquivo
-        uses: wlixcc/SFTP-Deploy-Action@v1.0
-        with:
-          username: ${{ secrets.sftp_user }}
-          server: ${{ secrets.sftp_host }}
-          port: ${{ secrets.sftp_port }}
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          local_path: 'API/credentials.py' # Arquivo que será alterado
-          remote_path: '/home/iotuser/plataforma/dados/' # Pasta de destino
-          args: '-o ConnectTimeout=5'
+#       - name: Deploy dos Arquivos
+#         uses: wlixcc/SFTP-Deploy-Action@v1.0
+#         with:
+#           username: ${{ secrets.sftp_user }}
+#           server: ${{ secrets.sftp_host }}
+#           port: ${{ secrets.sftp_port }}
+#           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+#           local_path: 'API/*' # Arquivo que será enviado
+#           remote_path: '/home/iotuser/plataforma/dados/' # Pasta de destino
+#           args: '-o ConnectTimeout=5'
+
+#   deploy_aplicacao: # Faz deploy da Aplicação no servidor Azure
+#     runs-on: ubuntu-latest
+#     name: deploy
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
+
+#       - name: Deploy dos Arquivos
+#         uses: wlixcc/SFTP-Deploy-Action@v1.0
+#         with:
+#           username: ${{ secrets.sftp_user }}
+#           server: ${{ secrets.sftp_host }}
+#           port: ${{ secrets.sftp_port }}
+#           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+#           local_path: 'Aplicacao/*' # Arquivo que será enviado
+#           remote_path: '/home/iotuser/Aplicacao/' # Pasta de destino
+#           args: '-o ConnectTimeout=5'
+
+#   deploy_decoders: # Faz deploy dos Decoders no servidor Azure
+#     runs-on: ubuntu-latest
+#     name: deploy
+#     # needs: pylint # Só será executado se o Pylint for aprovado
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
+
+#       - name: Deploy dos Arquivos
+#         uses: wlixcc/SFTP-Deploy-Action@v1.0
+#         with:
+#           username: ${{ secrets.sftp_user }}
+#           server: ${{ secrets.sftp_host }}
+#           port: ${{ secrets.sftp_port }}
+#           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+#           local_path: 'Decoders/*' # Arquivo que será enviado
+#           remote_path: '/home/iotuser/decoders/' # Pasta de destino
+#           args: '-o ConnectTimeout=5'        
+#
