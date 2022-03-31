@@ -8,7 +8,7 @@ A documentação completa do projeto está disponível [aqui](link).
 
 ## Guia do Usuário
 
-Colete e visualize os dados do seu dispositivo IoT seguindo o [guia do usuário](link).
+Colete e visualize os dados do seu dispositivo IoT seguindo o [guia do usuário](link), onde se encontra o tutorial de instalação e configuração do ambiente.
 
 ## Funcionalidades da Plataforma
 
@@ -32,4 +32,4 @@ Colete e visualize os dados do seu dispositivo IoT seguindo o [guia do usuário]
 
 ## Suporte
 
-## Licença
+## Licenças e Direitos Autorais
