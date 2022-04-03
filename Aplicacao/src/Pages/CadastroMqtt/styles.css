@@ -8,33 +8,33 @@
     color: white;
 } */
 
-.toggle{
+.toggle {
     align-items: center;
     display: flex;
 }
 
-.badges .badge{
+.badges .badge {
     display: flex;
     margin-left: 5%;
 }
 
-.badges{
+.badges {
     display: flex;
     margin-left: 77%;
 }
 
-.camposEUI{
+.camposEUI {
     margin-bottom: 2%;
 }
 
-.nextCad{
+.nextCad {
     justify-content: center;
     align-items: center;
     display: flex;
     text-decoration: none;
 }
 
-.nextCad button{
+.nextCad button {
     font-size: 16px;
     font-weight: bold;
     margin: 16px 10px;
@@ -42,7 +42,7 @@
     text-decoration: none;
 }
 
-.TagList{
+.TagList {
     width: 100%;
     list-style-type: none;
     margin: 0;
@@ -52,7 +52,7 @@
     margin-top: 2%;
 }
 
-.Tag{
+.Tag {
     background: rgb(47, 124, 3);
     border-radius: 3px;
     padding: 8px 12px;
@@ -63,6 +63,76 @@
     color: #ffefef;
 }
 
-.Tag:not(:last-child){
+.Tag:not(:last-child) {
     margin-right: 8px;
+}
+
+.boxVar {
+    top: 10px;
+    width: 200px;
+}
+
+.divCombo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+}
+.divCombo button{
+    background-color: rgb(47, 124, 3);
+    color: #FFF;
+    padding: 5px;
+    border-color: transparent;
+    border-radius: 5px;
+    display: flex;
+    height: 100%;
+    margin-top: auto;
+}
+
+.titleDialog {
+    text-align: center;
+}
+
+.inputDialog {
+    width: 290px;
+}
+
+.dialogCampo {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+
+.variaveis {
+    display: flex;
+    padding: 10px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.variaveis span {
+    flex-direction: row;
+    display: flex;
+    gap: 60px;
+    
+
+}
+.variaveis label {
+    font-size: 15px;
+}
+.variaveis button{
+    border-radius: 5px;
+    padding: 5px;
+    background: rgb(228, 96, 96);
+    color: #FFF;
+    border-color: transparent;
+    display: flex;
+    
+}
+.variaveis button:hover{
+    background-color: rgb(238, 63, 63);
 }

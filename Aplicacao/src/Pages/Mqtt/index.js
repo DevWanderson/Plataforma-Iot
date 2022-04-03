@@ -15,7 +15,7 @@ import {
     SettingsInputAntenna
 } from '@material-ui/icons';
 
-
+//teste//
 
 
 export default function Mqtt() {
@@ -32,7 +32,7 @@ export default function Mqtt() {
         }
 
         var client = mqtt.connect("http://pitunnel.com:12640", options);
-        //console.log('TEste', JSON.stringify(messages))
+
 
         client.on('connect', () => setConnectionStatus(true)) //conexao ok
         client.subscribe('superuser')
@@ -42,7 +42,6 @@ export default function Mqtt() {
             //const msg = messages.concat(payload.toString())
             //const msgS = JSON.parse(msg)
             setMessages(message);
-            console.log(client)
             client.end()
 
         })

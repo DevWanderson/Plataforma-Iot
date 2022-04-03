@@ -1,52 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { DataGrid } from '@material-ui/data-grid';
 import './Home.css';
+import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from "@material-ui/core/Tooltip";
 import RouterIcon from '@material-ui/icons/Router';
 import MemoryIcon from '@material-ui/icons/Memory';
-import BatteryChargingFullIcon from '@material-ui/icons/BatteryChargingFull';
+import NotificationsActive from '@material-ui/icons/NotificationsActive'
+//import BatteryChargingFullIcon from '@material-ui/icons/BatteryChargingFull';
 import DevicesMap from '../../Components/Map/Map-dashboard';
-import { stampToDateAndHour } from '../../script/timeStampToDate'
-import { Redirect } from 'react-router-dom'
 import Load from '../../Components/Loading/index'
-// import { selectData } from '../../script/timeStampToDate'
+import api from '../../Components/Connections/api';
+import { stampToDateAndHour } from '../../Utils/timeStampToDate'
+import { lastTsBeforeOf } from '../../Utils/functions';
+import Mqtt from '../Mqtt';
+import { Paper } from '@material-ui/core';
+import Combo from '../../Components/SelectDeviceCombo';
+
+
+// import { selectData } from '../../Utils/timeStampToDate'
 
 
 const useStylePC = makeStyles(() => ({
     router: {
-        color: '#009ED8',
-        fontSize: 50,
+        color: '#0C53B7',
+        fontSize: 30,
     },
 
     chip: {
-        color: '#C41F1F',
-        fontSize: 50,
+        color: '#B7811C',
+        fontSize: 30,
     },
 
     battery: {
-        color: '#43E255',
-        fontSize: 50,
+        color: '#0F7B55',
+        fontSize: 30,
     }
 
 }))
 
 
-
 export default function Home() {
     const data = useSelector(state => state)
-    const devices = useSelector((state) => state.devicesState.devices);
+    const setorDados = useSelector((state) => state.setorState.dadosSetor);
+    const devicesData = useSelector((state) => state.devsInfoState.devicesData);
     const [allDevices, setAlldevices] = useState(0);
     const [lastSeen, setLastSeen] = useState([]);
-    const [allDevicesActives, setAllDevicesActives] = useState([]);
+    const [appKey, setAppKey] = useState('');
+    const [allActiveDevices, setAllActiveDevices] = useState([]);
     const classesIconPC = useStylePC();
+    const userUID = JSON.parse(localStorage.getItem('Auth_user'))
+    let user = userUID ? userUID.uid : null
+
 
 
     useEffect(() => {
-        setAlldevices(devices.length);
-
+        setAlldevices(setorDados.length);
         setLastSeen(
-            devices.map(last => {
+            setorDados.map(last => {
                 if (last.last_seen) {
                     let date = stampToDateAndHour(last.last_seen);
                     return date
@@ -57,14 +68,26 @@ export default function Home() {
 
             })
         );
+        setAllActiveDevices(setorDados.filter(device => device.status != 0));
 
-        setAllDevicesActives(devices.filter(device => device.status != 0));
+        const secs24hs = lastTsBeforeOf(24)
+        const devsWithDataUntil24hs = setorDados.filter(data => (devicesData[data.device].length > 0
+            && devicesData[data.device][0].ts >= secs24hs
+            && data.status != 0))
+        setAllActiveDevices(devsWithDataUntil24hs.length);
 
     }, [data])
 
+    async function selectKey() {
+        await api.get(`/user?login=${user}`)
+            .then((res) => {
+                setAppKey(res.data)
+            })
+    }
     useEffect(() => {
         console.log("chamando req...")
         // selectData();
+        selectKey()
     }, [])
 
 
@@ -75,8 +98,7 @@ export default function Home() {
         { field: 'vistoPorUltimo', headerName: 'Visto por último', width: 250 }
     ];
 
-    const rows = devices.map((row, i) => {
-
+    const rows = setorDados.map((row, i) => {
         return (
             {
                 id: i + 1,
@@ -90,54 +112,63 @@ export default function Home() {
     return (
 
         <React.Fragment>
+            <div style={{display:'flex', justifyContent:'flex-end', marginRight:-30}}>
+                <Combo />
+            </div>
+            {data.loadState.statusLoad === true ?
 
-            {data.devicesState.statusLoad === true ?
-                
-                    <Load />
-                    
-                
+                <Load />
+
+
                 :
 
 
                 <div className="containerHome">
-
-
-
                     <div className="divDataDeviceHome">
-
                         <div className="dataDevicesHome">
                             <div className="squareDataHome">
-                                <p>Sensores: <span>{allDevices}</span> </p>
-                                <RouterIcon className={classesIconPC.router}></RouterIcon>
-                            </div>
-
-                            <div className="squareDataHome">
-                                <p>Sensores Ativos: <span>{allDevicesActives.length}</span></p>
-                                <MemoryIcon className={classesIconPC.chip}></MemoryIcon>
-                            </div>
-
-                            <div className="squareDataHome">
-                                <p>Bateria: <span>12W</span></p>
-                                <BatteryChargingFullIcon className={classesIconPC.battery}></BatteryChargingFullIcon>
-                            </div>
-
-                        </div>
-
-
-                        <div className="listDevicesHome">
-                            <h2>Dispositivos</h2>
-                            <div style={{ height: 400, width: '98%' }}>
-                                <DataGrid autoHeight rows={rows} columns={columns} pageSize={5} />
+                                <div className='circleIconSCadatrados'>
+                                    <MemoryIcon className={classesIconPC.chip}></MemoryIcon>
+                                </div>
+                                <span>{allDevices}</span>
+                                <p>Sensores Cadastrados </p>
                             </div>
                         </div>
+                        <div className="dataDevicesHomeRouter">
+                            <Tooltip title="Dispositivos ativos que enviaram dados nas últimas 24 horas">
+                                <div className="squareDataHomeRouter">
+                                    <div className='circleIconSDados'>
+                                        <RouterIcon className={classesIconPC.router}></RouterIcon>
+                                    </div>
+                                    <span>{allActiveDevices}</span>
+                                    <p>Sensores com Dados</p>
+                                </div>
+                            </Tooltip>
+                        </div>
+                        <div className="dataDevicesHomeBattery">
+                            <div className="squareDataHomeBattery">
+                                <div className='circleIconAEnviados'>
+                                    <NotificationsActive className={classesIconPC.battery} />
+                                </div>
+                                <span>{appKey.n_alerts > 1000 ? `${String(appKey.n_alerts).substr(0, 1)}K` : appKey.n_alerts}</span>
+                                <p>Alertas Enviados</p>
+                            </div>
+                        </div>
+
 
                     </div>
 
 
                     <div className="divMapHome">
-                        <DevicesMap />
+                        <Paper style={{ borderRadius: 10, padding: 10 }}><DevicesMap height={625} /></Paper>
                     </div>
 
+                    <div className="listDevicesHome">
+                        <div style={{ height: 400, width: '98%' }}><Paper style={{ borderRadius: 10, padding: 10 }}>
+                            <h2>Dispositivos</h2>
+                            <DataGrid autoHeight rows={rows} columns={columns} pageSize={5} /></Paper>
+                        </div>
+                    </div>
                 </div>
             }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Alerts.css';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -10,12 +10,13 @@ import SelectDeviceAlerts from './SelectDeviceAlerts/SelectDeviceAlerts';
 import LogicAlerts from './LogicAlerts/LogicAlerts';
 import NotificationAlerts from './NotificationAlerts/NotificationAlerts';
 import FinalAlerts from './FinalAlerts/FinalAlerts';
-import { useEffect } from 'react';
 import ScreenNotification from '../../Components/ScreenNotification/ScreenNotification';
 import { useDispatch, useSelector } from 'react-redux';
-import {statusLoad} from '../../store/Modulos/Devices/actions';
+import { statusLoad } from '../../Reducers/ReduxLoad/LoadActions';
 import Loading from '../../Components/Loading';
 import SuccessAnimationGeneric from '../../Components/SuccessAnimationGenric/SucessAnimationGeneric';
+import api from '../../Components/Connections/api';
+import InfoTelegram from '../../Components/InfoTelegram';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -77,11 +78,12 @@ export default function Alerts() {
     const classes = useStyles();
     const steps = getSteps();
     const dispatch = useDispatch();
-    const redux = useSelector(state=>state)
+    const redux = useSelector(state => state)
 
     const [activeStep, setActiveStep] = useState(0);
     const [selectedDevices, setSelectedDevices] = useState([]);
     const [logic, setLogic] = useState([]);
+    const [deviceName, setDeviceName] = useState([]);
     const [contactAlert, setContactAlert] = useState([]);
     const [payload, setPayload] = useState({});
 
@@ -90,28 +92,28 @@ export default function Alerts() {
     const [isLoading, setIsLoading] = useState(false); //para aparecer Loading quando terminar de cadastrar alerta
     const [animation, setAnimation] = useState(false)
 
+    const userL = useSelector((state) => state.userState.userLogado)
+    var user = userL ? userL.uid : null
+
     useEffect(() => {
-        console.log(selectedDevices)
-        console.log(logic)
-        console.log(contactAlert)
-        console.log(payload);
+      
         if (selectedDevices.length !== 0 && logic.length !== 0) { // monta payload para enviar para o backend
             setPayload({
                 devices: selectedDevices,
                 logic: logic,
                 name: contactAlert[0],
                 period: contactAlert[1],
-                telegram: contactAlert[2],
+                //telegram: contactAlert[2],
                 email: contactAlert[3],
                 msg: contactAlert[4],
             })
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedDevices, logic, contactAlert])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedDevices, logic, contactAlert, userL, deviceName])
 
     useEffect(() => {
-        setIsLoading(redux.devicesState.statusLoad)
-    }, [redux.devicesState.statusLoad])
+        setIsLoading(redux.loadState.statusLoad)
+    }, [redux.loadState.statusLoad])
 
 
     const handleNext = () => { //Como o botão de próximo é o mesmo para todas as páginas, tenho que fazer 2 ifs para cada tela.
@@ -148,22 +150,22 @@ export default function Alerts() {
 
 
         if (selectedDevices.length !== 0 && logic.length !== 0 && activeStep === 2) {
-            if(contactAlert[2] !== '' || contactAlert[3] !== ''){
-                if (contactAlert[0] !== '' && contactAlert[1] !== ''  && contactAlert[4] !== '') {
+            if (contactAlert[2] === '' || contactAlert[3] !== '') {
+                if (contactAlert[0] !== '' && contactAlert[1] !== '' && contactAlert[4] !== '') {
                     setActiveStep((prevActiveStep) => prevActiveStep + 1);
                 }
-            } else{
+            } else {
                 setStatus(false); // Esse false é para que antes de setar o status pra true eu garanta que sempre haverá troca de estado, para haver renderização
                 setTimeout(() => {
                     setStatus(true);
                 }, 100)
-                setNotice('Preencha o campo "Telegram" ou "E-mail".')
-            }  
+                setNotice('Preencha o campo "E-mail".')
+            }
         }
 
 
         if (selectedDevices.length !== 0 && logic.length !== 0 && activeStep === 2) {
-            if (contactAlert[0] === '' || contactAlert[1] === ''  || contactAlert[4] === '') {
+            if (contactAlert[0] === '' || contactAlert[1] === '' || contactAlert[4] === '') {
                 setStatus(false); // Esse false é para que antes de setar o status pra true eu garanta que sempre haverá troca de estado, para haver renderização
                 setTimeout(() => {
                     setStatus(true);
@@ -175,27 +177,21 @@ export default function Alerts() {
 
         //PASSO FINAL
 
-        if(selectedDevices.length !== 0 && logic.length !== 0 && activeStep === 3){
-            console.log('teste')
+        if (selectedDevices.length !== 0 && logic.length !== 0 && activeStep === 3) {
+           
 
             dispatch(statusLoad(true))
 
-            fetch('http://192.168.1.242:8000/alerts?user=bruno', {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            }).then(res => {
-                console.log(res)
-                if (res.status === 201) {
+            api.post(`/alerts?login=${user}`, payload)
+                .then((res) => {
+                    JSON.stringify(res.data)
                     setAnimation(true)
-                } else {
-                    alert('erro')
-                    window.location.replace('/home')
-                }
-                dispatch(statusLoad(false))
-            }).catch(erro => {
-                console.log(erro)
+                   
+                    dispatch(statusLoad(false))
+                }).catch((err) => {
+                    console.log(`Erro ao carregar ${err}`)
+                })
 
-            })
 
         }
 
@@ -211,6 +207,7 @@ export default function Alerts() {
 
     function getSelectedDevices(array) {
         setSelectedDevices(array)
+        setDeviceName(array)
     }
 
     function getLogic(array) {
@@ -221,37 +218,12 @@ export default function Alerts() {
         setContactAlert(array)
     }
 
-    function sendPayload() {
-        fetch('http://192.168.1.242:8000/alerts?user=bruno', {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        }).then(res => {
-            console.log(res)
-        }).catch(erro => {
-            console.log(erro)
-        })
-
-        // setTimeout(() => {
-        //     dispatch(statusLoad(true))
-        //     setAnimation(true)
-        // }, 50)
-
-        // setTimeout(() => {
-        //     dispatch(statusLoad(false))
-        // }, 3000)
-
-    }
-
-
-    // useEffect(() => {
-    //     console.log(redux.devicesState.statusLoad)
-    // }, [redux.devicesState.statusLoad])
 
     return (
         <>
             {isLoading === true ?
                 <Loading />
-            :
+                :
                 <>
                     <SuccessAnimationGeneric status={animation} local={'/'} />
                     <ScreenNotification notice={notice} status={status} />
@@ -266,8 +238,9 @@ export default function Alerts() {
                             ))}
                         </Stepper  >
 
+                            
                         <div className='containerModalAlerts'>
-                            <SelectDeviceAlerts step={activeStep} get={getSelectedDevices} />
+                            <SelectDeviceAlerts step={activeStep} get={getSelectedDevices}/>
                             <LogicAlerts step={activeStep} get={getLogic} />
                             <NotificationAlerts step={activeStep} get={getContactAlert} />
                             <FinalAlerts
@@ -276,6 +249,7 @@ export default function Alerts() {
                                 logic={logic}
                                 contact={contactAlert}
                                 payload={payload}
+                              
                             />
                         </div>
 
@@ -304,8 +278,8 @@ export default function Alerts() {
                                 </div>
                             )}
                         </div>
-                    </div>
 
+                    </div>
                     {/* <button onClick={sendPayload}>Renato</button> */}
                 </>
             }

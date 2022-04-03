@@ -1,17 +1,23 @@
+/*
+    Autor: Daniel Pinheiro
+    https://github.com/Daniel-Pinheiro
+ */
+
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Container } from '@material-ui/core'
-import { getDate, getlatitude, getlongitude } from '../../utils/functions'
-import { updateAllDevicesData } from '../../store/actions'
+import { getDate, getlatitude, getlongitude } from '../../Utils/functions'
+import { updateAllDevicesData } from '../../Utils/stateControllers'
 
-import MapCreator from '../../utils/map-lib'
+import { MapCreator, icon } from './map-lib'
 import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
 
 export default function DevicesMap(props) {
-    const devices = useSelector((state) => state.devices);
-    const deviceData = useSelector((state) => state.deviceData);
-    const deviceProps = useSelector((state) => state.deviceProps);
+    const devices = useSelector((state) => state.devsInfoState.devices)
+    const devicesData = useSelector((state) => state.devsInfoState.devicesData);
+    const selectedSetor = useSelector((state) => state.setorState.selectSetor);
 
     const [gpsDevices, setGpsDevices] = useState({})
     const [map, setMap] = useState(null)
@@ -24,10 +30,10 @@ export default function DevicesMap(props) {
 
     useEffect(() => MapCreator(setMap), []);
     useEffect(() => {
-        if (map) {   setTimeout(() => {
+        if (map) {
             map.setView([-15.775187, -47.90657], 11)
             const coordinates = [-15.711, -47.911]
-            L.marker(coordinates).addTo(map).bindPopup("<b>IBTI</b>").setOpacity(0.5).openPopup();
+            L.marker(coordinates, {icon: icon}).addTo(map).bindPopup("<b>IBTI</b>").setOpacity(0.5).openPopup();
 
             var popup = L.popup();
             function onMapClick(e) {
@@ -37,16 +43,16 @@ export default function DevicesMap(props) {
                     .openOn(map);
             }
             map.on('click', onMapClick);
-        }, 1000); }
+        }
     }, [map]);
 
-    useEffect(() => {
+    useEffect( async() => {
         if (!timer) {
-            setTimeout(() => setTimer(true), 15000)
+            setTimeout(() => setTimer(true), 12000)
         }
         else {
+            await updateAllDevicesData()
             setTimer(false)
-            updateAllDevicesData()
         }
     }, [timer]);
 
@@ -59,7 +65,7 @@ export default function DevicesMap(props) {
                 const lat = dev.lat
                 const long = dev.long
 
-                const marker = L.marker([lat, long]).addTo(map)
+                const marker = L.marker([lat, long], {icon: icon}).addTo(map)
                 
                 marker.bindPopup(
                     `Dispositivo: <b>${devices[dev.eui].name}</b> <p>Último envio: ${getDate(dev.ts)}`
@@ -85,15 +91,16 @@ export default function DevicesMap(props) {
         var data = []
         for(var dev in devices){
             if(devices[dev].status === 1)
-            if(deviceData[dev] !== undefined)
-            if(deviceData[dev].length > 0)
-            if(deviceData[dev][0].lat && deviceData[dev][0].long)
-            if(Math.abs(deviceData[dev][0].lat) <= 90 && Math.abs(deviceData[dev][0].long) <= 180)
-            if(Math.abs(deviceData[dev][0].lat) != 0  && Math.abs(deviceData[dev][0].long) != 0)
-                data.push( {eui: dev, ...deviceData[dev][0]} )
+            if(devices[dev].department === selectedSetor || selectedSetor == 'Todos')
+            if(devicesData[dev] !== undefined)
+            if(devicesData[dev].length > 0)
+            if(devicesData[dev][0].lat && devicesData[dev][0].long)
+            if(Math.abs(devicesData[dev][0].lat) <= 90 && Math.abs(devicesData[dev][0].long) <= 180)
+            if(Math.abs(devicesData[dev][0].lat) != 0  && Math.abs(devicesData[dev][0].long) != 0)
+                data.push( {eui: dev, ...devicesData[dev][0]} )
         }
         setGpsDevices(data)
-    }, [deviceData]);
+    }, [devicesData]);
 
     /*______________________________________________________________________________________
       __________________________________ Layout do Mapa ____________________________________
@@ -103,7 +110,7 @@ export default function DevicesMap(props) {
 
     return (
         <Container style={{ maxWidth: 1600 }} >
-            <div id="mapContainer" style={{ height: height, marginBottom: '2%' }}></div>
+            <div id="mapContainer" style={{ height: height, marginTop: '1%' }}></div>
         </Container>
     )
 }

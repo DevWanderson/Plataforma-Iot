@@ -86,12 +86,11 @@ const defaultOptions = {
 
 
 export default function Dashboard() {
-    const selectedDevice = useSelector((state) => state.devicesState.selectedDevice);
-    const devices = useSelector((state) => state.devicesState.devices);
-    const dadosDevice = useSelector((state) => state.devicesState.dadosDevice);
+    const selectedDevice = useSelector((state) => state.deviceState.selectedDevice);
+    const devices = useSelector((state) => state.deviceState.devices);
+    const dadosDevice = useSelector((state) => state.deviceState.dadosDevice);
     const dispatch = useDispatch();
     const classes = useStyle();
-    console.log('aqui' , JSON.stringify(dadosDevice))
 
     const [searchDevice, setSeactDevice] = useState('');
     const [query, setQuery] = useState(false);

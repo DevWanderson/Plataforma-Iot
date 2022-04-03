@@ -4,8 +4,8 @@ import { TextField, FormControl, makeStyles } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import clsx from 'clsx';
 import './styles.css';
-import { selecionarDevice } from '../../store/Modulos/Devices/actions';
-import { setDevice } from '../../store/actions'
+import { selecionarDevice } from '../../Reducers/ReduxDevices/DeviceActions';
+import { setDevice } from '../../Utils/stateControllers';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -25,9 +25,9 @@ const useStyle = makeStyles((theme) => ({
 
 
 export default function SearchForm() {
-    const selectedDevice = useSelector((state) => state.devicesState.selectedDevice);
-    const devices = useSelector((state) => state.devicesState.devices)
-    const dadosDevice = useSelector((state) => state.devicesState.dadosDevice);
+    const selectedDevice = useSelector((state) => state.deviceState.selectedDevice);
+    const devices = useSelector((state) => state.deviceState.devices)
+    const dadosDevice = useSelector((state) => state.deviceState.dadosDevice);
     const dispatch = useDispatch();
     const classes = useStyle();
 

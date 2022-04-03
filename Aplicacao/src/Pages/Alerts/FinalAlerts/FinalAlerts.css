@@ -84,7 +84,7 @@
 
 .tableOpFinalAlerts{
     position: relative;
-    max-height: 10vh;
+    max-height: 20vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 5px;

@@ -3,7 +3,7 @@ import DoneIcon from '@material-ui/icons/Done'; //ícones
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MuiAlert from '@material-ui/lab/Alert';
-import { verificarExistenciaEUI } from '../../script/verificarExistenciaEUI';
+//import { verificarExistenciaEUI } from '../../Utils/verificarExistenciaEUI';
 import ButtonsCadastro from '../../Components/ButtonsCadastro';
 import LoadingCadastro from '../../Components/LoadingCadastro';
 import './styles.css';
@@ -115,13 +115,13 @@ export default function CadastroEvery() {
     const [selectType, setSelectType] = useState('');
     const [deviceAddr, setDeviceAddr] = useState('');
     const [appKey, setAppKey] = useState(null);
-    const [cadastro, setCadastro] = useState()
+    const [cadastro, setCadastro] = useState([])
     const dispatch = useDispatch()
 
-    //const cadastroEveryNet = useSelector((state) => state.devicesState.cadastroEvery);
-    const selectedDevice = useSelector((state) => state.devicesState.selectedDevice);
-    const dadosTypes = useSelector((state) => state.devicesState.dadosType);
-    //const devices = useSelector((state) => state.devicesState.devices);
+    //const cadastroEveryNet = useSelector((state) => state.deviceState.cadastroEvery);
+    const selectedDevice = useSelector((state) => state.deviceState.selectedDevice);
+    const dadosTypes = useSelector((state) => state.typeState.dadosType);
+    //const devices = useSelector((state) => state.deviceState.devices);
 
     /////////////// Message /////////////////////
     const [openMessage, setOpenMessage] = React.useState(false);
@@ -145,12 +145,11 @@ export default function CadastroEvery() {
     const [loading, setLoading] = React.useState({ openBackdrop: false, showSuccess: false });
     /////////////////////////////////////////////
 
-    console.log(cadastro)
-    console.log(`CheckActivation: ${checkActivation}`)
+    
 
     async function Cadastro() {
-        const user = JSON.parse(localStorage.getItem('Auth_user')).name
-        console.log("Usuário: " + user)
+        const user = JSON.parse(localStorage.getItem('Auth_user')).uid
+      
         if (nameDevice == '' || dispositivoEUI == '') {
             setTxtMessage("O campo Nome e Dispositivo EUI não podem ser vazios!")
             showMessage()
@@ -165,12 +164,12 @@ export default function CadastroEvery() {
             showMessage()
         } else {
             setLoading({ openBackdrop: true, showSuccess: false }) //Abre o backdrop com o loading 
-            if (await verificarExistenciaEUI(user, dispositivoEUI)) {
+            /* if (await verificarExistenciaEUI(user, dispositivoEUI)) {
                 setTxtMessage(`O dispositivo com EUI: ${dispositivoEUI} já está cadastrado!`)
                 showMessage()
                 console.log("Dispositivo já está cadastrado")
-            }
-            else {
+            } */
+            
                 if (checkActivation === false) {
                     setAppKey(null)
                 }
@@ -187,15 +186,13 @@ export default function CadastroEvery() {
                     app_key: appKey,
                 }
 
-                await api.post('/devices?user=' + user + '&dev_type=everynet', data)
+                await api.post(`devices?login=${user}&dev_type=everynet`, data)
                     .then((res) => {
-                        console.log(res.data)
+                     
                         if (res.data != '') {
-                            setLoading({ openBackdrop: false, showSuccess: false }) //Fecha o backdrop com o loading 
-                            setTxtMessage(`Erro ao cadastrar dispositivo!`)
-                            showMessage()
+                            setLoading({ openBackdrop: true, showSuccess: true }) //Fecha o backdrop com o loading 
+                            
                         }
-                        setLoading({ openBackdrop: true, showSuccess: true }) //Abre o backdrop com a animação de sucesso                        
                     })
                     .catch((err) => {
                         console.log(err)
@@ -204,12 +201,12 @@ export default function CadastroEvery() {
                         showMessage()
                     })
                 setCadastro(data)
-            }
+            
         }
     }
 
 
-    console.log(selectType)
+ 
 
     const classes = useStylesGrid();
 
@@ -319,12 +316,14 @@ export default function CadastroEvery() {
                                             <MenuItem>Nenhum tipo cadastrado</MenuItem>
                                     }
                                 </TextField>
-                                <Link to="/dispositivos-cadastrados/cadastroEverynet/cadastroTipo" target='_blank'>
+                                <Link to="/dispositivos-cadastrados/cadastroEverynet/cadastroTipo">
                                     <AdicionarTipoBtn variant="contained" color="primary"><Add /></AdicionarTipoBtn>
                                 </Link>
-                                {/* </Grid>                            */}
+                                {/* </Grid>*/}
                             </FormGroup>
-                            <ButtonsCadastro Cadastro={Cadastro} />
+                        
+                            <ButtonsCadastro Cadastro={Cadastro}/>
+                       
                         </Paper>
                     </Grid>
                 </Grid>

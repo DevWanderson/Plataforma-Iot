@@ -6,6 +6,7 @@ import { AuthContext } from '../../Components/Context/contextAuth';
 
 import RoutersAuth from './routersAuth';
 import AppRouter from './appRouter';
+import DrawerHeader from '../../Components/DrawerHeader';
 import Load from '../../Components/Loading';
 
 
@@ -18,7 +19,7 @@ function Router() {
       return <Load/>
     }
 
-    return  signed ? <AppRouter /> : <RoutersAuth />
+    return  signed ? <DrawerHeader /> : <RoutersAuth />
   
 }
 

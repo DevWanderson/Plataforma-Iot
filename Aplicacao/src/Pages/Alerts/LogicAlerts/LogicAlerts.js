@@ -1,15 +1,12 @@
 import React from 'react';
 import './LogicAlerts.css';
 import { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
+import { InputLabel, MenuItem, FormControl, Select, TextField, Divider, Button } from '@material-ui/core'
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import api from '../../../Components/Connections/api'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import Add from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -25,6 +22,18 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 30,
     }
 }));
+
+const AddOperation = withStyles((theme) => ({
+    root: {
+        color: '#FFF',
+        backgroundColor: '#22A14D',
+        '&:hover': {
+            backgroundColor: '#5BA971'
+        },
+        padding: '5px 2px',
+        margin: '10px',
+    }
+}))(Button)
 
 export default function LogicAlerts(props) {
 
@@ -45,6 +54,9 @@ export default function LogicAlerts(props) {
     const [reqTypes, setReqTypes] = useState([]); //São as variaveis do tipo escolhido.
 
     const [arrayOperation, setArrayOperations] = useState([]);
+
+    const userUID = JSON.parse(localStorage.getItem('Auth_user'))
+    let user = userUID ? userUID.uid : null
 
 
     // Funções select variável
@@ -138,7 +150,7 @@ export default function LogicAlerts(props) {
         async function get() {
 
             await api
-                .get(`types?user=bruno&type_name=${redux.typeSelected}`)
+                .get(`types?login=${user}&type_name=${redux.typeSelected}`)
                 .then(response => setReqTypes(response.data))
                 .catch(erro => console.log(erro))
 
@@ -152,7 +164,7 @@ export default function LogicAlerts(props) {
 
     useEffect(() => {
 
-        console.log(reqTypes)
+
 
         if (reqTypes != null) {
             if (reqTypes.length !== 0) {
@@ -164,8 +176,10 @@ export default function LogicAlerts(props) {
     }, [reqTypes]) //Altera o estado da lista de variaveis com o resultado da requisição  
 
     useEffect(() => {
-        console.log(arrayOperation)
+        
         props.get(arrayOperation);
+        
+       
     }, [arrayOperation]) //Salva no componente pai o array de operações
 
     useEffect(() => {
@@ -263,13 +277,14 @@ export default function LogicAlerts(props) {
 
 
 
+                <div className='containerAddMoreLogicAlerts' >
+                    <AddOperation variant="contained" onClick={saveOp}><Add /> Adicionar Operação</AddOperation>
+                    {/* <div className='moreLogicAlerts' onClick={saveOp}>+</div>
+                    <p>Adicionar Operação</p> */}
+                </div>
             </div>
 
 
-            <div className='containerAddMoreLogicAlerts' >
-                <div className='moreLogicAlerts' onClick={saveOp}>+</div>
-                <p>Adicionar Operação</p>
-            </div>
 
 
             <h5 className='alinhadorLogicAlerts'>Lista de Operações</h5>
@@ -285,10 +300,12 @@ export default function LogicAlerts(props) {
                     arrayOperation.map(item => {
                         return (
                             <>
+                    
                                 <p >{item.variable}</p>
                                 <p >{item.operation}</p>
                                 <p >{item.maxValue ? `Max: ${item.maxValue} | Min: ${item.minValue}` : item.value}</p>
                                 <p className='deleteLogicAlerts' onClick={() => { deleteOp(item.id) }} ><DeleteForeverIcon className={classes.delete} /></p>
+
                             </>
                         );
 

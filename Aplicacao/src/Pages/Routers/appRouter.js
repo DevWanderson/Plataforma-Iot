@@ -1,7 +1,7 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from '../../store'
+import store from '../../Store'
 import Header from '../../Components/Header'
 import PathBar from '../../Components/PathBar';
 import Combo from '../../Components/SelectDeviceCombo';
@@ -17,21 +17,22 @@ import Descricao from '../DescricaoDispositivo'
 import Graph from '../Graph';
 import Map from '../Map';
 import Mqtt from '../Mqtt';
-import Load from '../../Components/Loading';
 import DeviceDash from '../DeviceDashBoard/DeviceDash';
 import Analytics from '../Analytics';
 import Alerts from '../Alerts/Alerts'
-import Forecast from '../Forecast';
+import GerenciaAlertas from '../GerenciaAlertas';
+import CadastroHttp from '../CadastroHttp';
+import GerenciaSetor from '../GerenciaSetor';
+import DrawerHeader from '../../Components/DrawerHeader';
 
 export default function Router() {
     return (
         <Provider store={store}>
-            <Header />
-            <PathBar />
-            <Combo />
+            {/* <Header /> */}
+            {/* <Combo /> */}
             <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/dispositivos-cadastrados/cadastroEverynet/cadastroTipo"  component={CadastroTipo} />
+                <Route path="/home" exact component={Home} />
+                <Route path="/dispositivos-cadastrados/cadastroEverynet/cadastroTipo" component={CadastroTipo} />
                 <Route path="/dispositivos-cadastrados/cadastroEverynet" component={CadastroEvery} />
                 <Route path="/dispositivos-cadastrados/cadastroMqtt" component={CadastroMqtt} />
                 <Route path="/dispositivos-cadastrados/descricao" component={Descricao} />
@@ -42,10 +43,11 @@ export default function Router() {
                 <Route path="/dados-do-dispositivo" component={DeviceDash} />
                 <Route path="/analytics" component={Analytics} />
                 <Route path="/alertas" component={Alerts} />
-                <Route path="/forecast" component={Forecast}/>
-                <Route component={Home}/> 
+                <Route path="/gerenciamento-de-alertas" component={GerenciaAlertas} />
+                <Route path="/cadastro-http" component={CadastroHttp} />
+                <Route path="/gerenciamento-setor" component={GerenciaSetor}/>
+                <Route component={Home} />
             </Switch>
-
         </Provider>
     );
 }

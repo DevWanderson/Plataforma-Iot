@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import './styles.scss'
+import './styles.css'
 import './style.css'
 import { Redirect } from 'react-router-dom'
 import { useState } from 'react';

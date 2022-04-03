@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './DeviceDash.css'
 import SearchDevice from '../../Components/SearchDevice/SearchDevice';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,14 +8,14 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import DataUsageIcon from '@material-ui/icons/DataUsage';
 import img from '../../Assets/rising.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { stampToDate, stampToDateAndHour } from '../../script/timeStampToDate'
+import { stampToDate, stampToDateAndHour } from '../../Utils/timeStampToDate'
 import { DataGrid } from '@material-ui/data-grid';
 import SingleMap from '../../Components/Map/Map-telemetry';
-import Graph from './Figure';
-import Load from '../../Components/Loading/index'
-import { selecionarDevice } from '../../store/Modulos/Devices/actions';
+import Graph from '../../Components/Graph/Figure';
+import Load from '../../Components/Loading/index';
+import { Paper } from '@material-ui/core';
+import Combo from '../../Components/SelectDeviceCombo';
+
 
 
 
@@ -38,7 +38,11 @@ const useStylePC = makeStyles(() => ({
 
     info: {
         color: '#648DAE',
-        fontSize: 50
+        fontSize: 20,
+        justifyContent: 'center',
+        display: 'flex',
+        alignItems: 'center'
+
     }
 
 }))
@@ -53,6 +57,7 @@ export default function DeviceDash(props) {
     const conditionRequest = React.createRef();
 
     const data = useSelector(state => state);
+    const setorDados = useSelector((state) => state.setorState.dadosSetor);
     const [keyType, setKeyType] = useState([{ message: 'Sem chave do tipo' }]);
     const [selectedDevice, setSelectedDevice] = useState('Nenhum dispositivo selecionado');
     const [typeDevice, setTypeDevice] = useState([{ message: 'Sem tipo' }]);
@@ -83,36 +88,18 @@ export default function DeviceDash(props) {
         }
     }
 
-    // function teste() {
-    //     if (conditionRequest.current.innerHTML === "") {
-    //         dispatch(selecionarDevice('')) // foi colocado para garantir que toda vez que entre na tela de telemetria a pagina não apareça 
-    //     }
-    // }
-
-    setTimeout(() => {
-        console.log(conditionRequest.current)
-    }, 1000) //parei aqui
-
-
-    // useEffect(() => {
-
-    //     if (conditionRequest.current.innerHTML === "") {
-    //         dispatch(selecionarDevice('')) // foi colocado para garantir que toda vez que entre na tela de telemetria a pagina não apareça 
-    //     }
-
-    // }, [])
 
 
 
     useEffect(() => {
 
-        setSelectedDevice(data.devicesState.selectedDevice ? data.devicesState.selectedDevice : selectedDevice);
-        setDataDevice(data.devicesState.dadosDevice.length > 0 ? [...data.devicesState.dadosDevice] : [{ "dado": "sem dado" }]);
-        setTypeDevice(data.devicesState.devices.filter(filterDevice => filterDevice.device === selectedDevice)[0])
+        setSelectedDevice(data.deviceState.selectedDevice ? data.deviceState.selectedDevice : selectedDevice);
+        setDataDevice(data.deviceState.dadosDevice.length > 0 ? [...data.deviceState.dadosDevice] : [{ "dado": "sem dado" }]);
+        setTypeDevice(data.setorState.dadosSetor.filter(filterDevice => filterDevice.device === selectedDevice)[0])
         // eslint-disable-next-line eqeqeq
         setDate(typeDevice == undefined ? 0 : typeDevice.last_seen)
         setKeyType(typeDevice ? Object.keys(typeDevice) : keyType)
-        setKeyData(data.devicesState.dadosDevice[0] ? Object.keys(data.devicesState.dadosDevice[0]) : [])
+        setKeyData(data.deviceState.dadosDevice[0] ? Object.keys(data.deviceState.dadosDevice[0]) : [])
         setColumns(keyData === [] ?
             [{ field: 'noData', headerName: 'No Data', width: 150 }]
             :
@@ -129,8 +116,10 @@ export default function DeviceDash(props) {
                     if (!isNaN(item[key])) {
                         if (key === 'ts') {
                             item[key] = stampToDateAndHour(item[key])
-                        } else {
-                            item[key] = parseFloat(item[key].toFixed(2))
+                        }
+                        else {
+                            //item[key] = parseFloat(item[key].toFixed(2))
+                            //console.log(`Aqui ${item[key] = parseFloat(item[key].toFixed(2))}`)
                         }
                     }
                 })
@@ -142,16 +131,16 @@ export default function DeviceDash(props) {
 
         setBaterry(getBattery(keyData))
         setRowsDashSquare(dataDevice[0]);
-        // console.log(data)
+        // console.log(data) 
         // console.log(conditionRequest.current.innerHTML)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
-    useEffect(()=>{
-        console.log(typeDevice)
-        console.log(keyType)
-    },[typeDevice, keyType])
+    useEffect(() => {
+
+
+    }, [typeDevice, keyType])
 
 
 
@@ -160,10 +149,11 @@ export default function DeviceDash(props) {
         <div className='containerDeviceDash'>
 
             <div className='searchDeviceDash'>
-                <SearchDevice></SearchDevice>
+                <Combo/>
+                <SearchDevice />
             </div>
 
-            {data.devicesState.statusLoad === true ?
+            {data.loadState.statusLoad === true ?
                 <Load />
                 :
 
@@ -171,7 +161,7 @@ export default function DeviceDash(props) {
 
                     <div className={battery === false ? 'divDataDeviceDashNoBaterry' : 'divDataDeviceDash'} >
 
-                        <div className="divDeviceTypeDash">
+                        <div className="divDeviceTypeDash"><Paper style={{ borderRadius: 10, padding: 50, margin: 5, marginBottom: 50 }}>
 
 
                             <div>
@@ -179,21 +169,23 @@ export default function DeviceDash(props) {
                                 <h3>Dispositivo: <span>{typeDevice == undefined ? '' : typeDevice[keyType[0]]}</span></h3>
                             </div>
                             <div className='divDeviceTypeDataDash'>
-                                 {/* eslint-disable-next-line eqeqeq */}
-                                <p>EUI: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[6]]}</span> </p>
-                                  {/* eslint-disable-next-line eqeqeq */}
+                                {/* eslint-disable-next-line eqeqeq */}
+                                {keyType.length == 7 || keyType.length == 8 ? <p>EUI: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[6]]}</span> </p> : <p>EUI: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[8]]}</span> </p>}
+                                {/* eslint-disable-next-line eqeqeq */}
                                 <p>Tipo: <span>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[1]]}</span> </p>
-                                   {/* eslint-disable-next-line eqeqeq */}
+                                {/* eslint-disable-next-line eqeqeq */}
                                 <p>Status: <span>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[2]] == 0 ? 'Inativo' : "Ativo"}</span> </p>
-                                    {/* eslint-disable-next-line eqeqeq */}
+                                {/* eslint-disable-next-line eqeqeq */}
                                 <p>Data de ativação: <span>{typeDevice == undefined || isNaN(typeDevice[keyType[3]]) ? 'N/A' : stampToDate(typeDevice[keyType[3]])}</span></p>
-                                     {/* eslint-disable-next-line eqeqeq */}
+                                {/* eslint-disable-next-line eqeqeq */}
                                 <p>Visto por último: <span>{typeDevice == undefined || isNaN(typeDevice[keyType[4]]) ? 'N/A' : stampToDateAndHour(typeDevice[keyType[4]])}</span>  </p>
-                            </div>
+                                {/* eslint-disable-next-line eqeqeq */}
+                                <p>Setor: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[7]]}</span> </p>
+                            </div></Paper>
 
                         </div>
 
-                        <div className="divImgDeviceDash">
+                        {/* <div className="divImgDeviceDash">
                             <div className="divImgDeviceTitleDash">
                                 <h3>Imagem Dispositivo</h3>
                                 <RouterIcon className={classesIconPC.router} />
@@ -203,52 +195,41 @@ export default function DeviceDash(props) {
                             </div>
 
 
-                        </div>
-
+                        </div> */}
+                        {/* organiza o Paper */}
                         <div className={dataDevice[0].dado === "sem dado" ? 'divTwinSquareNoDataDash' : 'divTwinSquareDash'}>
-                            {/*console.log(dataDevice[0])*/}
-                            {Object.keys(dataDevice).length <= 0 ?
+                            <Paper style={{ borderRadius: 10, padding: 47, margin: 5, marginBottom: 50, width: '97%' }}>
 
-                                <div className="divTwinRectangleDash">
+                                {Object.keys(dataDevice).length <= 0 ?
 
-                                    <div className="divTwinDataDash">
-                                        <h5>Sem dado</h5>
-                                        <InfoOutlinedIcon className={classesIconPC.info} />
-                                    </div>
+                                    <div className="divTwinRectangleDash">
 
-                                    <div className="divTwinDataDash">
-                                        <div className="divTwinInfoDash">
-                                            <span>N/A</span>
+                                        <div className="divTwinDataDash">
+                                            <h5>Sem dado</h5>
+                                            <InfoOutlinedIcon className={classesIconPC.info} />
                                         </div>
 
-                                    </div>
-                                </div>
-
-                                :
-
-                                Object.keys(dataDevice[0]).map((item, i) => {
-
-                                    return (
-
-                                        <div key={`r${i}`} className="divTwinRectangleDash">
-
-                                            <div key={`t${i}`} className="divTwinDataDash">
-                                                <h5>{item}</h5>
-                                                <InfoOutlinedIcon className={classesIconPC.info} />
+                                        <div className="divTwinDataDash">
+                                            <div className="divTwinInfoDash">
+                                                <span>N/A</span>
                                             </div>
 
-                                            <div key={`i${i}`} className="divTwinDataDash">
-                                                <div className="divTwinInfoDash">
-                                                    <span>{dataDevice[0][item]}</span>
-                                                </div>
-
-                                            </div>
                                         </div>
+                                    </div>
 
-                                    )
-                                })
+                                    :
 
-                            }
+                                    Object.keys(dataDevice[0]).map((item, i) => {
+                                        return (
+                                            <div style={{display:'flex', alignItems:'center', justifyContent:'left', gap:10, padding:2}} key={i}>{/* aqui organiza os dados */}
+                                                <h5>{item}:</h5>
+                                                <span style={{fontSize:19, marginTop:-7, color:'#a09f9f'}}>{dataDevice[0][item]}</span>
+                                            </div>
+                                        )
+                                    })
+
+                                }
+                            </Paper>
 
 
                         </div>
@@ -284,26 +265,32 @@ export default function DeviceDash(props) {
 
                     </div>
 
-                    <div className="divInfoMapsDash">
+                    {dataDevice[0].dado === "sem dado" ? <div></div> :
+                        <div className="divInfoMapsDash">
 
-                        <div className="graphDash">
-                            <Graph />
+                            <div className="graphDash"><Paper style={{ borderRadius: 10, padding: 60, marginTop: 30, width: 1010 }}>
+                                <Graph /></Paper>
+                            </div>
+
+                            {
+                                typeDevice && typeDevice.type === 'temp' ? '' :
+                                    (
+                                        <div className="mapDash"><Paper style={{ borderRadius: 10, padding: 60, marginTop: 30, width: 1010 }}>
+                                            <SingleMap /></Paper>
+                                        </div>
+                                    )
+                            }
+
                         </div>
+                    }
+                    <div className="divTableDash" ><Paper style={{ borderRadius: 10, padding: 60, marginTop: 30, width: 1010 }}>
 
-                        <div className="mapDash">
-                            <SingleMap />
-                        </div>
-
-                    </div>
-
-                    <div className="divTableDash" >
-
-                        <h2>Tabela de dados:</h2>
+                        <h3>Últimos dados recebidos:</h3>
 
                         {/* eslint-disable-next-line eqeqeq */}
                         {rows == undefined || rows == '' || columns == undefined || columns == '' ?
                             <div className='tableEmpty'>
-                                Não há dados para tabela
+                                Não há dados armazenados para este dispositivo
                             </div>
                             :
                             <React.Fragment>
@@ -318,7 +305,7 @@ export default function DeviceDash(props) {
                                     <option value="100">100</option>
                                 </select>
                             </React.Fragment>
-                        }
+                        }</Paper>
 
                     </div>
 

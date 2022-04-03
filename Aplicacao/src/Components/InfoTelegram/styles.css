@@ -1,0 +1,42 @@
+.container{
+ margin-top: 10%;
+ margin-bottom: -6%;
+ width: 100%;
+ 
+}
+
+.componentTelegram{
+    background: #34AADF;
+    width: 55px;
+    height: 55px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 4;
+    box-shadow: 2px 5px 5px #999999;
+    transition: all 0.2s;
+    margin-left: 90%;
+    top: 10%;
+    
+}
+
+.componentTelegram:hover{
+    background-color: #68c5f0;
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+    
+}
+
+.telegramIcon{
+    color: #FFF;
+}
+
+.buttonModal{
+    border: transparent;
+    background-color: transparent;
+    color: #34AADF;
+    font-size: 20px;
+}

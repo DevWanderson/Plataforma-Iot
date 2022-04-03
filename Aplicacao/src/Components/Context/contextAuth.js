@@ -1,25 +1,25 @@
 import React, { useState, useEffect, createContext } from 'react';
 import firebase from '../FirebaseConnection/firebaseConnection';
 import api from '../../Components/Connections/api'
-import {useDispatch} from 'react-redux'
-import { userLogado } from '../../store/Modulos/Devices/actions';
+import { useDispatch } from 'react-redux'
+import { userLogado } from '../../Reducers/ReduxUser/UserActions';
+
 
 
 
 export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
-    const redux = useState(state => state);
-
+    
     const [user, setUser] = useState('');
     const [loadind, setLoading] = useState(true);
+    const [openSnack, setOpenSnak] = useState(false);
     const dispatch = useDispatch()
 
     const [userLocal, setUserLocal] = useState({ erro: 'não foi alterado' });
 
     async function loadingStorage() {
         const storageUser = await JSON.parse(localStorage.getItem('Auth_user')) || '';
-        console.log(storageUser)
         if (storageUser != '') {
             setUser(storageUser);
             setLoading(false)
@@ -38,13 +38,16 @@ function AuthProvider({ children }) {
 
     useEffect(() => {
         dispatch(userLogado(userLocal))
-        console.log(userLocal)
-        console.log(redux)
+
     }, [userLocal])
 
     useEffect(() => {
         loadingStorage()
     }, [])
+
+    function handleOpenSnack() {
+        setOpenSnak(true)
+    }
 
     //função para logar o usuário 
     async function logar(email, password) {
@@ -61,24 +64,67 @@ function AuthProvider({ children }) {
                         }
                         setUser(data);
                         storageUser(data)
-                        
-                        api.get(`/user?key=${uid}`)
-                        .then((res) => {
-                            setUser(res.data)
-                            // dispatch(userLogado(res.data))
-                            //alert(res.data)
-                        })
-                        .catch((err) =>{
-                            alert(`Erro${err}`)
-                        })
 
-                        window.location.replace('/')
+                        api.get(`/user?login=${uid}`)
+                            .then((res) => {
+                                setUser(res.data)
+                                // dispatch(userLogado(res.data))
+                                //alert(res.data)
+                            })
+                            .catch((error) => {
+                                /* switch(err.code){
+                                    case 'auth/insufficient-permission':
+                                        alert('Erro de senha')
+                                } */
+                                //alert(`Erro${err}`)
+                                console.log(error)
+                            })
+
+                        window.location.replace('/home')
 
                     })
 
             })
             .catch((error) => {
-                alert(error)
+                //alert(error)
+
+                switch (error.code) {
+                    case 'auth/wrong-password':
+                        alert('senha invalida')
+                        //<ErroSnack vertical="top" horizontal="right" openSnack={openSnack} descriptionErro="Senha invalida" />
+                        break
+
+                    case 'auth/user-not-found':
+                        alert('Email não cadastrado')
+                        break
+                    case 'auth/too-many-requests':
+                        alert('Senha ou email digitado errado')
+                        //<ErroSnack vertical="top" horizontal="right" openSnack={openSnack}  descriptionErro="Senha ou e-mail incorretos"/>
+                        break
+                    case 'auth/app-deleted':
+                        alert('Conta deleta ou desativada')
+                        break
+                    case 'auth/app-not-authorized':
+                        alert('Aplicação não autirizada a utilizar esta canal')
+                        break
+                    case 'auth/argument-error':
+                        alert('Argumento digitado, está incorreto')
+                        break
+                    case 'auth/invalid-api-key':
+                        alert('API Key digitado incorretamente')
+                        break
+                    case 'auth/network-request-failed':
+                        alert('Erro de conexão')
+                        break
+                    case 'auth/user-disabled':
+                        alert('Sua conta foi desativada por administrador')
+                        break
+                    case 'auth/email-already-in-use':
+                        alert('O endereço de e-mail já está sendo usado por outra conta.')
+                        break
+                    default:
+                        alert(error.code)
+                }
             })
     }
 
@@ -100,10 +146,22 @@ function AuthProvider({ children }) {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(async (value) => {
                 let uid = value.user.uid;
+                let userInfo = {
+                    key: uid,
+                    user: name
+                }
+                api.post('/user', { key: userInfo.key, user: userInfo.user })// Cadastro mongo
+                    .then((res) => {
+                        alert(`Eviado : ${res.data}`)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
                 await firebase.database().ref('users').child(uid).set({
                     name: name,
                     lastName: lastName,
                     enterprise: enterprise
+                    
                 })
                     .then(() => {
                         let data = {
@@ -116,23 +174,28 @@ function AuthProvider({ children }) {
                         setUser(data)
                         storageUser(data)
                         ////
-                        let userInfo = {
-                            key: uid,
-                            user: name
-                        }
-                        api.post('/user', userInfo)
-                            .then((res) => {
-                                alert(`Eviado : ${res.data}`)
-                            })
-                            .catch((err) => {
-                                alert(`Erro ao enviar ${err}`)
-                            })
+                        
 
-                        window.location.replace('/')
+                        window.location.replace('/home')
                     })
                     .catch((error) => {
-                        console.log(`Erro aqui ${error}`)
+                        console.log(error)
                     })
+            })
+            .catch((error) =>{
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        alert('O endereço de e-mail já está sendo usado por outra conta.')
+                        break
+                    case 'auth/weak-password':
+                        alert('Senha deve contar no minimo 8 caracteres')
+                    break
+                    case 'auth/invalid-email':
+                        alert('E-mail invalido')
+                    break
+                    default:
+                        alert(error.code)
+                }
             })
     }
     return (

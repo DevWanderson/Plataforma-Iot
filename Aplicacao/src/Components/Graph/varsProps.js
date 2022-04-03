@@ -1,20 +1,4 @@
-export const nomeVars = {
-    '': '',
-    'temp': 'Temperatura',
-    'hum': 'Umidade',
-    'velocidade': 'Velocidade',
-    'bateria': 'Tensão da bateria',
-    'interval': 'Intervalo de envio',
-}
-export const textoVars = {
-    '': '',
-    'temp': 'Temperatura [°C]',
-    'hum': 'Umidade [%]',
-    'velocidade': 'Velocidade [km/h]',
-    'bateria': 'Tensão da bateria [V]',
-    'interval': 'Intervalo de envio [s]',
-}
-export const colorVars = {
+const colorVarsMap = {
     '': 'silver',
     'temp': 'red',
     'hum': 'green',
@@ -22,3 +6,9 @@ export const colorVars = {
     'bateria': 'orange',
     'interval': 'gray',
 }
+const defaultColor = {
+    get: function(target, prop) {
+      return target.hasOwnProperty(prop) ? target[prop] : 'blue';
+    }
+}
+export const colorVars = new Proxy(colorVarsMap, defaultColor);  // Garante q ñ dê undefined caso um device ainda não exista

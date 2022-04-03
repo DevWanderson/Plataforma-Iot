@@ -4,7 +4,7 @@ import React,{useState} from 'react'
 import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
 import DoneIcon from '@material-ui/icons/Done'; //ícones
 import CloseIcon from '@material-ui/icons/Close';
-import {stampToDateAndHour} from '../../script/timeStampToDate'
+import {stampToDateAndHour} from '../../Utils/timeStampToDate'
 
 // import mqttIcon from './icon-mqtt.png'
 import {    
@@ -131,14 +131,6 @@ export default function DescricaoDispositivo(props) {
     const topico = 'ibti/'+userName+'/'+dispEUI
     // const [appKey, setAppKey] = useState(null);            
 
-    console.log(`
-        Device object: ${props.location.state}
-        Topico: ${topico}                
-    `)
-    
-    for(let key in props.location.state) {
-        console.log(key + ":", props.location.state[key]);
-    }
         
     let dataFormatada = stampToDateAndHour(dispDateActivation)
     

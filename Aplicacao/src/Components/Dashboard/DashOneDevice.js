@@ -10,7 +10,7 @@ import img from '../../Assets/rising.png';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { stampToDate, stampToDateAndHour } from '../../script/timeStampToDate'
+import { stampToDate, stampToDateAndHour } from '../../Utils/timeStampToDate'
 import { DataGrid } from '@material-ui/data-grid';
 
 
@@ -58,13 +58,13 @@ export default function DashOneDevice() {
 
     useEffect(() => {
 
-        setSelectedDevice(data.devicesState.selectedDevice ? data.devicesState.selectedDevice : selectedDevice);
-        setDataDevice(data.devicesState.dadosDevice.length > 0 ? [...data.devicesState.dadosDevice] : [{ "dado": "sem dado" }]);
-        setTypeDevice(data.devicesState.devices.filter(filterDevice => filterDevice.device == selectedDevice)[0])
+        setSelectedDevice(data.deviceState.selectedDevice ? data.deviceState.selectedDevice : selectedDevice);
+        setDataDevice(data.deviceState.dadosDevice.length > 0 ? [...data.deviceState.dadosDevice] : [{ "dado": "sem dado" }]);
+        setTypeDevice(data.deviceState.devices.filter(filterDevice => filterDevice.device == selectedDevice)[0])
         setDate(typeDevice == undefined ? 0 : typeDevice.last_seen)
         setKeyType(typeDevice ? Object.keys(typeDevice) : keyType)
-        setKeyData(data.devicesState.dadosDevice[0] ? Object.keys(data.devicesState.dadosDevice[0]) : [])
-        setCopia([...data.devicesState.dadosDevice])
+        setKeyData(data.deviceState.dadosDevice[0] ? Object.keys(data.deviceState.dadosDevice[0]) : [])
+        setCopia([...data.deviceState.dadosDevice])
         setColumns(keyData === [] ?
             [{ field: 'noData', headerName: 'No Data', width: 150 }]
             :

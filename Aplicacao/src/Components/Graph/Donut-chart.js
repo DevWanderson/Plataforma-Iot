@@ -1,11 +1,16 @@
+/*
+    Autor: Daniel Pinheiro
+    https://github.com/Daniel-Pinheiro
+ */
+
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getpropsDevice } from '../../utils/functions'
+import { getpropsDevice } from '../../Utils/functions'
 import { colorVars } from './varsProps'
 import { Chart } from 'react-google-charts'
 
 export default function DonutChart() {
-    const dadosDevice = useSelector((state) => state.devicesState.dadosDevice);
+    const dadosDevice = useSelector((state) => state.deviceState.dadosDevice);
     const propsDevice = getpropsDevice(dadosDevice);
     const varsDevice = Object.keys(colorVars).filter(prop => {
         return propsDevice.includes(prop)

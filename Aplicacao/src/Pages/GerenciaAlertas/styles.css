@@ -1,0 +1,29 @@
+   
+
+.tabela{
+    margin-top: 2%;
+    width: 97%;
+    
+}
+
+.btnAddNewAlert{
+    justify-content: left;
+    margin-bottom: 2%;
+    width: 37%;
+    
+}
+.btnAddNewAlert button{
+    padding: 10px;
+    margin-left: 0%;
+    border-radius: 5px;
+    border-color: transparent;
+    color: #FFF;
+    background-color: #429857;
+    font-weight: bold;
+    display: flex; 
+    gap:8px;
+}
+
+.btnAddNewAlert button:hover{
+    background-color: #62cd7c;
+}

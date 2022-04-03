@@ -41,6 +41,7 @@ export default function NotificationAlerts(props) {
     const [telegram, setTelegram] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
+    const [nameDevice, setNameDevice] = useState('')
 
     useEffect(() => {
 
@@ -52,9 +53,9 @@ export default function NotificationAlerts(props) {
             setPeriod('');
         }
 
-        if (stateEmail === false) { //Caso o usuário desmarque o checkbox, o valor do input é zerado
+        /* if (stateEmail === false) { //Caso o usuário desmarque o checkbox, o valor do input é zerado
             setEmail('');
-        }
+        } */
 
         if (stateTelegram === false) { //Caso o usuário desmarque o checkbox, o valor do input é zerado
             setTelegram('');
@@ -70,10 +71,10 @@ export default function NotificationAlerts(props) {
     useEffect(() => {
 
 
-        props.get([name, period, telegram, email, message])
+        props.get([name, period, telegram, email, message, nameDevice])
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [name, period, telegram, email, message])
+    }, [name, period, telegram, email, message, nameDevice])
 
 
     return (
@@ -81,11 +82,11 @@ export default function NotificationAlerts(props) {
 
             <label>
 
-                <Checkbox
+                {/* <Checkbox
                     color='primary'
                     onChange={() => { setStateName(!stateName) }}
                     disabled
-                />
+                /> */}
 
                 <TextField
                     id="outlined-basic"
@@ -102,11 +103,11 @@ export default function NotificationAlerts(props) {
 
 
             <label>
-                <Checkbox
+                {/* <Checkbox
                     color='primary'
                     onChange={() => { setStatePeriod(!statePeriod) }}
                     disabled
-                />
+                /> */}
 
                 <TextField
                     id="outlined-basic"
@@ -122,7 +123,7 @@ export default function NotificationAlerts(props) {
                 <TimerIcon className={classes.message} />
             </label>
 
-            <label>
+            {/* <label>
                 <Checkbox
                     color='primary'
                     onChange={() => { setStateTelegram(!stateTelegram) }}
@@ -139,20 +140,20 @@ export default function NotificationAlerts(props) {
                 />
 
                 <TelegramIcon className={classes.telegram} />
-            </label>
+            </label> */}
 
             <label>
-                <Checkbox
+                {/* <Checkbox
                     color='primary'
                     onChange={() => { setStateEmail(!stateEmail) }}
 
-                />
+                /> */}
 
                 <TextField
                     id="outlined-basic"
                     label="E-mail"
                     variant="outlined"
-                    disabled={stateEmail === false ? true : false}
+                    //disabled={stateEmail === false ? true : false}
                     onChange={(event) => { setEmail(event.target.value) }}
                     value={email}
                     style={{ width: '100%' }}
@@ -163,18 +164,18 @@ export default function NotificationAlerts(props) {
             </label>
 
             <label>
-                <Checkbox
+                {/* <Checkbox
                     color='primary'
                     onChange={() => { setStateMessage(!stateMessage) }}
                     disabled
-                />
+                /> */}
 
                 <TextareaAutosize
                     aria-label="minimum height"
                     minRows={3}
                     placeholder="Mensagem de alerta (Obrigatório)"
                     style={{ width: '100%', paddingInline: '10px', border: '1px #C4C4C4 solid', borderRadius: '5px', outlineColor: '#3F51B5', paddingBlock: '10px' }}
-                    disabled={stateMessage === false ? true : false}
+                    //disabled={stateMessage === false ? true : false}
                     onChange={(event) => { setMessage(event.target.value) }}
                     value={message}
                 />

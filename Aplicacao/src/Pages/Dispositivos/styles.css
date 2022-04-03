@@ -112,3 +112,18 @@
     background-color: gray;
     color: white;
 }
+
+.atualizarSetor{
+    background-color: green;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    border: transparent;
+    margin-left: 10px;
+    gap: 10px;
+    }
+.atualizarSetor:hover{
+    background-color: darkgreen;
+    color: #fff;
+    
+}

@@ -49,7 +49,9 @@ export default function ButtonsCadastro(props) {
         <div className={classes.center}>
             <LightTooltip title="Cadastrar" aria-label="cadastrar" placement="left-start">
                 <IconButton variant="contained" onClick={() => { props.Cadastro() }} className={classes.btnConfirm}>
+                
                     <DoneIcon />
+                
                 </IconButton>
             </LightTooltip >
 

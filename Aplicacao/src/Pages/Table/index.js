@@ -2,11 +2,11 @@ import { useSelector } from 'react-redux';
 import { Container, Table, Button, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-import { getDate, getpropsDevice, getlatitude, getlongitude } from '../../utils/functions'
+import { getDate, getpropsDevice, getlatitude, getlongitude } from '../../Utils/functions'
 
 
 export default function Tabela() {
-    const dadosDevice = useSelector((state) => state.devicesState.dadosDevice);
+    const dadosDevice = useSelector((state) => state.deviceState.dadosDevice);
     const propsDevice = getpropsDevice(dadosDevice);
 
 
