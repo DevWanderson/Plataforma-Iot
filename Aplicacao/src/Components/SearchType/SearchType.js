@@ -8,7 +8,7 @@ import Select from '@material-ui/core/Select';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { addType } from '../../store/Modulos/Devices/AlertRedux/actions/alertAction';
+import { addType } from '../../Reducers/ReduxAlertType/AlertActions';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,8 +33,8 @@ export default function SearchType(props) {
 
 
     useEffect(() => {
-        setTypes(redux.devicesState.dadosType)
-    }, [redux.devicesState.dadosType])
+        setTypes(redux.typeState.dadosType)
+    }, [redux.typeState.dadosType])
 
     useEffect(() => {
         dispatch(addType(typeSelected))
@@ -55,16 +55,18 @@ export default function SearchType(props) {
     return (
         <div className='containerSearchType'>
 
-            <FormControl className={classes.formControl}>
+            <FormControl className={classes.formControl} variant='outlined'>
                 <InputLabel id="demo-controlled-open-select-label">Tipo</InputLabel>
                 <Select
                     labelId="demo-controlled-open-select-label"
                     id="demo-controlled-open-select"
                     open={open}
                     onClose={handleClose}
+                    label="Tipo"
                     onOpen={handleOpen}
                     value={typeSelected}
                     onChange={handleChange}
+                    
                 >
                     {types == '' ?
                         < MenuItem value='vazio'>Não há tipos</MenuItem>

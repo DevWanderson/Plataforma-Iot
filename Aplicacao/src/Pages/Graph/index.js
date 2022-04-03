@@ -23,9 +23,7 @@ import {
 import TimeSeries from '../../Components/Graph/Time-series';
 import DonutChart from '../../Components/Graph/Donut-chart';
 import SearchForm from '../../Components/SelectDeviceCombo/search-form'
-import {getDate, getpropsDevice, getlatitude, getlongitude} from '../../utils/functions'
-import { nomeVars } from '../../Components/Graph/varsProps'
-
+import {getDate, getpropsDevice, getlatitude, getlongitude} from '../../Utils/functions'
 
 //Arley Souto -->
 const useStyle = makeStyles((theme) => ({
@@ -52,10 +50,19 @@ const useStyle = makeStyles((theme) => ({
 }))
 //--*
 
+const nomeVars = {
+    '': '',
+    'temp': 'Temperatura',
+    'hum': 'Umidade',
+    'velocidade': 'Velocidade',
+    'bateria': 'Tensão da bateria',
+    'interval': 'Intervalo de envio',
+}
+
 export default function Graph() {
     const classes = useStyle();
 
-    const dadosDevice = useSelector((state) => state.devicesState.dadosDevice);
+    const dadosDevice = useSelector((state) => state.deviceState.dadosDevice);
     const propsDevice = getpropsDevice(dadosDevice);
     const lastDate = new Date((dadosDevice.length > 0) ? dadosDevice[0].ts * 1000 : 0)
     const varsDevice = [...Object.keys(nomeVars).filter((prop) => propsDevice.includes(prop)), 'interval']

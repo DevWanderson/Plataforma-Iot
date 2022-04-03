@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormControl, makeStyles, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import clsx from 'clsx';
-import { selecionarDevice } from '../../store/Modulos/Devices/actions';
-import { setDevice } from '../../store/actions'
+import { selecionarDevice } from '../../Reducers/ReduxDevices/DeviceActions';
+
 
 
 const useStyle = makeStyles((theme) => ({
@@ -42,21 +41,38 @@ const useStyle = makeStyles((theme) => ({
 
 export default function SearchDevice(props) {
 
-    const selectedDevice = useSelector((state) => state.devicesState.selectedDevice);
-    const devices = useSelector((state) => state.devicesState.devices);
+    const selectedDevice = useSelector((state) => state.deviceState.selectedDevice);
+    const devices = useSelector((state) => state.deviceState.devices);
+    const setorDados = useSelector((state) => state.setorState.dadosSetor);
     const dispatch = useDispatch();
+    const [localDevice, setLocalDevice] = useState('')
     const classes = useStyle();
 
     const [searchDevice, setSearchDevice] = useState('');
 
-    function getDevsByName(name) {
-        const listDevices = devices.filter(dev => name === dev.name)
-        return (listDevices.length > 0) ? listDevices[0].device : ''
+   function getDevsByName(name) {
+        const listDevices = setorDados.filter(dev => name === dev.name)   
+        return (listDevices.length > 0) ? listDevices[0].device : '';
     }
-    function getSelNameDev() {
-        const listDevices = devices.filter(dev => selectedDevice === dev.device)
-        return (listDevices.length > 0) ? listDevices[0].name : ''
+   function getSelNameDev() {
+        const listDevices = setorDados.filter(dev => selectedDevice === dev.device)
+        return (listDevices.length > 0) ? listDevices[0].name : '';
     }
+
+    async function selectDeviceLocal(name) {
+        const listDevices = setorDados.filter(dev => name === dev.name)   
+        await localStorage.setItem('deviceSelectLocal', JSON.stringify(listDevices))
+        const localDev = await JSON.parse(localStorage.getItem('deviceSelectLocal'))
+        
+        if(localDev){
+            setLocalDevice(localDev)
+            return (localDevice.length > 0) ? localDevice[0].device : '';
+        }
+    }
+
+    useEffect(() => {
+        //selectDeviceLocal();
+    }, [])
 
 
     return (
@@ -93,19 +109,21 @@ export default function SearchDevice(props) {
 
              */}
 
-            <FormControl style={{ zIndex: 0 }}>
+            <FormControl style={{ zIndex: 0, right:65 }}>
                 <Autocomplete
                     id='autocomplete'
-                    options={devices.map(item => item.name)}
+                    options={setorDados.map(item => item.name)}
                     getOptionLabel={(option) => option}
-                    value={getSelNameDev()}
-                    style={{ width: 300 }}
+                    value={
+                        getSelNameDev()
+                    }
+                    style={{ width: 240 }}
                     renderInput={(params) => <TextField {...params} label="Selecione um dispositivo" variant="outlined" />}
                     onChange={(event, newValue) => {
                         if (newValue) {
                             const disp = newValue.split()
                             dispatch(selecionarDevice(getDevsByName(disp[0])))
-                            setDevice(getDevsByName(disp[0]))
+                            //dispatch(selecionarDevice(selectDeviceLocal(disp[0])))
                         } else {
                             // console.log('erro')
                         }

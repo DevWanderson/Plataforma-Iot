@@ -4,13 +4,13 @@ import clsx from 'clsx'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import MenuIcon from '@material-ui/icons/Menu'
-import { Home, DeviceHub, PlusOne } from '@material-ui/icons'
+import { Home, DeviceHub, PlusOne, NotificationsActive, Ballot, ExitToApp } from '@material-ui/icons'
 import AddAlertIcon from '@material-ui/icons/AddAlert';
 import DataUsageIcon from '@material-ui/icons/DataUsage';
 import { AuthContext } from '../Context/contextAuth';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import ModalConexoes from '../../Components/ModalConexoes/ModalConexoes';
-
+import WbSunnyTwoToneIcon from '@material-ui/icons/WbSunnyTwoTone';
 import {
     Toolbar,
     Drawer,
@@ -106,7 +106,7 @@ export default function Header() {
                                 onClick={handleMenu}
                             >
 
-                                <Avatar variant="rouded" className={classes.rouded}>{user && user.name.substr(0, 1) + user.lastName.substr(0, 1)}</Avatar>
+                                <Avatar variant="rouded" className={classes.rouded}>{user && user.name.substr(0, 1).toUpperCase() + user.lastName.substr(0, 1).toUpperCase()}</Avatar>
                                 <Menu
                                     id="menu-appbar"
                                     open={openMenu}
@@ -124,8 +124,9 @@ export default function Header() {
                                 >
                                     <MenuItem>{user && user.name + ' ' + user.lastName}</MenuItem>
                                     <MenuItem>{user && user.email}</MenuItem>
-                                    <MenuItem onClick={() => signOut()}>Sair</MenuItem>
+                                    <MenuItem onClick={() => signOut()}>Sair..</MenuItem>
                                    
+                                <ExitToApp fontSize={50} color="#000"/>
                                 </Menu>
                             </IconButton>
                         )
@@ -149,18 +150,12 @@ export default function Header() {
                 </div>
                 <Divider />
                 <List>
-                    <Link onClick={() => setOpen(false)} to="/" style={{ textDecoration: 'none', color: '#131313' }}>
+                    <Link onClick={() => setOpen(false)} to="/home" style={{ textDecoration: 'none', color: '#131313' }}>
                         <ListItem button>
                             <ListItemIcon><Home /></ListItemIcon>
                             <ListItemText>Dashboard</ListItemText>
                         </ListItem>
                     </Link>
-
-                    <ListItem button onClick={handleClickOpen}>
-                        <ListItemIcon><PlusOne /></ListItemIcon>
-                        <ListItemText>Cadastrar dispositivo</ListItemText>
-                    </ListItem>
-
                     <Link onClick={() => setOpen(false)} to="/dispositivos-cadastrados" style={{ textDecoration: 'none', color: '#131313' }}>
                         <ListItem button>
                             <ListItemIcon><DeviceHub /></ListItemIcon>
@@ -179,10 +174,16 @@ export default function Header() {
                             <ListItemText>Analytics</ListItemText>
                         </ListItem>
                     </Link>
-                    <Link onClick={() => setOpen(false)} to="/alertas" style={{ textDecoration: 'none', color: '#131313' }}>
+                    <Link onClick={() => setOpen(false)} to="/gerenciamento-setor" style={{ textDecoration: 'none', color: '#131313' }}>
                         <ListItem button>
-                            <ListItemIcon><AddAlertIcon /></ListItemIcon>
-                            <ListItemText>Alertas</ListItemText>
+                            <ListItemIcon><Ballot /></ListItemIcon>
+                            <ListItemText>Gerenciamento de Setor</ListItemText>
+                        </ListItem>
+                    </Link>
+                    <Link onClick={() => setOpen(false)} to="/gerenciamento-de-alertas" style={{ textDecoration: 'none', color: '#131313' }}>
+                        <ListItem button>
+                            <ListItemIcon><NotificationsActive/></ListItemIcon>
+                            <ListItemText>Gerenciamento de Alertas</ListItemText>
                         </ListItem>
                     </Link>
                 </List>

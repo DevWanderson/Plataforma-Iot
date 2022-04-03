@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { stampToDate } from '../../script/timeStampToDate'
+import { stampToDate } from '../../Utils/timeStampToDate'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux'
 import api from '../../Components/Connections/api'
@@ -7,10 +7,12 @@ import './styles.css';
 import { Link, Redirect } from 'react-router-dom';
 import MuiAlert from '@material-ui/lab/Alert';
 import DoneIcon from '@material-ui/icons/Done';
-import { atualizarDevices } from '../../store/Modulos/Devices/actions'
-import { selecionarDevice } from '../../store/Modulos/Devices/actions';
+import Clear from '@material-ui/icons/Clear';
+import { atualizarDevices } from '../../Reducers/ReduxDevices/DeviceActions'
+import { selecionarDevice } from '../../Reducers/ReduxDevices/DeviceActions';
 import ModalConexoes from '../../Components/ModalConexoes/ModalConexoes';
 import Load from '../../Components/Loading';
+import Combo from '../../Components/SelectDeviceCombo';
 import {
     Container,
     Card,
@@ -36,6 +38,9 @@ import {
     DialogTitle,
     Snackbar,
     Tooltip,
+    MenuItem,
+    InputLabel,
+    Select
 } from '@material-ui/core';
 import {
     Search,
@@ -46,6 +51,7 @@ import {
     Router,
     HelpOutline,
     Close,
+    DeveloperBoardRounded,
 } from '@material-ui/icons';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
@@ -58,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-between',
         // flexWrap: 'wrap',
         marginBottom: '20px',
-        boxShadow: '3px 3px 4px 1px rgba(0,0,0,0.39)',
+        boxShadow: '1px 1px 2px 1px rgba(0,0,0,0.21)',
         borderRadius: '10px',
     },
     buttons: {
@@ -115,6 +121,17 @@ const useStyles = makeStyles((theme) => ({
             color: 'white',
         },
     },
+    btnCancel: {
+        marginLeft: 5,
+        backgroundColor: 'red',
+        padding: '5px',
+        borderRadius: '5px',
+        color: 'white',
+        '&:hover': {
+            backgroundColor: '#a73636',
+            color: 'white',
+        },
+    },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -126,31 +143,36 @@ function Alert(props) {
 }
 
 export default function Dispositivos() {
-    const req = useSelector((state) => state.devicesState.statusLoad)
-    const selectedDevice = useSelector((state) => state.devicesState.selectedDevice);
-    const devices = useSelector((state) => state.devicesState.devices);
+    const req = useSelector((state) => state.loadState.statusLoad)
+    const selectedDevice = useSelector((state) => state.deviceState.selectedDevice);
+    const setorDados = useSelector((state) => state.setorState.dadosSetor);
+    const devices = useSelector((state) => state.deviceState.devices);
     const dispatchDevices = useDispatch()
     const [filterDevice, setFilterDevice] = useState('');
     const [filteredCountries, setFilteredCounries] = useState([]);
     const [open, setOpen] = useState(false);
+    const [editSetor, setEditSetor] = useState();
+    const setor = useSelector((state) => state.setorState.setor);
+    const selectedSetor = useSelector((state) => state.setorState.selectSetor)
 
-    /*  console.log(`All devices: ${devices}`)
-     devices.forEach(element => {
-         console.log(element)
-     }); */
-    // console.log(req)
+
+
+
     useEffect(() => {
         setFilteredCounries(
-            devices.filter(coutry => {
-                console.log(devices)
-                console.log(filteredCountries)
-               
-                    return coutry.name.toLowerCase().includes(filterDevice.toLowerCase())
-                        || coutry.type.toLowerCase().includes(filterDevice.toLowerCase())
-                
+            setorDados.filter(coutry => {
+
+                return coutry.name.toLowerCase().includes(filterDevice.toLowerCase())
+                    || coutry.type.toLowerCase().includes(filterDevice.toLowerCase())
+
             })
         );
-    }, [filterDevice, devices])
+
+
+
+    }, [filterDevice, setorDados])
+
+
 
 
     const handleClickOpen = () => {
@@ -165,6 +187,7 @@ export default function Dispositivos() {
     const [deleteConfirm, setDeleteConfirm] = React.useState(false);
     const [euiCurrent, setEuiCurrent] = React.useState(''); //dispositivo eui que irá para confirmação para deletar.
     const [fieldEdit, setFieldEdit] = React.useState(false);
+    const [validacaoSetor, setValidacaoSetor] = useState('')
 
     const closeFieldEdit = () => {
         setFieldEdit(false)
@@ -174,10 +197,15 @@ export default function Dispositivos() {
         setFieldEdit(true)
         setName(dev.name)
         setEuiCurrent(dev.device);
+        setEditSetor(dev);
     }
 
+
+
+
+
     const openDelConfirm = (eui) => {
-        console.log(`Dispositivo EUI: ${eui}`)
+
         setDeleteConfirm(true);
         setEuiCurrent(eui);
     };
@@ -200,23 +228,15 @@ export default function Dispositivos() {
 
     async function updateDisp(dev) {
         let eui = dev.device
-        const user = JSON.parse(localStorage.getItem('Auth_user')).name
+        const user = JSON.parse(localStorage.getItem('Auth_user')).uid
+        alert(`Aqui ${JSON.parse(localStorage.getItem('Auth_user')).uid}`)
 
-        console.log(`
-            ### Dispositivo será editado ###
-            Username: ${user}
-            EUI: ${eui}
-            Nome antigo: ${dev.name}
-            Nome: ${name}
-            Conexao: ${filterDevice}
-        `)
-        
 
         const data = {
             name: name,
         }
         closeFieldEdit();
-        await api.put('/devices?user=' + user + '&dev_eui=' + eui, data)
+        await api.put(`/devices?login=${user}&dev_eui=${eui}`, data)
             .then((res) => {
                 // closeLoading() //fecha o círculo de loading
                 if (res.data == '') {
@@ -224,14 +244,13 @@ export default function Dispositivos() {
                     setContentMessage({ msg: "Erro ao editar o dispositivo " + eui, severity: "error" })
                     openMessage()
                 } else {
-                    console.log(`Data response: ${res.data}`)
                     console.log("Dispositivo editado com sucesso")
                     setContentMessage({ msg: "Dispositivo " + eui + " editado com sucesso!", severity: "success" })
                     openMessage()
                     clearCampo()
                     listDevices(user)
                     dispatchDevices(selecionarDevice(''))
-                    
+
                 }
 
             })
@@ -243,13 +262,36 @@ export default function Dispositivos() {
             })
     }
 
+    async function handleSelectSetor(dev) {
+        const user = JSON.parse(localStorage.getItem('Auth_user')).uid
+        var data = {
+            name: editSetor,
+            dev_eui: dev
+        }
+        await api.post(`departments?login=${user}`, data)
+            .then((res) => {
+                console.log(`Sucesso ${res.data}`)
+                openMessage()
+                clearCampo()
+                listDevices(user)
+                dispatchDevices(selecionarDevice(''))
+                closeFieldEdit()
+
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+
+
+
     async function listDevices(user) {
-        await api.get(`devices?user=${user}`)
+        await api.get(`devices?login=${user}`)
             .then((res) => {
                 if (devices === '') {
                     const devices = res.data.map(dev => ({ device: dev[0], ...dev[1] }))
                     dispatchDevices(atualizarDevices(devices))
-                    
+
                 }
 
             })
@@ -260,16 +302,11 @@ export default function Dispositivos() {
 
     async function deleteDisp() {
         closeDelConfirm()
-        const user = JSON.parse(localStorage.getItem('Auth_user')).name
+        const user = JSON.parse(localStorage.getItem('Auth_user')).uid
         setFilterDevice('')
         dispatchDevices(selecionarDevice(''))
-        console.log(`
-            ### Dispositivo será deletado ###
-            Username: ${user}
-            EUI: ${euiCurrent}
-        `)
 
-        await api.delete('/devices?user=' + user + '&dev_eui=' + euiCurrent)
+        await api.delete('/devices?login=' + user + '&dev_eui=' + euiCurrent)
             .then((res) => {
                 // closeLoading() //fecha o círculo de loading
                 if (res.data == '') {
@@ -278,16 +315,13 @@ export default function Dispositivos() {
                     openMessage()
                 }
                 //React irá pra abrir a rota dos dispositivos-cadastrados                                
-                console.log(`Data response: ${res.data}`)
+
                 console.log("Dispositivo deletado com sucesso")
                 openMessage()
                 setContentMessage({ msg: "Dispositivo " + euiCurrent + " deletado com sucesso!", severity: "success" })
 
                 listDevices(user)
-                console.log(`Todos os Dispositivos: ${devices}`)
-                devices.forEach(element => {
-                    console.log(element)
-                });
+
             })
             .catch((err) => {
                 // closeLoading() //fecha o círculo de loading
@@ -324,35 +358,39 @@ export default function Dispositivos() {
 
     return (
         <React.Fragment>
+            <div style={{display:'flex', justifyContent:'flex-end', marginRight:-60}}>
+                <Combo/>
+            </div>
             {req ?
                 <Load />
                 :
                 <Container fluid>
-                    {
-                        <div>
-                            <FormControl className={(classes.form)} >
-                                <TextField
-                                    className={(classes.textIput)}
-                                    label="Pesquisar Dispositivo"
-                                    variant="outlined"
-                                    value={filterDevice}
-                                    type="search"
-                                    onChange={e => setFilterDevice(e.target.value)}
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <Search />
-                                            </InputAdornment>
-                                        )
-                                    }} />
-                            </FormControl>
-                        </div>
-                    }
-                    {
-                        <div className="divAddButton">
-                            <button onClick={handleClickOpen} className="bt btAdd"><Add style={{ margin: 'auto', color: 'white' }} /> Dispositivo</button>
-                        </div>
-                    }
+                  
+                        {
+                            <div>
+                                <FormControl className={(classes.form)} >
+                                    <TextField
+                                        className={(classes.textIput)}
+                                        label="Pesquisar Dispositivo"
+                                        variant="outlined"
+                                        value={filterDevice}
+                                        type="search"
+                                        onChange={e => setFilterDevice(e.target.value)}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <Search />
+                                                </InputAdornment>
+                                            )
+                                        }} />
+                                </FormControl>
+                            </div>
+                        }
+                        {
+                            <div className="divAddButton">
+                                <button onClick={handleClickOpen} className="bt btAdd"><Add style={{ margin: 'auto', color: 'white' }} /> Dispositivo</button>
+                            </div>
+                        }
                     {
                         (filteredCountries.length > 0) ? filteredCountries.map((dev) => (
                             <Card key={dev.name} className={classes.cards}>
@@ -362,12 +400,12 @@ export default function Dispositivos() {
                                     </Typography>
 
                                     {fieldEdit && euiCurrent == dev.device ?
-                                        <span onBlur={(e) => {
+                                        <span /* onBlur={(e) => {
                                             if (!e.currentTarget.contains(e.relatedTarget)) {
-                                                // Não acionado ao tclicar no button "Editar"                                           
+                                                // Não acionado ao clicar no button "Editar"                                           
                                                 closeFieldEdit()
                                             }
-                                        }}
+                                        }} */
                                         >
                                             <span className={classes.formfield}>
                                                 <TextField
@@ -381,6 +419,11 @@ export default function Dispositivos() {
                                                         <DoneIcon />
                                                     </IconButton>
                                                 </LightTooltip >
+                                                <LightTooltip title="Cancelar" aria-label="cancelar" placement="left-start">
+                                                    <IconButton variant="contained" onClick={() => closeFieldEdit()} className={classes.btnCancel}>
+                                                        <Clear />
+                                                    </IconButton>
+                                                </LightTooltip >
                                             </span>
                                         </span>
                                         :
@@ -388,6 +431,54 @@ export default function Dispositivos() {
                                             <span id={'name-eui_' + dev.device}> {dev.name} </span>
                                         </Link>
                                     }
+
+                                    <Typography className="dataDevices" display="inline"><br />
+                                        Setor:
+                                    </Typography>
+                                    {fieldEdit && euiCurrent == dev.device ?
+                                        <span /* onBlur={(e) => {
+                                            if (!e.currentTarget.contains(e.relatedTarget)) {
+                                                // Não acionado ao clicar no button "Editar"                                           
+                                                closeFieldEdit()
+                                            }
+                                        }} */
+                                        >
+                                            <span className={classes.formfield}>
+                                                <FormControl>
+                                                    <InputLabel></InputLabel>
+                                                    <Select
+                                                        style={{ paddingLeft: 7, top: -20 }}
+                                                        native
+                                                        defaultValue={dev.department}
+                                                        //value={dev.department}
+                                                        onChange={(e) => setEditSetor(e.target.value)}
+                                                    >
+                                                        {
+                                                            setor && setor.map((s, index) => (
+                                                                <option key={index} value={s}>{s}</option>
+                                                            ))
+                                                        }
+                                                    </Select>
+                                                </FormControl>
+                                                <LightTooltip title="Editar" aria-label="editar" placement="left-start">
+                                                    <IconButton variant="contained" onClick={() => handleSelectSetor(dev.device)} className={classes.btnConfirm}>
+                                                        <DoneIcon />
+                                                    </IconButton>
+                                                </LightTooltip >
+                                                <LightTooltip title="Cancelar" aria-label="cancelar" placement="left-start">
+                                                    <IconButton variant="contained" onClick={() => closeFieldEdit()} className={classes.btnCancel}>
+                                                        <Clear />
+                                                    </IconButton>
+                                                </LightTooltip >
+
+                                            </span>
+                                        </span>
+                                        :
+                                        <span > {dev.department == null && setor.length > 0 ? 'Todos' : dev.department} </span>
+                                    }
+
+
+
                                     <Typography className="dataDevices" >
                                         Status: <span>{dev.status != 1 ? 'Inativo' : 'Ativo'}</span>
                                     </Typography>

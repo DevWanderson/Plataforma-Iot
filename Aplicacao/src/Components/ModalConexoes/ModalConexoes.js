@@ -137,7 +137,7 @@ function ModalConexoes(props) {
                         <React.Fragment>                            
                             <Link onClick={handleClose} to={connection.navigation} style={{ color: '#131313', textDecoration: 'none' }}>
                                 <ListItem button >
-                                        { connection.id >= 2 ?
+                                        { connection.id >= 3 ?
                                             <ListItemText primary={connection.name} style={{color: '#aaa'}}/>                                              
                                             :
                                             <ListItemText primary={connection.name} />  

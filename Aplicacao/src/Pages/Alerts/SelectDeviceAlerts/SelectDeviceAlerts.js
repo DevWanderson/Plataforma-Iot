@@ -5,6 +5,8 @@ import SearchType from '../../../Components/SearchType/SearchType';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
+import { Typography } from '@material-ui/core';
+import Setor from '../../../Components/Setor';
 
 export default function SelectDeviceAlerts(props) {
 
@@ -12,7 +14,9 @@ export default function SelectDeviceAlerts(props) {
     const [options, setOption] = useState([]);
     const [listDevices, setListDevices] = useState([]);
     const [type, setType] = useState('');
+    
 
+    
     function getOptions(event) { //Função add opção, verifica se já existe e retira opção da array caso checkout seja alterado para false
         if (event.target.checked === true) {
             if (options == '') {
@@ -26,11 +30,12 @@ export default function SelectDeviceAlerts(props) {
         } else {
             let newArray = options.filter(item => item != event.target.value)
             setOption(newArray)
+            
         }
 
     }
 
-    function getAllOptions(event) {
+    /* function getAllOptions(event) {
 
         if (event.target.checked === true) {
             let newList = listDevices.map(item => {
@@ -43,24 +48,26 @@ export default function SelectDeviceAlerts(props) {
 
         }
 
-    }
+    } */
 
     useEffect(() => {
         setType(redux.typeSelected)
+        console.log(options)
     }, [redux.typeSelected]) //sempre atualiza o estado type para o type selecionado no compoente SearchType
 
 
     useEffect(() => {
-        if (redux.devicesState.devices.length != 0) {
-            let newList = redux.devicesState.devices.filter(item => item.type == type)
+        if (redux.setorState.dadosSetor.length != 0) {
+            let newList = redux.setorState.dadosSetor.filter(item => item.type == type)
             setListDevices(newList)
-            console.log(listDevices)
+            
+
         }
-    }, [type, redux.devicesState.devices]) //pega da lista de todos os devices, os devices que são do mesmo tipo do comp SearchType
+    }, [type, redux.setorState.dadosSetor]) //pega da lista de todos os devices, os devices que são do mesmo tipo do comp SearchType
 
     useEffect(() => {
         props.get(options)
-        console.log(redux)
+        
     }, [options]) //Passa as opções escolhidas para o componente pai
 
     useEffect(() => {
@@ -71,8 +78,10 @@ export default function SelectDeviceAlerts(props) {
 
 
         <div className='ContainerSelectedDeviceAlerts' style={{ display: props.step == 0 ? 'flex' : 'none' }}>
-            <SearchType />
-
+            <div className='setorAndType'>
+                <SearchType /> 
+                <Setor />
+            </div>
             {listDevices.length === 0 ? ''
                 :
                 <div className='headerTableSelectedDeviceAlerts'>
@@ -85,13 +94,14 @@ export default function SelectDeviceAlerts(props) {
 
             <ul className='ulSelectedDeviceAlerts' >
 
+                
                 {listDevices.length != 0 ?
-
                     listDevices.map((item) => {
                         return (
                             <>
 
                                 <li key={item.device} className='liSelectedDeviceAlerts'>{item.name}<Checkbox color='primary' value={item.device} onChange={getOptions} /></li>
+                                <Typography style={{ color: '#808080', marginTop: -36 }} className='liSelectedDeviceAlerts'>{`UID: ${item.device}`}</Typography>
                                 <div className='linhaSelectedDeviceAlerts'></div>
                             </>
                         )

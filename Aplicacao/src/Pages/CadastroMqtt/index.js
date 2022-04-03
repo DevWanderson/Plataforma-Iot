@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './styles.css';
 import mqttIcon from './icon-mqtt.png'
 import MuiAlert from '@material-ui/lab/Alert';
-import { verificarExistenciaEUI } from '../../script/verificarExistenciaEUI';
+import { Delete } from '@material-ui/icons'
+import { verificarExistenciaEUI } from '../../Utils/verificarExistenciaEUI';
 import ButtonsCadastro from '../../Components/ButtonsCadastro';
 import LoadingCadastro from '../../Components/LoadingCadastro';
+import ErroSnack from '../../Components/ErroSnack/erroSnack';
 import {
     Container,
     Grid,
@@ -19,14 +21,26 @@ import {
     Paper,
     Tooltip,
     Snackbar,
+    Select,
+    InputLabel,
+    FormControl,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    Hidden,
+
+    
 } from '@material-ui/core';
+
 import { Add, ArrowBack } from '@material-ui/icons';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 import { Link } from 'react-router-dom';
 import { dispatch, useDispatch, useSelector } from 'react-redux'
 import api from '../../Components/Connections/api'
-import { selecionarDevice } from '../../store/Modulos/Devices/actions';
+import { style } from 'dom-helpers';
 
 const useStylesGrid = makeStyles((theme) => ({
     root: {
@@ -120,14 +134,18 @@ function Alert(props) {
 
 export default function CadastroMqtt() {
     const user = JSON.parse(localStorage.getItem('Auth_user')).name
-    const uri = 'mqtt.ibti.network'
+    const userUID = JSON.parse(localStorage.getItem('Auth_user')).uid
+    const selectedSetor = useSelector((state) => state.setorState.selectSetor);
+    const uri = 'iotibti.ddns.net'
     const [nameDevice, setNameDevice] = useState('');
+    const [openModal, setOpenModal] = useState(false);
+
     const [dispositivoEUI, setDispositivoEUI] = useState('');
-    const topico = 'ibti/' + user + '/' + dispositivoEUI
-    const [appKey, setAppKey] = useState(null);
+    const [appKey, setAppKey] = useState('');
+    const topico = `ibti/${appKey.MQTTuser ? appKey.MQTTuser : 'user não gerado'}/${dispositivoEUI ? dispositivoEUI : '{vazio}'}`
     const [cadastro, setCadastro] = useState()
-    const cadastroMQTT = useSelector((state) => state.devicesState.cadastroMQTT);
-    console.log("has space: " + dispositivoEUI.includes(" "))
+    
+    
     /////////////// Message /////////////////////
     const [openMessage, setOpenMessage] = React.useState(false);
     const [txtMessage, setTxtMessage] = React.useState('')
@@ -136,6 +154,9 @@ export default function CadastroMqtt() {
         setOpenMessage(true);
     };
 
+
+
+
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -143,6 +164,18 @@ export default function CadastroMqtt() {
 
         setOpenMessage(false);
     };
+
+    async function selectKey() {
+        await api.get(`/user?login=${userUID}`)
+            .then((res) => {
+                setAppKey(res.data)
+                console.log(appKey)
+            })
+    }
+
+    useEffect(() => {
+        selectKey()
+    }, [])
     /////////////////////////////////////////////
 
     /////////////// Backdrop ////////////////////
@@ -150,10 +183,6 @@ export default function CadastroMqtt() {
     /////////////////////////////////////////////
 
 
-    console.log(`
-        Topico: ${topico} 
-        appkey: ${appKey}           
-    `)
 
 
 
@@ -166,7 +195,7 @@ export default function CadastroMqtt() {
             showMessage()
         } else {
             setLoading({ openBackdrop: true, showSuccess: false })
-            if (await verificarExistenciaEUI(user, dispositivoEUI)) {
+            if (await verificarExistenciaEUI(userUID, dispositivoEUI)) {
                 setLoading({ openBackdrop: false, showSuccess: false })
                 setTxtMessage(`O dispositivo com EUI: ${dispositivoEUI} já está cadastrado!`)
                 showMessage()
@@ -174,11 +203,12 @@ export default function CadastroMqtt() {
                 const data = {
                     name: nameDevice,
                     dev_eui: dispositivoEUI,
+                    
                 }
 
-                await api.post('/devices?user=' + user + '&dev_type=mqtt', data)
+                await api.post(`/devices?login=${userUID}&department=${selectedSetor}&dev_type=mqtt`, data)
                     .then((res) => {
-                        console.log(`Data response: ${res.data}`)
+                        
                         if (res.data == '') {
                             setLoading({ openBackdrop: false, showSuccess: false }) //fecha o círculo de loading
                             console.log("Erro ao cadastrar")
@@ -208,6 +238,79 @@ export default function CadastroMqtt() {
     const comunicacao = useStylesComunicacao();
 
     const noSpecialCarac = /\W|_/;
+
+    const errorInput = () =>{
+        return(
+           <>
+           </>
+        )
+    }
+
+    //criação de campos
+    const [campoVar, setCampoVar] = useState([]);
+    const [addCampo, setAddCampo] = useState('');
+    const [unidade, setUnidade] = useState('');
+    const [saveVar, setSaveVar] = useState([]);
+    const [openSnack, setOpenSnack] = useState(false);
+
+
+    function handleOpenModal() {
+        setOpenModal(true)
+    }
+
+    function handleOpenSnack(){
+        setOpenSnack(true)
+    }
+    function handleCloseSnack(){
+        setOpenSnack(false)
+    }
+
+    function saveVariaveis(){
+        setSaveVar([...campoVar])
+        setOpenModal(false)
+        campoVar.length = 0 // serve para zerar o array
+        
+    }
+
+
+    function handleCloseModal() {
+        setOpenModal(false)
+        campoVar.length = 0 // serve para zerar o array
+
+    }
+
+    function handleClear(id) {
+        let newList = campoVar.filter(item => item.id !== id)
+        setCampoVar(newList)
+    }
+
+    function handleInput() {
+        if (addCampo === '' || unidade === '') {
+            alert('Digite no campo em branco')
+        //return <ErroSnack open={handleOpenSnack} duration={2000} close={handleCloseSnack} descriptionErro="Erro ao Salvar" closeAlert={handleCloseSnack}/>
+            
+        }
+        else {
+            let newVar = [...campoVar]
+            let data = {
+                id: new Date().getTime(),
+                variaveis: addCampo,
+                unidade: unidade
+            }
+            newVar.push(data)
+            setCampoVar(newVar)
+            setAddCampo('')
+            setUnidade('')
+
+        }
+
+    }
+
+    useEffect(() => {
+
+    }, [campoVar, unidade, saveVar])
+
+
 
     return (
         <React.Fragment>
@@ -250,6 +353,10 @@ export default function CadastroMqtt() {
                                     error={noSpecialCarac.test(dispositivoEUI) ? (true) : (false)}
                                     required
                                 />
+                                <div className="divCombo">
+                                    
+                                    <button onClick={handleOpenModal}><Add/> Adicionar Variáveis</button>
+                                </div>
                             </FormGroup>
                             <ButtonsCadastro Cadastro={Cadastro} />
                         </Paper>
@@ -261,18 +368,18 @@ export default function CadastroMqtt() {
                             <Grid container spacing={3}>
                                 <Grid item xs={12} sm={4}>
                                     <Typography className={comunicacao.title}>
-                                        NOME DE USUÁRIO
+                                        NOME DE USUÁRIO MQTT
                                     </Typography>
                                     <Typography className={comunicacao.content}>
-                                        {user}
+                                        {appKey.MQTTuser ? appKey.MQTTuser : 'user não gerado'}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} sm={4}>
                                     <Typography className={comunicacao.title}>
-                                        Senha (key)
+                                        Senha
                                     </Typography>
                                     <Typography className={comunicacao.content}>
-                                        'senha gerada ao criar usuário'
+                                        {appKey.MQTTpsw ? appKey.MQTTpsw : 'Senha não foi gerada'}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} sm={4}>
@@ -309,6 +416,20 @@ export default function CadastroMqtt() {
                                         mosquitto_pub -h '{uri}' -p '1883' -u '{user}' -t '{topico}' -m 'payload'///
                                     </Typography>
                                 </Grid>
+                                <Grid item xs={12}>
+                                    <Typography className={comunicacao.title}>
+                                        EXEMPLO DE FORMATO JSON
+                                    </Typography>
+                                    <Typography className={comunicacao.command}>
+                                        {'"{"a": 1, "b": 2,'}
+                                        <span style={{ color: "red" }}>"ts": 839463900</span>
+                                        {'}"'}
+                                        <Typography style={{ fontSize: 12 }}>
+                                            ts: Unix TimeStamp
+                                        </Typography>
+
+                                    </Typography>
+                                </Grid>
                             </Grid>
                         </Paper>
                     </Grid>
@@ -320,6 +441,66 @@ export default function CadastroMqtt() {
                         </Alert>
                     </Snackbar>
                 </div>
+
+                <Dialog fullWidth={30} open={openModal} onClose={handleCloseModal}>
+                    <DialogTitle onClose={handleCloseModal} >
+                        <Typography variant="h6" className="titleDialog">Adicionar uma nova variável</Typography>
+                    </DialogTitle>
+
+                    <DialogContent>
+                        <div className="dialogCampo">
+                            <TextField
+                                className="inputDialog"
+                                autoFocus
+                                label="Adicionar variável"
+                                type="text"
+                                variant="outlined"
+                                name="variaveis"
+                                value={addCampo}
+                                onChange={(e) => setAddCampo(e.target.value)}
+                                onKeyPress={e => {
+                                    if (e.key === 'Enter') {
+                                        handleInput()
+                                    }
+                                }}
+                            />
+                            <TextField
+                                label="Unidade"
+                                type="text"
+                                variant="outlined"
+                                name="variaveis"
+                                value={unidade}
+                                onChange={(e) => setUnidade(e.target.value)}
+                                onKeyPress={e => {
+                                    if (e.key === 'Enter') {
+                                        handleInput()
+                                    }
+                                }}
+                            />
+                            <Button onClick={handleInput} variant="outlined" color="secondary">Adicionar</Button>
+                        </div>
+                        <DialogContentText className="varAdd">
+                            {
+                                campoVar && campoVar.map((m, index) => (
+                                    <Hidden>
+                                        <Paper key={m.id} className="variaveis">
+                                            <span>
+                                                <label>{`Variável: ${m.variaveis}`}</label>
+                                                <label>{`Unidade: ${m.unidade}`}</label>
+                                            </span>
+                                            <button onClick={() => { handleClear(m.id) }}><Delete style={{ fontSize: 20 }} />Delete</button>
+                                        </Paper>
+                                    </Hidden>
+                                ))
+                            }
+                            
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button color="primary" onClick={saveVariaveis}>Salvar</Button>
+                        <Button color="primary" onClick={handleCloseModal}>Cancelar</Button>
+                    </DialogActions>
+                </Dialog>
 
             </Container>
         </React.Fragment>

@@ -4,8 +4,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
 
-
+.setorAndType{
+    display: flex;
 }
 
 .headerTableSelectedDeviceAlerts{

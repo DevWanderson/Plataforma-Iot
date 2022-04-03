@@ -1,19 +1,19 @@
 import React from 'react'
-import './styles.scss'
+import './styles.css'
 import { Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { selecionarDevice } from '../../store/Modulos/Devices/actions'
+import { selecionarDevice } from '../../Reducers/ReduxDevices/DeviceActions';
 import { useState } from 'react';
 
 
 
 export default function SuccessAnimation(props) {
     const dispatch = useDispatch()
-    const device = useSelector(state => state.devicesState.devices[0])
+    const device = useSelector(state => state.deviceState.devices[0])
     const [animation, setAnimation] = useState(false)
 
 
-    dispatch(selecionarDevice(props.device))
+    dispatch(selecionarDevice(props.device !== null))
 
     setTimeout(() => {
         setAnimation(true)

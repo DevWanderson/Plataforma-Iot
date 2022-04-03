@@ -1,0 +1,44 @@
+.btnSetor{
+    height: 53px;
+    width: 168px;
+    border-radius: 10px;
+    border-color: transparent;
+    background-color: #24A681;
+    color: #FFF;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+.campoAddSetor{
+    width: 20%;
+}
+
+.btnSetor:hover{
+    cursor: pointer;
+    background-color: #54b99d;
+}
+
+.styleGerencia{
+    margin-bottom: 10px;
+    
+}
+
+.textStyle{
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.adicinarSetor{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.containerSetor{
+    margin-top: 5%;
+}

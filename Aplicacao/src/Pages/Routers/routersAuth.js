@@ -1,10 +1,9 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import Login from '../User/Login';
 import Cadastro from '../User/Cadastro';
 import Load from '../../Components/Loading';
-
 
 
 

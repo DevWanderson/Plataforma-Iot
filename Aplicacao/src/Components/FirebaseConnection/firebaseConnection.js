@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
+
 let firebaseConfig = {
     apiKey: "AIzaSyAvYUBSED7D5BoDWwPVJa7jsVP8rLQzdqo",
     authDomain: "plataformaiot-64c64.firebaseapp.com",

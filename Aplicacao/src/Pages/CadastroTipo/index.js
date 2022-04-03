@@ -28,6 +28,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ButtonsCadastro from '../../Components/ButtonsCadastro';
+import {  statusLoad } from '../../Reducers/ReduxLoad/LoadActions';
+import { useDispatch } from 'react-redux';
 
 const AdicionarVarBtn = withStyles((theme) => ({
     root: {
@@ -123,13 +125,13 @@ export default function CadastroTipo({ navigation }) {
     const [saveOrdemByte, setSaveOrdemByte] = useState(1);
     const [tamanhoByte, setTamanhoByte] = useState('');
     const [nome, setNome] = useState('');
+    const dispatch = useDispatch();
 
     ////////////// Checkbox para tipo global ///////////////
     const [checkGlobal, setCheckGlobal] = React.useState(true);
 
     const handlecheckGlobal = (event) => {
         setCheckGlobal(event.target.checked);
-        console.log("Checkbox tipo global: " + checkGlobal)
     };
 
     ////////////// Checkbox para Signed ////////////////
@@ -137,11 +139,7 @@ export default function CadastroTipo({ navigation }) {
 
     const handlecheckSigned = (e, index) => {
         setCheckSigned(checkSigned, [e.target.checked]);
-        console.log(`
-            Checkbox signed (sinalizada): $(checkSigned) 
-            e.target.name = ${e.target.name} 
-            even.targe.checked = ${e.target.checked}
-        `)
+       
         let newForm = { ...form }
         newForm.cards[index][e.target.name] = e.target.checked;
         setForm(newForm)
@@ -150,10 +148,10 @@ export default function CadastroTipo({ navigation }) {
     const [indexForm, setIndexForm] = React.useState(0);
 
     const addNewCamp = () => {
-        console.log("Index form: " + indexForm)
+        
         setCheckSigned([...checkSigned, indexForm])
         // setCheckSigned([{index: indexForm, checked: false}])
-        console.log("checkSigned: " + JSON.stringify(checkSigned))
+        
         // console.log(`array index and elements object: ${checkSigned[indexForm].checked}`)
 
         setIndexForm(indexForm + 1)
@@ -214,7 +212,7 @@ export default function CadastroTipo({ navigation }) {
     }
 
     function operationRemove(cardIndex, selectIndex) {
-        console.log(`Index variable: ${cardIndex}`)
+        
         let newForm = { ...form };
         newForm.cards[cardIndex].operationsSelects.splice(selectIndex, 1);
         setForm(newForm);
@@ -222,30 +220,24 @@ export default function CadastroTipo({ navigation }) {
 
     const variableRemove = (cardIndex, selectIndex) => {
         //setForm([...newCard.filter((_, index) => index !== position)])
-        console.log(`Index variable: ${cardIndex}`)
+       
         let newForm = { ...form };
-        console.log(`New forms old: ${newForm.cards}`)
-        newForm.cards.forEach(element => {
-            console.log(element)
-        });
+    
         newForm.cards.splice(cardIndex, 1)
         setForm(newForm);
-        console.log(`New forms current: ${newForm.cards}`)
-        newForm.cards.forEach(element => {
-            console.log(element)
-        });
+       
+       
     }
 
-    console.log(cadastro)
 
     async function Cadastro() {
         // showLoading()
-        console.log("--- Cadastro de tipo ---")
 
         if (nome == '' || tamanhoByte == '' || saveOrdemByte > 0) {
             setContentMessage({ msg: 'Os campos nome, ordem dos bits e tamanho do byte são obrigatórios!', severity: 'error' })
             openMessage()
         } else {
+            const user = JSON.parse(localStorage.getItem('Auth_user')).uid
             const data = {
                 name: nome,
                 tamanhoByte: tamanhoByte,
@@ -253,38 +245,22 @@ export default function CadastroTipo({ navigation }) {
                 variables: form,
                 global: checkGlobal, // Fixo: tipo acessível para todos os usuário - *mudar depois            
             }
-            const user = JSON.parse(localStorage.getItem('Auth_user')).name
+            api.post(`types?login=${user}`, data)
+            .then((res) => {
+                console.log(res.data)
+                console.log(`Tipo cadastrado com sucesso`)
+                if(res.data){
+                    dispatch(statusLoad(true))
+                    window.location.replace('/dispositivos-cadastrados/cadastroEverynet')
+                }
+            })
+            .catch((err) =>{
+                console.log(`Erro ao cadastrar`)
+                console.log(err)
 
-            console.log("#### Data ####")
-            Object.keys(data).forEach(element => {
-                console.log(element + ' - ' + data[element])
-            });
-
-            console.log("#### Data -> variables")
-            Object.keys(data).forEach(element => {
-                console.log(element.variables)
-            });
-            console.log(JSON.stringify(data))
-
-            // api.post('/types?user=' + user, data)
-            //     .then(res => {
-            //         console.log('Data: ' + res.data)
-            //         if (res.data == '') {
-            //             closeLoading()
-            //             setContentMessage({ msg: 'Ocorreu um erro ao cadastrar o Tipo!', severity: 'error' })
-            //             openMessage()
-            //         } else {
-            //             setContentMessage({ msg: 'Tipo cadastrado cadastrado com sucesso', severity: 'success' })
-            //             closeLoading()
-            //             openMessage()
-            //         }
-            //     })
-            //     .catch((err) => {
-            //         console.log('Erro: ' + err)
-            //         closeLoading()
-            //         setContentMessage({ msg: 'Ocorreu um erro ao cadastrar o Tipo!', severity: 'error' })
-            //         openMessage()
-            //     })
+            })
+            dispatch(statusLoad(false))
+    
         }
     }
 
@@ -360,7 +336,7 @@ export default function CadastroTipo({ navigation }) {
                                         </ TextField>
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                        <TextField className={classes.formField} required variant="filled" label="Tamanho Byte" value={tamanhoByte} onChange={(e) => setTamanhoByte(e.target.value)} fullWidth />
+                                        <TextField className={classes.formField} type='number' required variant="filled" label="Tamanho Byte" value={tamanhoByte} onChange={(e) => setTamanhoByte(e.target.value)} fullWidth />
                                     </Grid>
                                 </Grid>
                             </FormGroup>
@@ -386,13 +362,13 @@ export default function CadastroTipo({ navigation }) {
                                         <FormGroup>
                                             <Grid container spacing={1}>
                                                 <Grid item xs={12}>
-                                                    <TextField variant="filled" label={`Nome da variável ${index + 1}`} name="variavel" value={card.variavel} onChange={(e) => onFormUpdate(e, index)} fullWidth />
+                                                    <TextField  variant="filled" label={`Nome da variável ${index + 1}`} name="variavel" value={card.variavel} onChange={(e) => onFormUpdate(e, index)} fullWidth />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <TextField variant="filled" label={`Byte inicial ${index + 1}`} name="bitInicial" value={card.bitInicial} onChange={(e) => onFormUpdate(e, index)} fullWidth />
+                                                    <TextField type='number' variant="filled" label={`Byte inicial ${index + 1}`} name="bitInicial" value={card.bitInicial} onChange={(e) => onFormUpdate(e, index)} fullWidth />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <TextField variant="filled" label={`Byte final ${index + 1}`} name="bitFinal" value={card.bitFinal} onChange={(e) => onFormUpdate(e, index)} fullWidth />
+                                                    <TextField type='number' variant="filled" label={`Byte final ${index + 1}`} name="bitFinal" value={card.bitFinal} onChange={(e) => onFormUpdate(e, index)} fullWidth />
                                                 </Grid>
                                                 <Grid item xs={12} className={classes.leftPosition}>
                                                     <FormControlLabel
