@@ -19,6 +19,50 @@ def handle_args():
   
   return vars(parser.parse_args())
 
+
+
+class Params():
+  def default_params():
+    return {
+      'host': '0.0.0.0',
+      'port': 8000,
+      'reload': False,
+      'ssl_keyfile': '/etc/letsencrypt/live/iotibti.ddns.net/privkey.pem',
+      'ssl_certfile': '/etc/letsencrypt/live/iotibti.ddns.net/fullchain.pem' 
+    }
+
+  def console_params(argv):
+    params = {}
+    args = []
+    values = []
+    argv = argv [1:]
+
+    for s in argv:
+      args.append(s.split('=') [0])
+      values.append(s.split('=') [1])
+
+    try:
+      params ['host'] = values [args.index('host')]
+    except:
+      params ['host'] = '0.0.0.0'
+
+    try:
+      params ['port'] = int(values [args.index('port')])
+    except:
+      params ['port'] = 8000
+
+    try:
+      params ['reload'] = values [args.index('reload')]
+      if params ['reload'].lower() in('on', 'true'):
+        params ['reload'] = True
+      else:
+        params ['reload'] = False
+    except:
+      params ['reload'] = False
+
+    return params
+
+
 def sort_devices(devices: list, method: Optional [str] = None):
   if method == 'latest':
     devices = sorted(devices, key = lambda d: d ['act_date'], reverse = True)

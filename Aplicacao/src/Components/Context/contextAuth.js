@@ -153,7 +153,7 @@ function AuthProvider({ children }) {
                 api.post('/user', { key: userInfo.key, user: userInfo.user })// Cadastro mongo
                     .then((res) => {
                         alert(`Eviado : ${res.data}`)
-                    })
+                    }) 
                     .catch((error) => {
                         console.log(error)
                     })
