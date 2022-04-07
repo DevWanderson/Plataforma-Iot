@@ -22,6 +22,7 @@
     font-weight: bold;
     display: flex; 
     gap:8px;
+    align-items: center;
 }
 
 .btnAddNewAlert button:hover{
