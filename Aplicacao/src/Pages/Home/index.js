@@ -7,13 +7,11 @@ import Tooltip from "@material-ui/core/Tooltip";
 import RouterIcon from '@material-ui/icons/Router';
 import MemoryIcon from '@material-ui/icons/Memory';
 import NotificationsActive from '@material-ui/icons/NotificationsActive'
-//import BatteryChargingFullIcon from '@material-ui/icons/BatteryChargingFull';
 import DevicesMap from '../../Components/Map/Map-dashboard';
 import Load from '../../Components/Loading/index'
 import api from '../../Components/Connections/api';
 import { stampToDateAndHour } from '../../Utils/timeStampToDate'
 import { lastTsBeforeOf } from '../../Utils/functions';
-import Mqtt from '../Mqtt';
 import { Paper } from '@material-ui/core';
 import Combo from '../../Components/SelectDeviceCombo';
 
@@ -150,7 +148,7 @@ export default function Home() {
                                 <div className='circleIconAEnviados'>
                                     <NotificationsActive className={classesIconPC.battery} />
                                 </div>
-                                <span>{appKey.n_alerts > 1000 ? `${String(appKey.n_alerts).substr(0, 1)}K` : appKey.n_alerts}</span>
+                                <span>{appKey.n_alerts}</span>
                                 <p>Alertas Enviados</p>
                             </div>
                         </div>
