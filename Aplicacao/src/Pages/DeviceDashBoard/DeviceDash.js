@@ -149,7 +149,7 @@ export default function DeviceDash(props) {
         <div className='containerDeviceDash'>
 
             <div className='searchDeviceDash'>
-                <Combo/>
+                <Combo />
                 <SearchDevice />
             </div>
 
@@ -159,46 +159,36 @@ export default function DeviceDash(props) {
 
                 <React.Fragment>
 
-                    <div className={battery === false ? 'divDataDeviceDashNoBaterry' : 'divDataDeviceDash'} >
+                    <div className='divDataDeviceDash' >
 
-                        <div className="divDeviceTypeDash"><Paper style={{ borderRadius: 10, padding: 50, margin: 5, marginBottom: 50 }}>
+                        <div className="divDeviceTypeDash">
+                            <Paper style={{ borderRadius: 10, padding: 38, margin: 5, width: 500 }}>
 
 
-                            <div>
-                                {/* eslint-disable-next-line eqeqeq */}
-                                <h3>Dispositivo: <span>{typeDevice == undefined ? '' : typeDevice[keyType[0]]}</span></h3>
-                            </div>
-                            <div className='divDeviceTypeDataDash'>
-                                {/* eslint-disable-next-line eqeqeq */}
-                                {keyType.length == 7 || keyType.length == 8 ? <p>EUI: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[6]]}</span> </p> : <p>EUI: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[8]]}</span> </p>}
-                                {/* eslint-disable-next-line eqeqeq */}
-                                <p>Tipo: <span>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[1]]}</span> </p>
-                                {/* eslint-disable-next-line eqeqeq */}
-                                <p>Status: <span>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[2]] == 0 ? 'Inativo' : "Ativo"}</span> </p>
-                                {/* eslint-disable-next-line eqeqeq */}
-                                <p>Data de ativação: <span>{typeDevice == undefined || isNaN(typeDevice[keyType[3]]) ? 'N/A' : stampToDate(typeDevice[keyType[3]])}</span></p>
-                                {/* eslint-disable-next-line eqeqeq */}
-                                <p>Visto por último: <span>{typeDevice == undefined || isNaN(typeDevice[keyType[4]]) ? 'N/A' : stampToDateAndHour(typeDevice[keyType[4]])}</span>  </p>
-                                {/* eslint-disable-next-line eqeqeq */}
-                                <p>Setor: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[7]]}</span> </p>
-                            </div></Paper>
+                                <div>
+                                    {/* eslint-disable-next-line eqeqeq */}
+                                    <h3>Dispositivo: <span>{typeDevice == undefined ? '' : typeDevice[keyType[0]]}</span></h3>
+                                </div>
+                                <div className='divDeviceTypeDataDash'>
+                                    {/* eslint-disable-next-line eqeqeq */}
+                                    {keyType.length == 7 || keyType.length == 8 ? <p>EUI: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[6]]}</span> </p> : <p>EUI: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[8]]}</span> </p>}
+                                    {/* eslint-disable-next-line eqeqeq */}
+                                    <p>Tipo: <span>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[1]]}</span> </p>
+                                    {/* eslint-disable-next-line eqeqeq */}
+                                    <p>Status: <span>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[2]] == 0 ? 'Inativo' : "Ativo"}</span> </p>
+                                    {/* eslint-disable-next-line eqeqeq */}
+                                    <p>Data de ativação: <span>{typeDevice == undefined || isNaN(typeDevice[keyType[3]]) ? 'N/A' : stampToDate(typeDevice[keyType[3]])}</span></p>
+                                    {/* eslint-disable-next-line eqeqeq */}
+                                    <p>Visto por último: <span>{typeDevice == undefined || isNaN(typeDevice[keyType[4]]) ? 'N/A' : stampToDateAndHour(typeDevice[keyType[4]])}</span>  </p>
+                                    {/* eslint-disable-next-line eqeqeq */}
+                                    <p>Setor: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[7]]}</span> </p>
+                                </div></Paper>
 
                         </div>
 
-                        {/* <div className="divImgDeviceDash">
-                            <div className="divImgDeviceTitleDash">
-                                <h3>Imagem Dispositivo</h3>
-                                <RouterIcon className={classesIconPC.router} />
-                            </div>
-                            <div className="divImgDeviceIMGDash">
-                                <img src={img} alt="device" />
-                            </div>
-
-
-                        </div> */}
                         {/* organiza o Paper */}
                         <div className={dataDevice[0].dado === "sem dado" ? 'divTwinSquareNoDataDash' : 'divTwinSquareDash'}>
-                            <Paper style={{ borderRadius: 10, padding: 47, margin: 5, marginBottom: 50, width: '97%' }}>
+                            <Paper style={{ borderRadius: 10, padding: 40, margin: 5, width: 500 }}>
 
                                 {Object.keys(dataDevice).length <= 0 ?
 
@@ -221,9 +211,9 @@ export default function DeviceDash(props) {
 
                                     Object.keys(dataDevice[0]).map((item, i) => {
                                         return (
-                                            <div style={{display:'flex', alignItems:'center', justifyContent:'left', gap:10, padding:2}} key={i}>{/* aqui organiza os dados */}
+                                            <div className='infoDevice' key={i}>{/* aqui organiza os dados */}
                                                 <h5>{item}:</h5>
-                                                <span style={{fontSize:19, marginTop:-7, color:'#a09f9f'}}>{dataDevice[0][item]}</span>
+                                                <span style={{ fontSize: 19, marginTop: -2, color: '#a09f9f' }}>{dataDevice[0][item]}</span>
                                             </div>
                                         )
                                     })
@@ -233,35 +223,6 @@ export default function DeviceDash(props) {
 
 
                         </div>
-
-                        {battery === false ?
-                            <div className="none">
-                                <div className="none ">
-                                    <h5>Bateria</h5>
-                                    <BatteryChargingFullIcon className={classesIconPC.battery} />
-                                </div>
-                                <div className="none ">
-                                    <DataUsageIcon className={classesIconPC.circle} />
-                                    <p>10V</p>
-                                </div>
-                            </div>
-
-                            :
-                            <div className="divBatteryDash">
-                                <div className="divBatteryTitleDash ">
-                                    <h5>Bateria</h5>
-                                    <BatteryChargingFullIcon className={classesIconPC.battery} />
-                                </div>
-                                <div className="divBatteryStatusDash ">
-                                    <DataUsageIcon className={classesIconPC.circle} />
-
-                                    <p> {isNaN(dataDevice[0].bateria) ? 0 : dataDevice[0].bateria} V </p>
-
-                                </div>
-                            </div>
-                        }
-
-
 
                     </div>
 
@@ -283,29 +244,29 @@ export default function DeviceDash(props) {
 
                         </div>
                     }
-                    <div className="divTableDash" ><Paper style={{ borderRadius: 10, padding: 60, marginTop: 30, width: 1010 }}>
+                    <div className="divTableDash" >
+                        <Paper style={{ width: 1000, padding: 20 }}>
+                            <h3>Últimos dados recebidos:</h3>
 
-                        <h3>Últimos dados recebidos:</h3>
-
-                        {/* eslint-disable-next-line eqeqeq */}
-                        {rows == undefined || rows == '' || columns == undefined || columns == '' ?
-                            <div className='tableEmpty'>
-                                Não há dados armazenados para este dispositivo
-                            </div>
-                            :
-                            <React.Fragment>
-                                <div>
-                                    <DataGrid autoHeight rows={rows} columns={columns} pageSize={page} />
+                            {/* eslint-disable-next-line eqeqeq */}
+                            {rows == undefined || rows == '' || columns == undefined || columns == '' ?
+                                <div className='tableEmpty'>
+                                    Não há dados armazenados para este dispositivo
                                 </div>
-                                <select className="selectPage" name="quantity" onChange={(event) => { setPage(event.target.value) }}>
-                                    <option value="5" selected></option>
-                                    <option value="5">5</option>
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                            </React.Fragment>
-                        }</Paper>
+                                :
+                                <React.Fragment>
+                                    <div>
+                                        <DataGrid autoHeight rows={rows} columns={columns} pageSize={page} />
+                                    </div>
+                                    <select className="selectPage" name="quantity" onChange={(event) => { setPage(event.target.value) }}>
+                                        <option value="5" selected></option>
+                                        <option value="5">5</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </React.Fragment>
+                            }</Paper>
 
                     </div>
 
