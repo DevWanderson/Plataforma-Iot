@@ -427,9 +427,9 @@ export default function Dispositivos() {
                                             </span>
                                         </span>
                                         :
-                                        <Typography className="dataDevices" display="inline" to={{ pathname: "/dispositivos-cadastrados/descricao", state: dev }}>
+                                        <Link to={{ pathname: "/dispositivos-cadastrados/descricao", state: dev }}style={{ textDecoration: 'none' }}>
                                             <span id={'name-eui_' + dev.device}> {dev.name} </span>
-                                        </Typography>
+                                        </Link>
                                     }
 
                                     <Typography className="dataDevices" display="inline"><br />
