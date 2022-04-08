@@ -358,7 +358,7 @@ export default function Dispositivos() {
 
     return (
         <React.Fragment>
-            <div style={{display:'flex', justifyContent:'flex-end', marginRight:-60}}>
+            <div style={{display:'flex', justifyContent:'flex-end', marginRight:-50}}>
                 <Combo/>
             </div>
             {req ?
