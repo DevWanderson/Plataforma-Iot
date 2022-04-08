@@ -159,7 +159,7 @@ export default function GerenciaAlertas() {
                                             <TableCell align="center">{`${alerta.arg_1} ${alerta.if} ${alerta.arg_2}`}</TableCell>
                                             <TableCell align="center">Telegram</TableCell>
                                             <TableCell align="center">{alerta.msg}</TableCell>
-                                            <TableCell align='center'><Button variant="outlined" color="secondary" onClick={() => openDelConfirm(alerta.device, alerta.name)}><Delete /></Button></TableCell>
+                                            <TableCell align='center'><Button variant="outlined" color="secondary" style={{backgroundColor: '#FF1616', color:'#fff'}} onClick={() => openDelConfirm(alerta.device, alerta.name)}><Delete /></Button></TableCell>
                                         </TableRow>
                                     </>
                                 ))

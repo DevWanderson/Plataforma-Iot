@@ -112,24 +112,24 @@ const useStyles = makeStyles((theme) => ({
     },
     btnConfirm: {
         marginLeft: 5,
-        backgroundColor: 'green',
+        backgroundColor: '#23A14E',
         padding: '5px',
         borderRadius: '5px',
-        color: 'white',
+        color: '#fff',
         '&:hover': {
-            backgroundColor: 'darkgreen',
-            color: 'white',
+            backgroundColor: '#23A14E',
+            color: '#fff',
         },
     },
     btnCancel: {
         marginLeft: 5,
-        backgroundColor: 'red',
+        backgroundColor: '#a73636',
         padding: '5px',
         borderRadius: '5px',
-        color: 'white',
+        color: '#fff',
         '&:hover': {
             backgroundColor: '#a73636',
-            color: 'white',
+            color: '#fff',
         },
     },
 }));
@@ -219,7 +219,7 @@ export default function Dispositivos() {
     function foundIcon(typeDevice) {
         return typeDevice === "gps_dragino_v2" ||
             typeDevice === "android_gps" ? <LocationOn style={{ fontSize: 40, cursor: 'pointer' }} color="error" /> :
-            typeDevice === "temp" ? <Router style={{ fontSize: 40, cursor: 'pointer' }} color="primary" /> : <DeveloperBoardIcon style={{ fontSize: 40, cursor: 'pointer' }} />
+            typeDevice === "temp" ? <Router style={{ color:'#004AAD', fontSize: 40, cursor: 'pointer' }} color="primary" /> : <DeveloperBoardIcon style={{ color:'#545454', fontSize: 40, cursor: 'pointer' }} />
     }
 
     const clearCampo = () => {
@@ -427,9 +427,9 @@ export default function Dispositivos() {
                                             </span>
                                         </span>
                                         :
-                                        <Link to={{ pathname: "/dispositivos-cadastrados/descricao", state: dev }}>
+                                        <Typography className="dataDevices" display="inline" to={{ pathname: "/dispositivos-cadastrados/descricao", state: dev }}>
                                             <span id={'name-eui_' + dev.device}> {dev.name} </span>
-                                        </Link>
+                                        </Typography>
                                     }
 
                                     <Typography className="dataDevices" display="inline"><br />
@@ -447,7 +447,7 @@ export default function Dispositivos() {
                                                 <FormControl>
                                                     <InputLabel></InputLabel>
                                                     <Select
-                                                        style={{ paddingLeft: 7, top: -20 }}
+                                                        style={{ color:'#858585',paddingLeft: 7, top: -20 }}
                                                         native
                                                         defaultValue={dev.department}
                                                         //value={dev.department}

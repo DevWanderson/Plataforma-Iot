@@ -792,9 +792,10 @@ async def new_user(request: Request):
     print('----> Input: ') 
     body = await request.json()
     print(body)
-    body = build_user(body)
+    body = build_user(body) # models.py
     print('----> New User: ')
     print(body)
+
     aclfile = open('/etc/mosquitto/aclfile', 'a')
     aclfile.write('user ' + body['MQTTuser'])
     aclfile.write('\n')
@@ -810,12 +811,14 @@ async def new_user(request: Request):
     pid_mqtt = check_output(["pidof",'mosquitto'])
     #print('----> Kill: ' + 'kill -HUP ' + str(int(pid_mqtt)))
     os.system('/home/iotuser/plataforma/dados/update.sh ' + str(int(pid_mqtt)))
+
   except Exception as e:
     print('----> Erro: ', e)
     return Response('Failed to insert user information into database', 204)
-  collection = db_metadata['users']
 
+  collection = db_metadata['users']
   user_data = collection.find_one({'login': body['key']}, {'_id': False})
+
   if user_data is None:
     result = collection.insert_one(body)
     if result.inserted_id is not None:

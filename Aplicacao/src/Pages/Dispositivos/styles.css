@@ -79,7 +79,7 @@
 }
 
 .btAdd{
-    background-color: #23ce59;
+    background-color: #23A14E;
     padding: 10px 40px 10px 40px;
     font-weight: 700;
     transition: all ease .5s;
@@ -92,7 +92,7 @@
 .btOptionsUpdate{
     background-color: transparent;
     border: solid 1px gray;
-    color: darkgoldenrod;
+    color: blue;
     padding-right: 20px;
     padding-left:20px ;
     transition: all ease .5s;    
