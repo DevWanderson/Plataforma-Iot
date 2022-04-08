@@ -3,14 +3,6 @@
     padding: 0;
 }
 
-.divPathHome{
-    width: 100%;
-}
-
-.divDevicesHome{
-    border-radius: 10px;
-}  
-
 
 .containerHome{
     position: relative;
@@ -20,16 +12,21 @@
     grid-template-columns: 1fr;
     /*grid-template-rows: 1fr;*/
     gap: 10px;
+    display: block;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     /* background-color: red; */
     box-sizing: border-box;
 }
 
 .divDataDeviceHome{
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    /*gap: 1rem;*/
+    display: flex;
+    flex-direction: row;
+    /* grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr; */
+    gap: 3rem;
     border-radius: 10px;
     padding: 10px;
     justify-content: center;
@@ -151,8 +148,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    padding: 10px 20px 10px 30px;
+    justify-content: center;
+    margin-right: -55px;
+    
 }
 
 .listDevicesHome > h2{
@@ -165,18 +163,13 @@
 }
 
 .divMapHome{
-    width: 100%;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    padding: 10px 30px 10px 40px;
-    
-
-    /* background-color: #43E255; */
-    -webkit-box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8); 
-    box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8);
+    margin: 0%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: -58px;
 }
 
 .paperMaterial{
@@ -379,7 +372,7 @@
     }
     
     .divMapHome{
-        width: 100%;
+        width: 49%;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
         align-items: center;

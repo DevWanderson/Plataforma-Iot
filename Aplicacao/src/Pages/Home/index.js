@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import './Home.css';
+import { stampToDateAndHour } from '../../Utils/timeStampToDate'
+import { lastTsBeforeOf } from '../../Utils/functions';
+import { Paper } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
+import './Home.css';
+
 import Tooltip from "@material-ui/core/Tooltip";
 import RouterIcon from '@material-ui/icons/Router';
 import MemoryIcon from '@material-ui/icons/Memory';
 import NotificationsActive from '@material-ui/icons/NotificationsActive'
-//import BatteryChargingFullIcon from '@material-ui/icons/BatteryChargingFull';
 import DevicesMap from '../../Components/Map/Map-dashboard';
 import Load from '../../Components/Loading/index'
 import api from '../../Components/Connections/api';
-import { stampToDateAndHour } from '../../Utils/timeStampToDate'
-import { lastTsBeforeOf } from '../../Utils/functions';
-import Mqtt from '../Mqtt';
-import { Paper } from '@material-ui/core';
 import Combo from '../../Components/SelectDeviceCombo';
 
 
@@ -112,7 +111,7 @@ export default function Home() {
     return (
 
         <React.Fragment>
-            <div style={{display:'flex', justifyContent:'flex-end', marginRight:-30}}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight: -30 }}>
                 <Combo />
             </div>
             {data.loadState.statusLoad === true ?
@@ -150,7 +149,7 @@ export default function Home() {
                                 <div className='circleIconAEnviados'>
                                     <NotificationsActive className={classesIconPC.battery} />
                                 </div>
-                                <span>{appKey.n_alerts > 1000 ? `${String(appKey.n_alerts).substr(0, 1)}K` : appKey.n_alerts}</span>
+                                <span>{appKey.n_alerts}</span>
                                 <p>Alertas Enviados</p>
                             </div>
                         </div>
@@ -160,11 +159,13 @@ export default function Home() {
 
 
                     <div className="divMapHome">
-                        <Paper style={{ borderRadius: 10, padding: 10 }}><DevicesMap height={625} /></Paper>
+                        <Paper style={{width: 900}}>
+                            <DevicesMap height={500} />
+                        </Paper>
                     </div>
 
                     <div className="listDevicesHome">
-                        <div style={{ height: 400, width: '98%' }}><Paper style={{ borderRadius: 10, padding: 10 }}>
+                        <div style={{ height: 400, width: 900 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
                             <h2>Dispositivos</h2>
                             <DataGrid autoHeight rows={rows} columns={columns} pageSize={5} /></Paper>
                         </div>
