@@ -9,6 +9,7 @@ import './Home.css';
 
 import Tooltip from "@material-ui/core/Tooltip";
 import RouterIcon from '@material-ui/icons/Router';
+import VibrationIcon from '@material-ui/icons/Vibration';
 import MemoryIcon from '@material-ui/icons/Memory';
 import NotificationsActive from '@material-ui/icons/NotificationsActive'
 import DevicesMap from '../../Components/Map/Map-dashboard';
@@ -16,11 +17,14 @@ import Load from '../../Components/Loading/index'
 import api from '../../Components/Connections/api';
 import Combo from '../../Components/SelectDeviceCombo';
 
-
 // import { selectData } from '../../Utils/timeStampToDate'
 
 
 const useStylePC = makeStyles(() => ({
+    vibration: {
+        color: '#F84242',
+        fontSize: 30,
+    },
     router: {
         color: '#0C53B7',
         fontSize: 30,
@@ -44,6 +48,7 @@ export default function Home() {
     const setorDados = useSelector((state) => state.setorState.dadosSetor);
     const devicesData = useSelector((state) => state.devsInfoState.devicesData);
     const [allDevices, setAlldevices] = useState(0);
+    const [allGerenciaAlertas, setAllGerenciaAlertas] = useState(0);
     const [lastSeen, setLastSeen] = useState([]);
     const [appKey, setAppKey] = useState('');
     const [allActiveDevices, setAllActiveDevices] = useState([]);
@@ -111,7 +116,7 @@ export default function Home() {
     return (
 
         <React.Fragment>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight: -30 }}>
+            <div style={{ display: 'flex', /*justifyContent: 'flex-end',*/ marginRight: -30 }}>
                 <Combo />
             </div>
             {data.loadState.statusLoad === true ?
@@ -124,6 +129,15 @@ export default function Home() {
 
                 <div className="containerHome">
                     <div className="divDataDeviceHome">
+                        <div className="dataDevicesHomeAlert">
+                            <div className="squareDataHomeAlert">
+                                <div className='circleIconSVibration'>
+                                    <VibrationIcon className={classesIconPC.vibration}></VibrationIcon>
+                                </div>
+                                <span>{allDevices}</span>
+                                <p>Sensores com Alerta </p>
+                            </div>
+                        </div>
                         <div className="dataDevicesHome">
                             <div className="squareDataHome">
                                 <div className='circleIconSCadatrados'>
@@ -156,18 +170,17 @@ export default function Home() {
 
 
                     </div>
-
-
-                    <div className="divMapHome">
-                        <Paper style={{width: 900}}>
-                            <DevicesMap height={500} />
-                        </Paper>
-                    </div>
-
-                    <div className="listDevicesHome">
-                        <div style={{ height: 400, width: 900 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
-                            <h2>Dispositivos</h2>
-                            <DataGrid autoHeight rows={rows} columns={columns} pageSize={5} /></Paper>
+                    <div className="listMapDevice">
+                        <div className="listDevicesHome">
+                            <div style={{ height: 400, width: 415 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
+                                <h2>Dispositivos</h2>
+                                <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
+                            </div>
+                        </div>
+                        <div className="divMapHome">
+                            <Paper style={{ width:415,height:400 }}>
+                                <DevicesMap height={360} />
+                            </Paper>
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
 .containerHome{
     position: relative;
     width: 100%;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
     margin-bottom: 10px;
     grid-template-columns: 1fr;
     /*grid-template-rows: 1fr;*/
@@ -19,6 +19,17 @@
     /* background-color: red; */
     box-sizing: border-box;
 }
+.listMapDevice{
+  width: 100%;
+  display: flex;
+  margin-top: 10px;
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr;
+  flex-direction: row; 
+  justify-content: space-around;
+  grid-gap: 1rem;
+  gap: 1rem;
+}
 
 .divDataDeviceHome{
     width: 100%;
@@ -26,15 +37,24 @@
     flex-direction: row;
     /* grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr; */
-    gap: 3rem;
+    gap: 1rem;
     border-radius: 10px;
     padding: 10px;
-    justify-content: center;
-    margin: 0px 30px;
+    padding-left: 0px;
+    justify-content: space-around;
+    margin: 0px 0px;
 
     -webkit-box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8); 
     box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8);
     
+}
+.dataDevicesHomeAlert{
+    display: flex;
+    grid-template-columns: 1fr;
+    align-content: center;
+    justify-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
 .dataDevicesHome{
@@ -62,16 +82,44 @@
     margin-top: 2rem;
 }
 
+.squareDataHomeAlert{
+    width: 210px;
+    height: 11rem;
+    background-color: #F4C8C8;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8); 
+    box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8);
+}
+
+.squareDataHomeAlert  p{
+    font-weight: 550;
+    padding: 5px; 
+    color: #F84242;  
+}
+
+.squareDataHomeAlert span{
+    color: #F84242;
+    font-size: 35px;
+}
+
 .squareDataHome{
-    width: 270px;
-    height: 19rem;
+    width: 210px;
+    height: 11rem;
     background-color: #FFF8CD;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    padding: 40px;
+    padding: 20px;
     box-sizing: border-box;
     text-align: center;
 
@@ -90,15 +138,15 @@
     font-size: 35px;
 }
 .squareDataHomeRouter{
-    width: 270px;
-    height: 19rem;
+    width: 210px;
+    height: 11rem;
     background-color: #D0F2FF;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    padding: 39px;
+    padding: 20px;
     box-sizing: border-box;
     text-align: center;
 
@@ -117,15 +165,15 @@
     font-size: 35px;
 }
 .squareDataHomeBattery{
-    width: 270px;
-    height: 19rem;
+    width: 210px;
+    height: 11rem;
     border-radius: 10px;
     background-color: #C9FACE;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    padding: 49px;
+    padding: 20px;
     box-sizing: border-box;
     text-align: center;
 
@@ -146,10 +194,11 @@
 
 .listDevicesHome{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-right: -55px;
+    width: 50%;
+    /*flex-direction: column;*/
+    /*justify-content: center;*/
+    
+    /*margin-right: -55px;*/
     
 }
 
@@ -163,13 +212,12 @@
 }
 
 .divMapHome{
-    display: flex;
-    align-items: center;
+    display: block;
+    width: 50%;
+    /*margin-top: 10px;*/
+    margin-bottom: 10px;
     justify-content: center;
-    margin: 0%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-right: -58px;
+    /*margin-right: -58px;*/
 }
 
 .paperMaterial{
@@ -177,6 +225,12 @@
     border-radius: 10px;
 }
 
+.circleIconSVibration{
+    /* border: 1px solid #000; */
+    border-radius: 50%;
+    padding: 20px;
+    background-image: linear-gradient(135deg, rgba(183, 129, 3, 0) 0%, rgba(231, 55, 55, 0.24) 100%);
+}
 .circleIconSCadatrados{
     /* border: 1px solid #000; */
     border-radius: 50%;
