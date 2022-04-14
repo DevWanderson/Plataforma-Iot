@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSetor } from '../../Reducers/ReduxSetor/SetorActions';
 import {
@@ -28,7 +28,7 @@ export default function GerenciaSetor() {
 
 
     const dispatch = useDispatch();
-    
+
 
     const [nameSetor, setNameSetor] = useState([]);
     const [setorName, setSetorName] = useState([]);
@@ -47,6 +47,7 @@ export default function GerenciaSetor() {
     const closeDelConfirm = () => {
         setDeleteConfirm(false);
     };
+    useEffect(()=> {},[setor])
 
 
     async function handleDeleteDepartament(gerencia) {
@@ -93,8 +94,8 @@ export default function GerenciaSetor() {
             </div>
             {
                 setor && setor.map((gerencia, index) => (
-                    <div className="styleGerencia">
-                        <Typography className="textStyle" key={index}>{gerencia}{index === 0 ? <AllInclusive style={{ fontSize: 35 }} /> : <Button style={{ marginBottom: 6 }} onClick={() => openDelConfirm(gerencia)} variant="outlined" color="secondary"> <Delete /></Button>}</Typography>
+                    <div className="styleGerencia" key={index}>
+                        <Typography className="textStyle" >{gerencia}{index === 0 ? <AllInclusive style={{ fontSize: 35 }} /> : <Button style={{ marginBottom: 6 }} onClick={() => openDelConfirm(gerencia)} variant="outlined" color="secondary"> <Delete /></Button>}</Typography>
                         <Divider />
                     </div>
                 ))
