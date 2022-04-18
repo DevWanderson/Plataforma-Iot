@@ -6,7 +6,12 @@ import {
     TextField,
     Typography,
     Button,
-    Avatar
+    Avatar,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions
 } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { useDispatch } from 'react-redux';
@@ -32,11 +37,26 @@ const ButtonAccess = withStyles(() => ({
 
 function Login() {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('')
-    const { logar } = useContext(AuthContext)
+    const [password, setPassword] = useState('');
+    const [open, setOpen] = useState(false);
+    const { logar, recoverPassword } = useContext(AuthContext)
 
     async function handleLogin() {
         logar(email, password)
+    }
+
+    async function handleResetPass(){
+        recoverPassword(email);
+        setEmail('');
+        setOpen(false);
+    }
+
+    function handleClose() {
+        setOpen(false);
+    }
+
+    function handleOpen() {
+        setOpen(true);
     }
 
 
@@ -63,11 +83,25 @@ function Login() {
 
                     <ButtonAccess style={{ marginBottom: 0 }} onClick={handleLogin}>Acessar</ButtonAccess>
 
-                    <Link to="/cadastro">
+                    <Link to="/cadastro" style={{ textDecoration: 'none' }}>
                         <Typography>Registre-se</Typography>
                     </Link>
+                    <button onClick={handleOpen} className='btnEsqueciAsenha'>
+                        <Typography>Esqueci a senha</Typography>
+                    </button>
                 </div>
             </Paper>
+
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Recuperar senha</DialogTitle>
+                <DialogContent>
+                    <TextField type='email' variant='outlined' label="Digite o e-mail"/>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancelar</Button>
+                    <Button onClick={handleResetPass}>Enviar</Button>
+                </DialogActions>
+            </Dialog>
         </div >
 
     )

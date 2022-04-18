@@ -50,6 +50,17 @@
     /* background-color: aliceblue; */
 }
 
+.btnEsqueciAsenha{
+    background: transparent;
+    border: none;
+    margin-bottom: 5px;
+}
+
+.btnEsqueciAsenha:hover{
+    cursor: pointer;
+    color: #1313;
+}
+
 @media screen and (max-width:700px) {
     .boxLogin{
         width: 80%;
