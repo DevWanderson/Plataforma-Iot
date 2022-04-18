@@ -12,7 +12,7 @@
     grid-template-columns: 1fr;
     /*grid-template-rows: 1fr;*/
     gap: 10px;
-    display: block;
+    display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
@@ -38,8 +38,7 @@
     gap: 1rem;
     border-radius: 10px;
     padding: 10px;
-    padding-left: 0px;
-    justify-content: space-around;
+    justify-content: center;
     margin: 0px 0px;
 
     -webkit-box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8); 
@@ -81,7 +80,7 @@
 }
 
 .squareDataHomeAlert{
-    width: 210px;
+    width: 208px;
     height: 11rem;
     background-color: #F4C8C8;
     border-radius: 10px;
@@ -109,7 +108,7 @@
 }
 
 .squareDataHome{
-    width: 210px;
+    width: 208px;
     height: 11rem;
     background-color: #FFF8CD;
     border-radius: 10px;
@@ -136,7 +135,7 @@
     font-size: 35px;
 }
 .squareDataHomeRouter{
-    width: 210px;
+    width: 208px;
     height: 11rem;
     background-color: #D0F2FF;
     border-radius: 10px;
@@ -163,7 +162,7 @@
     font-size: 35px;
 }
 .squareDataHomeBattery{
-    width: 210px;
+    width: 208px;
     height: 11rem;
     border-radius: 10px;
     background-color: #C9FACE;
@@ -194,7 +193,7 @@
     display: flex;
     width: 100%;
     /*flex-direction: column;*/
-    justify-content: space-around;
+    justify-content:space-evenly;
     
     /*margin-right: -55px;*/
     
@@ -215,7 +214,7 @@
     /*margin-top: 10px;*/
     margin-bottom: 10px;
     padding-top: 100px;
-    justify-content: space-around;
+    justify-content: space-evenly;
     /*margin-right: -58px;*/
 }
 
@@ -249,30 +248,43 @@
     background-image: linear-gradient(135deg, rgba(0, 123, 85, 0) 0%, rgba(0, 123, 85, 0.24) 100%);
 }
 
-
-@media screen and (max-width:1000px) {
-
-    .containerHome{
+@media screen and (max-width:769px){
+    .divDataDeviceHome {
         width: 100%;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-        gap: 20px;
-        justify-items: center;
-    
-        /* background-color: red; */
-        box-sizing: border-box;
-    }
-
-    .divDevicesHome{
+        display: grid;
+        flex-direction: row;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+        gap: 1rem;
+        border-radius: 10px;
         padding: 10px;
+        justify-content: center;
+        margin: 0px 0px;
+        box-shadow: 0px 0px 0px 0px rgb(43 43 43 / 80%);
     }
-
+    .squareDataHomeAlert {
+        width: 90%;
+    }
+    .squareDataHome {
+        width: 90%;
+    }
+    .squareDataHomeRouter {
+        width: 90%;
+    }
+    .squareDataHomeBattery {
+        width: 90%;
+    }
     .divMapHome{
-        width: 100%;
+        display: flex;
+        width: 90%;
     }
-    
 }
-@media screen and (max-width:768px){
+
+@media screen and (max-width:480px){
+    .divMapHome{
+        display: flex;
+        width: 80%;
+    }
     .containerHome{
         position: relative;
         width: 100%;
@@ -334,7 +346,7 @@
     }
     
     .squareDataHome{
-        width: 400px;
+        width: 80%;
         height: 15rem;
         background-color: #FFF8CD;
         border-radius: 10px;
@@ -361,7 +373,7 @@
         font-size: 35px;
     }
     .squareDataHomeAlert{
-        width: 400px;
+        width: 80%;
         height: 15rem;
         background-color: #F4C8C8;
         border-radius: 10px;
@@ -388,7 +400,7 @@
         font-size: 35px;
     }
     .squareDataHomeRouter{
-        width: 400px;
+        width: 80%;
         height: 15rem;
         background-color: #D0F2FF;
         border-radius: 10px;
@@ -415,14 +427,14 @@
         font-size: 35px;
     }
     .squareDataHomeBattery{
-        width: 400px;
+        width: 80%;
         height: 15rem;
         border-radius: 10px;
         background-color: #C9FACE;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: center;
         padding: 49px;
         box-sizing: border-box;
         text-align: center;
@@ -440,38 +452,6 @@
     .squareDataHomeBattery span{
         color: #0F7B55;
         font-size: 35px;
-    }
-    
-    .listDevicesHome{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        padding:20px;
-    }
-    
-    .listDevicesHome > h2{
-        align-self: flex-start;
-        color: #000;
-        padding: 10px;
-        border-radius: 10px;
-        -webkit-box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8); 
-        box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8);
-    }
-    
-    .divMapHome{
-        width: 49%;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        border-radius: 10px;
-        padding: 20px;
-    
-        /* background-color: #43E255; */
-        -webkit-box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8); 
-        box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8);
     }
     
     .paperMaterial{
