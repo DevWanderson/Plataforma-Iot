@@ -178,8 +178,8 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="divMapHome">
-                            <Paper style={{ width:830,height:400 }}>
-                                <DevicesMap height={360} />
+                            <Paper style={{ width:830,height:300 }}>
+                                <DevicesMap height={260} />
                             </Paper>
                         </div>
                     
