@@ -165,6 +165,7 @@ function AuthProvider({ children }) {
                     key: uid,
                     user: name
                 }
+                value.user.sendEmailVerification();
                 api.post('/user', { key: userInfo.key, user: userInfo.user })// Cadastro mongo
                     .then((res) => {
                         alert(`Eviado : ${res.data}`)
@@ -188,7 +189,8 @@ function AuthProvider({ children }) {
                         }
                         setUser(data)
                         storageUser(data)
-                        ////
+                        ////Confirmação de e-mail
+
                         
 
                         window.location.replace('/home')
