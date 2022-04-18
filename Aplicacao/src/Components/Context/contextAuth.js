@@ -141,6 +141,21 @@ function AuthProvider({ children }) {
         window.location.replace('/login')
     }
 
+    //Recuperar senha 
+    async function recoverPassword(email){
+        await firebase.auth().sendPasswordResetEmail(email)
+        .then(() =>{
+            alert(`Verifique sua caixa de e-mail`)
+        })
+        .catch((err) =>{
+            var errorCode = err.code;
+            var errorMessage = err.message;
+            console.log(errorCode)
+            console.log(errorMessage)
+
+        })
+    }
+
     //cadastrar usuario no firebase
     async function cadastro(email, password, name, enterprise, lastName) {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -199,7 +214,7 @@ function AuthProvider({ children }) {
             })
     }
     return (
-        <AuthContext.Provider value={{ signed: !!user, user, cadastro, logar, signOut, loadind }}>
+        <AuthContext.Provider value={{ signed: !!user, user, cadastro, logar, signOut, recoverPassword, loadind }}>
             {children}
         </AuthContext.Provider>
     )
