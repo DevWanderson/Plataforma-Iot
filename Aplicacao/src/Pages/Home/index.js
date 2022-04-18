@@ -170,19 +170,19 @@ export default function Home() {
 
 
                     </div>
-                    <div className="listMapDevice">
+                    
                         <div className="listDevicesHome">
-                            <div style={{ height: 400, width: 415 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
+                            <div style={{ height: 300, width: 830 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
                                 <h2>Dispositivos</h2>
                                 <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
                             </div>
                         </div>
                         <div className="divMapHome">
-                            <Paper style={{ width:415,height:400 }}>
+                            <Paper style={{ width:830,height:400 }}>
                                 <DevicesMap height={360} />
                             </Paper>
                         </div>
-                    </div>
+                    
                 </div>
             }
 

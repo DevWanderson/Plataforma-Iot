@@ -23,12 +23,10 @@
   width: 100%;
   display: flex;
   margin-top: 10px;
-  grid-template-columns: 1fr 1fr; 
-  grid-template-rows: 1fr;
-  flex-direction: row; 
+  grid-template-columns: 1fr; 
   justify-content: space-around;
-  grid-gap: 1rem;
-  gap: 1rem;
+  /*grid-gap: 1rem;
+  gap: 1rem;*/
 }
 
 .divDataDeviceHome{
@@ -194,9 +192,9 @@
 
 .listDevicesHome{
     display: flex;
-    width: 50%;
+    width: 100%;
     /*flex-direction: column;*/
-    /*justify-content: center;*/
+    justify-content: center;
     
     /*margin-right: -55px;*/
     
@@ -212,11 +210,11 @@
 }
 
 .divMapHome{
-    display: block;
-    width: 50%;
+    display: flex;
+    width: 100%;
     /*margin-top: 10px;*/
     margin-bottom: 10px;
-    justify-content: center;
+    justify-content: space-around;
     /*margin-right: -58px;*/
 }
 
@@ -309,6 +307,14 @@
         gap: 2rem;
         margin-top: 2rem;
     }
+    .dataDevicesHomeAlert{
+        display: flex;
+        grid-template-columns: 1fr;
+        align-content: center;
+        justify-items: center;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
     .dataDevicesHomeRouter{
         display: flex;
         grid-template-columns: 1fr;
@@ -330,6 +336,33 @@
         width: 400px;
         height: 15rem;
         background-color: #FFF8CD;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 40px;
+        box-sizing: border-box;
+        text-align: center;
+    
+        -webkit-box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8); 
+        box-shadow: 0px 0px 0px 0px rgba(43,43,43,0.8);
+    }
+    
+    .squareDataHomeAlert  p{
+        font-weight: 550;
+        padding: 5px; 
+        color: #F84242;  
+    }
+    
+    .squareDataHomeAlert span{
+        color: #F84242;
+        font-size: 35px;
+    }
+    .squareDataHomeAlert{
+        width: 400px;
+        height: 15rem;
+        background-color: #F4C8C8;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
