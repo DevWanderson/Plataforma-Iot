@@ -16,6 +16,7 @@ import DevicesMap from '../../Components/Map/Map-dashboard';
 import Load from '../../Components/Loading/index'
 import api from '../../Components/Connections/api';
 import Combo from '../../Components/SelectDeviceCombo';
+import { Chart } from 'react-google-charts';
 
 // import { selectData } from '../../Utils/timeStampToDate'
 
@@ -52,6 +53,7 @@ export default function Home() {
     const [lastSeen, setLastSeen] = useState([]);
     const [appKey, setAppKey] = useState('');
     const [allActiveDevices, setAllActiveDevices] = useState([]);
+    const [dash, setDash] = useState([]);
     const classesIconPC = useStylePC();
     const userUID = JSON.parse(localStorage.getItem('Auth_user'))
     let user = userUID ? userUID.uid : null
@@ -80,7 +82,13 @@ export default function Home() {
         setAllActiveDevices(devsWithDataUntil24hs.length);
 
     }, [data])
-
+    async function dataDash(){
+        await api.get(`/dash_percent?login=${user}`)
+            .then((res)=> {
+                setDash(res.data)
+            })
+        .catch ((error)=>{console.log(error)})
+    }
     async function selectKey() {
         await api.get(`/user?login=${user}`)
             .then((res) => {
@@ -90,8 +98,9 @@ export default function Home() {
     useEffect(() => {
         console.log("chamando req...")
         // selectData();
-        selectKey()
-        const totalAlert = alertasGerencia.map(contador=>{return contador.length})
+        selectKey();
+        dataDash() 
+        console.log(dash)
     }, [])
 
 
@@ -116,7 +125,7 @@ export default function Home() {
     return (
 
         <React.Fragment>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight: 0  }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight: 0 }}>
                 <Combo />
             </div>
             {data.loadState.statusLoad === true ?
@@ -170,26 +179,33 @@ export default function Home() {
 
 
                     </div>
-                        <div className="divMapGraf">
-                            <div className="divMapHome">
-                                <Paper style={{ width:420,height:400 }}>
-                                    <DevicesMap height={360} />
-                                </Paper>
-                            </div>
-                            <div className="divMapHome">
-                                <Paper style={{ width:420,height:400 }}>
+                    <div className="divMapGraf">
+                        <div className="divMapHome">
+                            <Paper style={{ width: 420, height: 400 }}>
                                 <DevicesMap height={360} />
-                                </Paper>
-                            </div>
+                            </Paper>
                         </div>
-                        <div className="listDevicesHome">
-                            <div style={{ height: 300, width: 890 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
-                                <h2>Dispositivos</h2>
-                                <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
-                            </div>
+                        <div className="divGraf">
+                            <Paper style={{ width: 420, height: 400 }}>
+                                <Chart
+                                    options={{title: "Leitura dos Dispositivos"}}
+                                    chartType="PieChart"
+                                    data={dash[0]}
+                                    width="100%"
+                                    height="400px"
+                                    legendToggle
+                                />
+                            </Paper>
                         </div>
-                          
-                    
+                    </div>
+                    <div className="listDevicesHome">
+                        <div style={{ height: 300, width: 890 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
+                            <h2>Dispositivos</h2>
+                            <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
+                        </div>
+                    </div>
+
+
                 </div>
             }
 
