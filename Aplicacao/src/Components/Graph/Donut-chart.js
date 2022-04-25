@@ -1,8 +1,3 @@
-/*
-    Autor: Daniel Pinheiro
-    https://github.com/Daniel-Pinheiro
- */
-
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { getpropsDevice } from '../../Utils/functions'

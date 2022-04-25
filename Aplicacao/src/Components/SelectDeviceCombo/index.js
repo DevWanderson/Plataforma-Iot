@@ -4,6 +4,7 @@ import api from '../../Components/Connections/api'
 import { updateDevicesList } from '../../Utils/stateControllers'
 import { selecionarDevice, atualizarDevices, dadosDevice } from '../../Reducers/ReduxDevices/DeviceActions';
 import { setor, dadosSetor } from '../../Reducers/ReduxSetor/SetorActions';
+import { alertasGeral } from '../../Reducers/ReduxGerenciamentoAlerts/AlertGeActions';
 import { dadosType } from '../../Reducers/ReduxTypes/TypeActions';
 import { statusLoad } from '../../Reducers/ReduxLoad/LoadActions';
 import { setDevice } from '../../Utils/stateControllers';
@@ -28,10 +29,12 @@ export default function Combo({ props }) {
 
     useEffect(() => {
         handleDevices()
+        handleAlerts()
         selectData()
         selectDeviveTypes()
         selectSetor()
         selectDataSetor()
+        
     }, [selectedDevice, selectedSetor])
 
     useEffect(() => {
@@ -51,7 +54,17 @@ export default function Combo({ props }) {
 
     }, [devices, setorDados])
 
+    async function handleAlerts() {
+        await api.get(`alerts?login=${user}`)
+            .then((res) => {
+                dispatch(alertasGeral(res.data))
+                //setAlertas(res.data);
 
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
     async function handleDevices() {
         await api.get(`devices?login=${user}`)
             .then((res) => {

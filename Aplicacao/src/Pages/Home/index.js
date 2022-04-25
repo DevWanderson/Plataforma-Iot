@@ -45,10 +45,10 @@ const useStylePC = makeStyles(() => ({
 
 export default function Home() {
     const data = useSelector(state => state)
+    const alertasGerencia = useSelector((state) => state.alertasState.alertasGeral);
     const setorDados = useSelector((state) => state.setorState.dadosSetor);
     const devicesData = useSelector((state) => state.devsInfoState.devicesData);
     const [allDevices, setAlldevices] = useState(0);
-    const [allGerenciaAlertas, setAllGerenciaAlertas] = useState(0);
     const [lastSeen, setLastSeen] = useState([]);
     const [appKey, setAppKey] = useState('');
     const [allActiveDevices, setAllActiveDevices] = useState([]);
@@ -73,7 +73,6 @@ export default function Home() {
             })
         );
         setAllActiveDevices(setorDados.filter(device => device.status != 0));
-
         const secs24hs = lastTsBeforeOf(24)
         const devsWithDataUntil24hs = setorDados.filter(data => (devicesData[data.device].length > 0
             && devicesData[data.device][0].ts >= secs24hs
@@ -92,6 +91,7 @@ export default function Home() {
         console.log("chamando req...")
         // selectData();
         selectKey()
+        const totalAlert = alertasGerencia.map(contador=>{return contador.length})
     }, [])
 
 
@@ -116,7 +116,7 @@ export default function Home() {
     return (
 
         <React.Fragment>
-            <div style={{ display: 'flex', /*justifyContent: 'flex-end',*/ marginRight: -30 }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight: 0  }}>
                 <Combo />
             </div>
             {data.loadState.statusLoad === true ?
@@ -134,8 +134,8 @@ export default function Home() {
                                 <div className='circleIconSVibration'>
                                     <VibrationIcon className={classesIconPC.vibration}></VibrationIcon>
                                 </div>
-                                <span>{allDevices}</span>
-                                <p>Sensores com Alerta </p>
+                                <span>{alertasGerencia.length}</span>
+                                <p>Total de alertas </p>
                             </div>
                         </div>
                         <div className="dataDevicesHome">
@@ -170,18 +170,25 @@ export default function Home() {
 
 
                     </div>
-                    
+                        <div className="divMapGraf">
+                            <div className="divMapHome">
+                                <Paper style={{ width:420,height:400 }}>
+                                    <DevicesMap height={360} />
+                                </Paper>
+                            </div>
+                            <div className="divMapHome">
+                                <Paper style={{ width:420,height:400 }}>
+                                <DevicesMap height={360} />
+                                </Paper>
+                            </div>
+                        </div>
                         <div className="listDevicesHome">
                             <div style={{ height: 300, width: 890 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
                                 <h2>Dispositivos</h2>
                                 <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
                             </div>
                         </div>
-                        <div className="divMapHome">
-                            <Paper style={{ width:890,height:400 }}>
-                                <DevicesMap height={360} />
-                            </Paper>
-                        </div>
+                          
                     
                 </div>
             }

@@ -29,6 +29,20 @@
   gap: 1rem;*/
 }
 
+.divMapGraf{
+    width: 100%;
+        display: grid;
+        flex-direction: row;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 0;
+        gap: 0;
+        border-radius: 10px;
+        padding: 10px;
+        justify-content: inherit;
+        margin: 0px 0px;
+        box-shadow: 0px 0px 0px 0px rgb(43 43 43 / 80%);
+}
+
 .divDataDeviceHome{
     width: 100%;
     display: flex;
@@ -213,8 +227,8 @@
     width: 100%;
     /*margin-top: 10px;*/
     margin-bottom: 10px;
-    padding-top: 100px;
-    justify-content: space-evenly;
+    padding-top: 10px;
+    justify-content: center;
     /*margin-right: -58px;*/
 }
 
@@ -276,14 +290,14 @@
     }
     .divMapHome{
         display: flex;
-        width: 90%;
+        width: 100%;
     }
 }
 
 @media screen and (max-width:480px){
     .divMapHome{
         display: flex;
-        width: 80%;
+        width: 100%;
     }
     .containerHome{
         position: relative;
@@ -298,9 +312,10 @@
     }
     .divDataDeviceHome{
         width: 100%;
-        display: block;
-        /*grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr;*/
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        flex-direction: row;
+        /*grid-template-rows: 1fr;*/
         /*gap: 1rem;*/
         border-radius: 10px;
         padding: 10px;
@@ -346,7 +361,7 @@
     }
     
     .squareDataHome{
-        width: 80%;
+        width: 95%;
         height: 15rem;
         background-color: #FFF8CD;
         border-radius: 10px;
@@ -373,7 +388,7 @@
         font-size: 35px;
     }
     .squareDataHomeAlert{
-        width: 80%;
+        width: 95%;
         height: 15rem;
         background-color: #F4C8C8;
         border-radius: 10px;
@@ -400,7 +415,7 @@
         font-size: 35px;
     }
     .squareDataHomeRouter{
-        width: 80%;
+        width: 95%;
         height: 15rem;
         background-color: #D0F2FF;
         border-radius: 10px;
@@ -427,7 +442,7 @@
         font-size: 35px;
     }
     .squareDataHomeBattery{
-        width: 80%;
+        width: 95%;
         height: 15rem;
         border-radius: 10px;
         background-color: #C9FACE;

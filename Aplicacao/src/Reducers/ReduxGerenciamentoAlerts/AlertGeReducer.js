@@ -1,7 +1,8 @@
-import { ALERTAS } from './AlertGeActions';
+import { ALERTAS, ALERTAS_GERAL } from './AlertGeActions';
 
 const initialState = {
-    alertas:[]
+    alertas:[], 
+    alertasGeral:[]
 }
 
 export default (state = initialState, {type, payload}) => {
@@ -10,6 +11,11 @@ export default (state = initialState, {type, payload}) => {
             return{
                 ...state,
                 alertas: payload
+            }
+        case ALERTAS_GERAL:
+            return{
+                ...state,
+                alertasGeral: payload
             }
         default:
             return state

@@ -1,8 +1,3 @@
-/*
-    Autor: Daniel Pinheiro
-    https://github.com/Daniel-Pinheiro
- */
-
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
