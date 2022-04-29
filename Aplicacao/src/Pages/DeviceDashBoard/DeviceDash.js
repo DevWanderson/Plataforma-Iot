@@ -14,7 +14,7 @@ import SingleMap from '../../Components/Map/Map-telemetry';
 import Graph from '../../Components/Graph/Figure';
 import Load from '../../Components/Loading/index';
 import { Paper } from '@material-ui/core';
-import Combo from '../../Components/SelectDeviceCombo';
+import ReqData from '../../Components/ReqData';
 
 
 
@@ -149,7 +149,7 @@ export default function DeviceDash(props) {
         <div className='containerDeviceDash'>
 
             <div className='searchDeviceDash'>
-                <Combo />
+                <ReqData />
                 <SearchDevice />
             </div>
 

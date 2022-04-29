@@ -2,8 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../../Store'
-import PathBar from '../../Components/PathBar';
-import Combo from '../../Components/SelectDeviceCombo';
+import ReqData from '../../Components/ReqData';
 
 
 import Home from '../Home/index';
@@ -27,7 +26,7 @@ import DrawerHeader from '../../Components/DrawerHeader';
 export default function Router() {
     return (
         <Provider store={store}>
-            {/* <Combo /> */}
+            {/* <ReqData /> */}
             <Switch>
                 <Route path="/home" exact component={Home} />
                 <Route path="/dispositivos-cadastrados/cadastroEverynet/cadastroTipo" component={CadastroTipo} />

@@ -12,7 +12,7 @@ import { atualizarDevices } from '../../Reducers/ReduxDevices/DeviceActions'
 import { selecionarDevice } from '../../Reducers/ReduxDevices/DeviceActions';
 import ModalConexoes from '../../Components/ModalConexoes/ModalConexoes';
 import Load from '../../Components/Loading';
-import Combo from '../../Components/SelectDeviceCombo';
+import ReqData from '../../Components/ReqData';
 import {
     Container,
     Card,
@@ -359,7 +359,7 @@ export default function Dispositivos() {
     return (
         <React.Fragment>
             <div style={{display:'flex', justifyContent:'flex-end', marginRight:-50}}>
-                <Combo/>
+                <ReqData/>
             </div>
             {req ?
                 <Load />

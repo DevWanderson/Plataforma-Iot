@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SearchForm from '../../Components/SelectDeviceCombo/search-form'
+import SearchForm from '../../Components/ReqData/search-form'
 import SingleMap from '../../Components/Map/Map-telemetry';
 
 export default function Mapa() {

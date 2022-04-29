@@ -22,7 +22,7 @@ import {
 } from '@material-ui/core'
 import TimeSeries from '../../Components/Graph/Time-series';
 import DonutChart from '../../Components/Graph/Donut-chart';
-import SearchForm from '../../Components/SelectDeviceCombo/search-form'
+import SearchForm from '../../Components/ReqData/search-form'
 import {getDate, getpropsDevice, getlatitude, getlongitude} from '../../Utils/functions'
 
 //Arley Souto -->

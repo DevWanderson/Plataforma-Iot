@@ -15,7 +15,7 @@ import NotificationsActive from '@material-ui/icons/NotificationsActive'
 import DevicesMap from '../../Components/Map/Map-dashboard';
 import Load from '../../Components/Loading/index'
 import api from '../../Components/Connections/api';
-import Combo from '../../Components/SelectDeviceCombo';
+import ReqData from '../../Components/ReqData';
 import { Chart } from 'react-google-charts';
 
 // import { selectData } from '../../Utils/timeStampToDate'
@@ -132,7 +132,7 @@ export default function Home() {
 
         <React.Fragment>
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight: 0 }}>
-                <Combo />
+                <ReqData />
             </div>
             {data.loadState.statusLoad === true ?
 

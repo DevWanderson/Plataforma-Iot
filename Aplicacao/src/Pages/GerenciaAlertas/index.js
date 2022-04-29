@@ -25,7 +25,7 @@ import {
 } from '@material-ui/core';
 import './styles.css';
 import { Delete, Add } from '@material-ui/icons';
-import Combo from '../../Components/SelectDeviceCombo';
+import ReqData from '../../Components/ReqData';
 
 export default function GerenciaAlertas() {
     const userUID = JSON.parse(localStorage.getItem('Auth_user')).uid
@@ -83,21 +83,6 @@ export default function GerenciaAlertas() {
     }, [disp, nome, selectedSetor, alertasGerencia])
 
 
-
-
-
-
-    function sinais(alerta) {
-        if (alerta === 'gt') {
-            console.log('aqui maior')
-
-        }
-        if (alerta === 'lt') {
-            console.log('aqui menor')
-
-        }
-    }
-
     async function handleDelete(device, name) {
         await api.delete(`alerts?login=${userUID}&dev_eui=${disp}&name=${nome}`)
             .then((res) => {
@@ -128,7 +113,7 @@ export default function GerenciaAlertas() {
     return (
         <Container fluid >
             <div style={{display:'flex', justifyContent:'flex-end', marginRight:-60}}>
-                <Combo />
+                <ReqData />
             </div>
             <InfoTelegram />
             <div className='btnAddNewAlert'>
