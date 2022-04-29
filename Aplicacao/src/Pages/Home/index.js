@@ -194,8 +194,8 @@ export default function Home() {
                                     options={{pieHole: 0.4}}
                                     chartType="PieChart"
                                     data={dash}
-                                    width="100%"
-                                    height="400px"
+                                    width={450}
+                                    height={350}
                                     legendToggle
                                 />
                             </Paper>

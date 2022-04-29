@@ -229,6 +229,14 @@
     justify-content: end;
     /*margin-right: -58px;*/
 }
+.divGraf{
+    display: flex;
+    width: 100%;
+    /*margin-top: 10px;*/
+    margin-bottom: 10px;
+    justify-content: start;
+    /*margin-right: -58px;*/
+}
 
 .paperMaterial{
     padding: 10px;
