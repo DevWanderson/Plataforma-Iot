@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../../Store'
-import Header from '../../Components/Header'
 import PathBar from '../../Components/PathBar';
 import Combo from '../../Components/SelectDeviceCombo';
 
@@ -28,7 +27,6 @@ import DrawerHeader from '../../Components/DrawerHeader';
 export default function Router() {
     return (
         <Provider store={store}>
-            {/* <Header /> */}
             {/* <Combo /> */}
             <Switch>
                 <Route path="/home" exact component={Home} />
