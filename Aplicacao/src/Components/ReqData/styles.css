@@ -1,0 +1,30 @@
+.menuCard{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 0px 10px;
+    
+    
+}
+
+.menuCard .card{
+    background-image: linear-gradient(to right, #24A681, #24A645 );
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
+
+}
+
+.cardBody{
+    text-align: center;
+    color: #FFF;
+    margin: 0px 0px;
+    
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
+}
+
+.icons{
+    margin: 1px 19px; 
+    
+}
+
