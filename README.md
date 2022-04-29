@@ -12,23 +12,23 @@ Colete e visualize os dados do seu dispositivo IoT seguindo o [guia do usuário]
 
 ## Funcionalidades da Plataforma
 
-[**Dashboard:**](https://iotibti.ddns.net/home) Visão geral dos dispositivos.
-<img src="https://github.com/IBTI-DF/Plataforma-Iot/blob/main/Aplicacao/src/assets/github_assets/dashboard.gif?raw=true"> 
+[**Dashboard:**](https://iotibti.ddns.net/home)
+<img src="https://github.com/IBTI-DF/Plataforma-Iot/blob/main/Aplicacao/src/assets/github_assets/dashboard.png"> 
 
-[**Dispositivos:**](https://iotibti.ddns.net/dispositivos-cadastrados) EDITAR
-<img src="https://github.com/IBTI-DF/Plataforma-Iot/blob/main/Aplicacao/src/assets/github_assets/dashboard.gif?raw=true"> 
+[**Dispositivos:**](https://iotibti.ddns.net/dispositivos-cadastrados)
+<img src="https://github.com/IBTI-DF/Plataforma-Iot/blob/main/Aplicacao/src/assets/github_assets/dispositivos.png"> 
 
-[**Telemetria:**](https://iotibti.ddns.net/dados-do-dispositivo) EDITAR
-<img src="https://github.com/IBTI-DF/Plataforma-Iot/blob/main/Aplicacao/src/assets/github_assets/dashboard.gif?raw=true"> 
+[**Telemetria:**](https://iotibti.ddns.net/dados-do-dispositivo)
+<img src="https://github.com/IBTI-DF/Plataforma-Iot/blob/main/Aplicacao/src/assets/github_assets/telemetria.png"> 
 
-[**Analytics:**](https://iotibti.ddns.net/analytics) Visualize todos os dados dos  dispositivos em um único lugar!
-<img src="https://github.com/IBTI-DF/Plataforma-Iot/blob/main/Aplicacao/src/assets/github_assets/analise.gif?raw=true"> 
+[**Analytics:**](https://iotibti.ddns.net/analytics)
+<img src="https://github.com/IBTI-DF/Plataforma-Iot/blob/main/Aplicacao/src/assets/github_assets/analytics.png"> 
 
-[**Gerenciamento de Setores:**](https://iotibti.ddns.net/gerenciamento-setor) EDITAR
-<img src="https://github.com/IBTI-DF/Plataforma-Iot/blob/main/Aplicacao/src/assets/github_assets/dashboard.gif?raw=true">
+[**Gerenciamento de Setores:**](https://iotibti.ddns.net/gerenciamento-setor)
+<img src="https://github.com/IBTI-DF/Plataforma-Iot/blob/main/Aplicacao/src/assets/github_assets/setor.png">
  
-[**Gerenciamento de Alertas:**](https://iotibti.ddns.net/gerenciamento-de-alertas) EDITAR
-<img src="https://github.com/IBTI-DF/Plataforma-Iot/blob/main/Aplicacao/src/assets/github_assets/dashboard.gif?raw=true"> 
+[**Gerenciamento de Alertas:**](https://iotibti.ddns.net/gerenciamento-de-alertas) 
+<img src="https://github.com/IBTI-DF/Plataforma-Iot/blob/main/Aplicacao/src/assets/github_assets/alertas.png"> 
 
 ## Suporte
 
