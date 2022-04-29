@@ -60,7 +60,9 @@ export default function Home() {
 
 
 
+
     useEffect(() => {
+
         setAlldevices(setorDados.length);
         setLastSeen(
             setorDados.map(last => {
@@ -82,12 +84,13 @@ export default function Home() {
         setAllActiveDevices(devsWithDataUntil24hs.length);
 
     }, [data])
-    async function dataDash(){
-        await api.get(`/dash_percent?login=${user}`)
-            .then((res)=> {
+
+    async function dataDash() {
+        await api.get(`/dash_percent_array?login=${user}`)
+            .then((res) => {
                 setDash(res.data)
             })
-        .catch ((error)=>{console.log(error)})
+            .catch((error) => { console.log(error) })
     }
     async function selectKey() {
         await api.get(`/user?login=${user}`)
@@ -99,9 +102,10 @@ export default function Home() {
         console.log("chamando req...")
         // selectData();
         selectKey();
-        dataDash() 
+        dataDash()
         console.log(dash)
     }, [])
+
 
 
     const columns = [
@@ -121,6 +125,8 @@ export default function Home() {
             })
 
     })
+
+
 
     return (
 
@@ -188,14 +194,15 @@ export default function Home() {
                         <div className="divGraf">
                             <Paper style={{ width: 420, height: 400 }}>
                                 <Chart
-                                    options={{title: "Leitura dos Dispositivos"}}
+                                    options={{ title: "Leitura dos Dispositivos" }}
                                     chartType="PieChart"
-                                    data={dash[0]}
+                                    data={dash}
                                     width="100%"
                                     height="400px"
                                     legendToggle
                                 />
                             </Paper>
+
                         </div>
                     </div>
                     <div className="listDevicesHome">
