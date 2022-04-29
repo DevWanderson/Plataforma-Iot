@@ -137,11 +137,7 @@ export default function Home() {
             {data.loadState.statusLoad === true ?
 
                 <Load />
-
-
                 :
-
-
                 <div className="containerHome">
                     <div className="divDataDeviceHome">
                         <div className="dataDevicesHomeAlert">
@@ -211,8 +207,6 @@ export default function Home() {
                             <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
                         </div>
                     </div>
-
-
                 </div>
             }
 
