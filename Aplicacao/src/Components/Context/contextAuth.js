@@ -68,15 +68,9 @@ function AuthProvider({ children }) {
                         api.get(`/user?login=${uid}`)
                             .then((res) => {
                                 setUser(res.data)
-                                // dispatch(userLogado(res.data))
-                                //alert(res.data)
                             })
                             .catch((error) => {
-                                /* switch(err.code){
-                                    case 'auth/insufficient-permission':
-                                        alert('Erro de senha')
-                                } */
-                                //alert(`Erro${err}`)
+                                
                                 console.log(error)
                             })
 
@@ -91,15 +85,12 @@ function AuthProvider({ children }) {
                 switch (error.code) {
                     case 'auth/wrong-password':
                         alert('senha invalida')
-                        //<ErroSnack vertical="top" horizontal="right" openSnack={openSnack} descriptionErro="Senha invalida" />
                         break
-
                     case 'auth/user-not-found':
                         alert('Email não cadastrado')
                         break
                     case 'auth/too-many-requests':
                         alert('Senha ou email digitado errado')
-                        //<ErroSnack vertical="top" horizontal="right" openSnack={openSnack}  descriptionErro="Senha ou e-mail incorretos"/>
                         break
                     case 'auth/app-deleted':
                         alert('Conta deleta ou desativada')
@@ -190,9 +181,6 @@ function AuthProvider({ children }) {
                         setUser(data)
                         storageUser(data)
                         ////Confirmação de e-mail
-
-                        
-
                         window.location.replace('/home')
                     })
                     .catch((error) => {
