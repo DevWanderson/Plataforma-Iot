@@ -184,13 +184,14 @@ export default function Home() {
                     <div className="divMapGraf">
                         <div className="divMapHome">
                             <Paper style={{ width: 470, height: 400 }}>
-                                <DevicesMap height={400} />
+                                <DevicesMap height={370} />
                             </Paper>
                         </div>
                         <div className="divGraf">
                             <Paper style={{ width: 470, height: 400, borderRadius: 10 }}>
+                                <h2 style={{paddingLeft:10, paddingTop:15}}>Leitura dos Dispositivos</h2>
                                 <Chart
-                                    options={{ title: "Leitura dos Dispositivos" }}
+                                    options={{pieHole: 0.4}}
                                     chartType="PieChart"
                                     data={dash}
                                     width="100%"
@@ -202,7 +203,7 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="listDevicesHome">
-                        <div style={{ height: 300, width: 900 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
+                        <div style={{ height: 300, width: 1000 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
                             <h2>Dispositivos</h2>
                             <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
                         </div>
