@@ -133,7 +133,6 @@ export default function Combo({ props }) {
         <div style={{width: 230}} id='setor'>
             {
                 location.pathname === "/analytics" ||
-                    location.pathname === "/gerenciamento-setor" ||
                     location.pathname === "/alertas" ? ''
                     : <Setor />
             }

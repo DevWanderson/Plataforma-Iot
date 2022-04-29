@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectSetor } from '../../Reducers/ReduxSetor/SetorActions';
+import { selectSetor, setor } from '../../Reducers/ReduxSetor/SetorActions';
 import {
     Button,
     Dialog,
@@ -20,11 +20,11 @@ import './styles.css'
 
 
 export default function GerenciaSetor() {
-    const selectedSetor = useSelector((state) => state.setorState.selectSetor)
-    const setor = useSelector((state) => state.setorState.setor)
+    //const selectedSetor = useSelector((state) => state.setorState.selectSetor)
+    const setorRedux = useSelector((state) => state.setorState.setor)
     const device = useSelector((state) => state.deviceState.selectedDevice)
     const userL = useSelector((state) => state.userState.userLogado)
-    //var user = userL ? userL.uid : null
+    var user = userL ? userL.uid : null
 
 
     const dispatch = useDispatch();
@@ -38,24 +38,32 @@ export default function GerenciaSetor() {
     const openDelConfirm = (gerencia) => {
         setDeleteConfirm(true);
         setSetorName(gerencia)
-
-
-
-
     };
 
     const closeDelConfirm = () => {
         setDeleteConfirm(false);
     };
-    useEffect(()=> {},[setor])
+    useEffect(()=> {
+        getSetor()
+    },[setorRedux])
+
+    async function getSetor() {
+        await api.get(`departments?login=${user}`)
+            .then((res) => {
+                dispatch(setor(res.data))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
 
     async function handleDeleteDepartament(gerencia) {
 
-        await api.delete(`departments?login=${userL.uid}&name=${setorName}`)
+        await api.delete(`departments?login=${user}&name=${setorName}`)
             .then((res) => {
-                let newListSetor = setor.filter(item => item.gerencia !== gerencia)
-                dispatch(selectSetor(newListSetor))
+                let newListSetor = setorRedux.filter(item => item.gerencia !== gerencia)
+                dispatch(setor(newListSetor))
                 closeDelConfirm()
                 //alert(`Setor ${res.data} com sucesso`)
             })
@@ -72,10 +80,10 @@ export default function GerenciaSetor() {
                 name: nameSetor,
                 dev_eui: device
             }
-            await api.post(`new_department?login=${userL.uid}`, data)
+            await api.post(`new_department?login=${user}`, data)
                 .then((res) => {
-                    let newListAdd = setor.filter(item => item.data !== data)
-                    dispatch(selectSetor(newListAdd))
+                    let newListAdd = setorRedux.filter(item => item.data !== data)
+                    dispatch(setor(newListAdd))
                     setNameSetor('')
                     console.log(`Eviado com sucesso`)
 
@@ -93,7 +101,7 @@ export default function GerenciaSetor() {
                 <button className='btnSetor' onClick={handleAddSetor} variant="outlined" color="primary"><Add />Cadastrar Setor</button>
             </div>
             {
-                setor && setor.map((gerencia, index) => (
+                setorRedux && setorRedux.map((gerencia, index) => (
                     <div className="styleGerencia" key={index}>
                         <Typography className="textStyle" >{gerencia}{index === 0 ? <AllInclusive style={{ fontSize: 35 }} /> : <Button style={{ marginBottom: 6 }} onClick={() => openDelConfirm(gerencia)} variant="outlined" color="secondary"> <Delete /></Button>}</Typography>
                         <Divider />
