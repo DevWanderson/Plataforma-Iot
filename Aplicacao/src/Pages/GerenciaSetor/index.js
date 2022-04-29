@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectSetor, setor } from '../../Reducers/ReduxSetor/SetorActions';
+import { setor } from '../../Reducers/ReduxSetor/SetorActions';
 import {
     Button,
     Dialog,
@@ -20,7 +20,6 @@ import './styles.css'
 
 
 export default function GerenciaSetor() {
-    //const selectedSetor = useSelector((state) => state.setorState.selectSetor)
     const setorRedux = useSelector((state) => state.setorState.setor)
     const device = useSelector((state) => state.deviceState.selectedDevice)
     const userL = useSelector((state) => state.userState.userLogado)
@@ -43,9 +42,9 @@ export default function GerenciaSetor() {
     const closeDelConfirm = () => {
         setDeleteConfirm(false);
     };
-    useEffect(()=> {
+    useEffect(() => {
         getSetor()
-    },[setorRedux])
+    }, [setorRedux])
 
     async function getSetor() {
         await api.get(`departments?login=${user}`)
@@ -65,7 +64,6 @@ export default function GerenciaSetor() {
                 let newListSetor = setorRedux.filter(item => item.gerencia !== gerencia)
                 dispatch(setor(newListSetor))
                 closeDelConfirm()
-                //alert(`Setor ${res.data} com sucesso`)
             })
             .catch((err) => {
                 console.log('Erro ao deletar' + err)
@@ -94,20 +92,22 @@ export default function GerenciaSetor() {
         }
     }
 
+    const setorMap = (gerencia, index) => {
+        return (
+            <div className="styleGerencia" key={index}>
+                <Typography className="textStyle" >{gerencia}{index === 0 ? <AllInclusive style={{ fontSize: 35 }} /> : <Button style={{ marginBottom: 6 }} onClick={() => openDelConfirm(gerencia)} variant="outlined" color="secondary"> <Delete /></Button>}</Typography>
+                <Divider />
+            </div>
+        )
+    }
+
     return (
         <Container fluid className="containerSetor">
             <div className="adicinarSetor">
                 <TextField className="campoAddSetor" required label="Setor" variant="outlined" value={nameSetor} onChange={(e) => setNameSetor(e.target.value)} />
                 <button className='btnSetor' onClick={handleAddSetor} variant="outlined" color="primary"><Add />Cadastrar Setor</button>
             </div>
-            {
-                setorRedux && setorRedux.map((gerencia, index) => (
-                    <div className="styleGerencia" key={index}>
-                        <Typography className="textStyle" >{gerencia}{index === 0 ? <AllInclusive style={{ fontSize: 35 }} /> : <Button style={{ marginBottom: 6 }} onClick={() => openDelConfirm(gerencia)} variant="outlined" color="secondary"> <Delete /></Button>}</Typography>
-                        <Divider />
-                    </div>
-                ))
-            }
+            {setorRedux && setorRedux.map(setorMap)}
             <Dialog
                 open={deleteConfirm}
                 onClose={closeDelConfirm}
