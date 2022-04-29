@@ -85,7 +85,8 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 30,
         borderColor: 'transparent',
         background: 'transparent',
-        color: '#FF010A'
+        color: '#FF010A',
+        cursor: 'pointer'
     },
 
     large: {
