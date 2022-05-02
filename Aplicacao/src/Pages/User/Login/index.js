@@ -38,6 +38,7 @@ const ButtonAccess = withStyles(() => ({
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [resetPass, setResetPass] = useState('');
     const [open, setOpen] = useState(false);
     const { logar, recoverPassword } = useContext(AuthContext)
 
@@ -46,8 +47,8 @@ function Login() {
     }
 
     async function handleResetPass(){
-        recoverPassword(email);
-        setEmail('');
+        recoverPassword(resetPass);
+        setResetPass('');
         setOpen(false);
     }
 
@@ -95,7 +96,7 @@ function Login() {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Recuperar senha</DialogTitle>
                 <DialogContent>
-                    <TextField type='email' variant='outlined' label="Digite o e-mail"/>
+                    <TextField value={resetPass} type='email' variant='outlined' onChange={(e) => setResetPass(e.target.value) } label="Digite o e-mail"/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancelar</Button>

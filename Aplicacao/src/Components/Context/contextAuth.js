@@ -135,8 +135,9 @@ function AuthProvider({ children }) {
     //Recuperar senha 
     async function recoverPassword(email){
         await firebase.auth().sendPasswordResetEmail(email)
-        .then(() =>{
+        .then((res) =>{
             alert(`Verifique sua caixa de e-mail`)
+            console.log(res.data)
         })
         .catch((err) =>{
             var errorCode = err.code;
