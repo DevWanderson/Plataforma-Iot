@@ -22,6 +22,7 @@ import GerenciaAlertas from '../GerenciaAlertas';
 import CadastroHttp from '../CadastroHttp';
 import GerenciaSetor from '../GerenciaSetor';
 import DrawerHeader from '../../Components/DrawerHeader';
+import GerenciamentoTipo from '../GerenciamentoTipo';
 
 export default function Router() {
     return (
@@ -43,6 +44,7 @@ export default function Router() {
                 <Route path="/gerenciamento-de-alertas" component={GerenciaAlertas} />
                 <Route path="/cadastro-http" component={CadastroHttp} />
                 <Route path="/gerenciamento-setor" component={GerenciaSetor}/>
+                <Route path="/gerenciamento-tipo" component={GerenciamentoTipo}/>
                 <Route component={Home} />
             </Switch>
         </Provider>
