@@ -324,7 +324,7 @@ export default function CadastroEvery() {
                                 <Link to="/dispositivos-cadastrados/cadastroEverynet/cadastroTipo">
                                     <AdicionarTipoBtn variant="contained" color="primary"><Add /></AdicionarTipoBtn>
                                 </Link>
-                                <Button variant='outlined'>Editar</Button>
+                                {/* <Button variant='outlined'>Editar</Button> */}
                                 {/* </Grid>*/}
                             </FormGroup>
 
