@@ -4,9 +4,12 @@ import { useSelector } from 'react-redux';
 
 import {
     Container,
+    Button,
     Typography,
-    TextField
+    Divider,
+    TextField,
 } from '@material-ui/core';
+import { Delete, Add, AllInclusive, Edit, Check, Close } from '@material-ui/icons';
 
 
 export default function GerenciamentoTipo() {
@@ -79,32 +82,33 @@ export default function GerenciamentoTipo() {
     return (
         <Container>
             <div>
-                <Typography>Iniciando gerenciamento de Tipo</Typography>
+                <Typography style={{fontSize:19, color:"#454545" }}>Iniciando gerenciamento de Tipo</Typography><br/>
             </div>
             <div>
                 {
                     getType.map((ty, index) => (
                         <div>
-                            <Typography>
+                            <Typography style={{fontSize:19, color:"#454545" }} >
                                 Nome do Tipo:
                             </Typography>
+                            
                             {
                                 editField && putTypes == ty ?
-                                    <div >
+                                    <div>
                                         <TextField
                                             key={ty}
                                             label="Editar nome do Tipo"
                                             value={nameType}
                                             onChange={(e) => setNmaeType(e.target.value)}
                                         />
-                                        <button onClick={() => putType(ty)}>Salvar</button>
-                                        <button onClick={() => setEditField(!editField)}>Cancelar</button>
+                                        <Button style={{ marginBottom: 6 }} onClick={() => putType(ty)} variant="outlined" color="green"><Check style={{ width: '15px'}} /></Button>
+                                        <Button style={{ marginBottom: 6 }} onClick={() => setEditField(!editField)} variant="outlined" color="danger"><Close style={{ width: '15px'}}/></Button>
                                     </div>
                                     :
                                     <div key={index}>
                                         <Typography>{ty}</Typography>
-                                        <button onClick={() => handleEditField(ty)} >Editar</button>
-                                        <button onClick={() => deleteType(ty)}>Delete</button>
+                                        <Button style={{ marginBottom: 6 }} onClick={() => handleEditField(ty)} variant="outlined" color="primary"><Edit style={{ width: '15px'}} /></Button>
+                                        <Button style={{ marginBottom: 6 }} onClick={() => deleteType(ty)} variant="outlined" color="secondary"><Delete style={{ width: '15px'}} /></Button><Divider />
                                     </div>
                             }
 
