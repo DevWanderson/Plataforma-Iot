@@ -64,6 +64,9 @@ export default function Home() {
     useEffect(() => {
 
         setAlldevices(setorDados.length);
+        dataDash() 
+       
+        console.log(Object.values(dash))
         setLastSeen(
             setorDados.map(last => {
                 if (last.last_seen) {
@@ -89,9 +92,11 @@ export default function Home() {
         await api.get(`/dash_percent_array?login=${user}`)
             .then((res) => {
                 setDash(res.data)
+                
             })
             .catch((error) => { console.log(error) })
     }
+
     async function selectKey() {
         await api.get(`/user?login=${user}`)
             .then((res) => {

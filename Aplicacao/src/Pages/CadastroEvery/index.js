@@ -22,6 +22,11 @@ import {
     Paper,
     Tooltip,
     Snackbar,
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    DialogActions,
+    DialogContentText
 } from '@material-ui/core';
 import { Add, ArrowBack } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
@@ -145,11 +150,11 @@ export default function CadastroEvery() {
     const [loading, setLoading] = React.useState({ openBackdrop: false, showSuccess: false });
     /////////////////////////////////////////////
 
-    
+
 
     async function Cadastro() {
         const user = JSON.parse(localStorage.getItem('Auth_user')).uid
-      
+
         if (nameDevice == '' || dispositivoEUI == '') {
             setTxtMessage("O campo Nome e Dispositivo EUI não podem ser vazios!")
             showMessage()
@@ -169,44 +174,44 @@ export default function CadastroEvery() {
                 showMessage()
                 console.log("Dispositivo já está cadastrado")
             } */
-            
-                if (checkActivation === false) {
-                    setAppKey(null)
-                }
-                const data = {
-                    name: nameDevice,
-                    dev_addr: deviceAddr,
-                    dev_eui: dispositivoEUI,
-                    app_eui: aplicacaoEUI,
-                    //tags: tags,
-                    nwkskey: netWorkSessionKey,
-                    appskey: applicationSessionKey,
-                    activation: checkActivation === false ? 'ABP' : 'OTAA',
-                    type: selectType,
-                    app_key: appKey,
-                }
 
-                await api.post(`devices?login=${user}&dev_type=everynet`, data)
-                    .then((res) => {
-                     
-                        if (res.data != '') {
-                            setLoading({ openBackdrop: true, showSuccess: true }) //Fecha o backdrop com o loading 
-                            
-                        }
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                        setLoading({ openBackdrop: false, showSuccess: false }) //Fecha o backdrop com o loading 
-                        setTxtMessage(`Erro ao cadastrar dispositivo!`)
-                        showMessage()
-                    })
-                setCadastro(data)
-            
+            if (checkActivation === false) {
+                setAppKey(null)
+            }
+            const data = {
+                name: nameDevice,
+                dev_addr: deviceAddr,
+                dev_eui: dispositivoEUI,
+                app_eui: aplicacaoEUI,
+                //tags: tags,
+                nwkskey: netWorkSessionKey,
+                appskey: applicationSessionKey,
+                activation: checkActivation === false ? 'ABP' : 'OTAA',
+                type: selectType,
+                app_key: appKey,
+            }
+
+            await api.post(`devices?login=${user}&dev_type=everynet`, data)
+                .then((res) => {
+
+                    if (res.data != '') {
+                        setLoading({ openBackdrop: true, showSuccess: true }) //Fecha o backdrop com o loading 
+
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                    setLoading({ openBackdrop: false, showSuccess: false }) //Fecha o backdrop com o loading 
+                    setTxtMessage(`Erro ao cadastrar dispositivo!`)
+                    showMessage()
+                })
+            setCadastro(data)
+
         }
     }
 
 
- 
+
 
     const classes = useStylesGrid();
 
@@ -308,7 +313,7 @@ export default function CadastroEvery() {
                             </FormGroup>
                             <FormGroup row style={{ textAlign: "left" }}>
                                 {/* <Grid item xs={12} sm={4} justifyContent="flex-start"> */}
-                                <TextField padding-inline-start="-10" className={classes.formfield} variant="filled" label="Tipo" select onChange={(e) => setSelectType(e.target.value)} style={{ width: "calc(100% - 90px)", display: 'flex', justifyContent: 'flex-start' }}>
+                                <TextField padding-inline-start="-10" className={classes.formfield} variant="filled" label="Tipo" select onChange={(e) => setSelectType(e.target.value)} style={{ width: "calc(100% - 400px)", display: 'flex', justifyContent: 'flex-start' }}>
                                     {
                                         dadosTypes.length && (dadosTypes.length > 0) ? dadosTypes.map((item) => (
                                             <MenuItem key={item} value={item}>{item} </MenuItem>
@@ -319,11 +324,12 @@ export default function CadastroEvery() {
                                 <Link to="/dispositivos-cadastrados/cadastroEverynet/cadastroTipo">
                                     <AdicionarTipoBtn variant="contained" color="primary"><Add /></AdicionarTipoBtn>
                                 </Link>
+                                <Button variant='outlined'>Editar</Button>
                                 {/* </Grid>*/}
                             </FormGroup>
-                        
-                            <ButtonsCadastro Cadastro={Cadastro}/>
-                       
+
+                            <ButtonsCadastro Cadastro={Cadastro} />
+
                         </Paper>
                     </Grid>
                 </Grid>
@@ -334,6 +340,7 @@ export default function CadastroEvery() {
                         </Alert>
                     </Snackbar>
                 </div>
+                
             </Container>
         </React.Fragment>
     )
