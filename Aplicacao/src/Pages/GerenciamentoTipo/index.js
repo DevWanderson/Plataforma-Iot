@@ -11,6 +11,9 @@ import {
 export default function GerenciamentoTipo() {
 
     const [getType, setGetType] = useState([]);
+    const [putTypes, setPutTypes] = useState('');
+    const [deleteTypes, setDeleteTypes] = useState('');
+    const [editField, setEditField] = useState(false);
 
     const dispatch =  useDispatch();
     const userL = useSelector((state) => state.userState.userLogado)
@@ -21,20 +24,30 @@ export default function GerenciamentoTipo() {
         getTypes();
     }, [])
 
-    async function deleteType(){
-        await api.get(`types?login=${user}`)
+    async function deleteType(tipo){
+        console.log(tipo)
+        await api.get(`types?login=${user}&type=${tipo}`)
         .then((res) =>{
-
+            /* let newList = getType.filter(item =>  item.data !== tipo)
+            setGetType(newList) */
+            console.log('sucesso')
+            console.log(res.data)
         })
         .catch((err) =>{
             console.log(err)
         })
     }
 
-    async function putType(){
-        await api.put(`types?login=${user}`)
+    async function putType(dev){
+        console.log(dev)
+        await api.put(`types?login=${user}&type=${putTypes}`)
         .then((res) =>{
-
+            if(res.data == ''){
+                console.log('Erro ao editar')
+            }
+            else{
+                console.log('Editado com sucesso')
+            }
         })
         .catch((err) =>{
             console.log(err)
@@ -42,7 +55,7 @@ export default function GerenciamentoTipo() {
     }
 
     async function getTypes() {
-        await api.get(`types`)
+        await api.get(`types?login=${user}`)
             .then((res) => {
                 setGetType(res.data)
             })
@@ -55,6 +68,8 @@ export default function GerenciamentoTipo() {
         return (
             <div key={index}>
                 <Typography>{tipo}</Typography>
+                <button onClick={() => putType(tipo)} >Atualizar</button>
+                <button onClick={() => deleteType(tipo)}>Delete</button>
             </div>
         )
     }
@@ -65,7 +80,10 @@ export default function GerenciamentoTipo() {
                 <Typography>Iniciando gerenciamento de Tipo</Typography>
             </div>
             <div>
-                {getType.map(typesMap)}
+
+                {
+                editField && 
+                getType.map(typesMap)}
             </div>
         </Container>
     )
