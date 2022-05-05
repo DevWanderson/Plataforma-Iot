@@ -108,7 +108,7 @@
 }
 
 
-.btOptionsUpdate:hover, .btOptionsDelete:hover{
+.btOptionsUpdate:hover .btOptionsDelete:hover{
     background-color: gray;
     color: white;
 }

@@ -95,7 +95,7 @@ export default function GerenciaSetor() {
     const setorMap = (gerencia, index) => {
         return (
             <div className="styleGerencia" key={index}>
-                <Typography className="textStyle" >{gerencia}{index === 0 ? <AllInclusive style={{ fontSize: 35 }} /> : <Button style={{ marginBottom: 6 }} onClick={() => openDelConfirm(gerencia)} variant="outlined" color="secondary"> <Delete /></Button>}</Typography>
+                <Typography className="textStyle" >{gerencia}{index === 0 ? <AllInclusive style={{ fontSize: 35 }} /> : <Button style={{ marginBottom: 6 }} onClick={() => openDelConfirm(gerencia)} variant="outlined"> <Delete style={{ width: '25px', color:'#ff1616'}} /></Button>}</Typography>
                 <Divider />
             </div>
         )

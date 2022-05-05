@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../Components/Connections/api';
 import { useSelector } from 'react-redux';
-
+import './style.css';
 
 import {
     Container,
@@ -83,13 +83,13 @@ export default function GerenciamentoTipo() {
     return (
         <Container>
             <div>
-                <Typography style={{fontSize:19, color:"#454545" }}>Iniciando gerenciamento de Tipo</Typography><br/>
+                <Typography style={{fontSize:22, color:"#454545", paddingTop:60 }}>Iniciando gerenciamento de Tipo</Typography><Divider/><br/>
             </div>
-            <div>
+            <div className='lisType'>
                 {
                     getType.map((ty, index) => (
-                        <div>
-                            <Typography style={{fontSize:19, color:"#454545" }} >
+                        <div className='typeMap'>
+                            <Typography style={{fontSize:19, color:"#737373" }} >
                                 Nome do Tipo:
                             </Typography>
                             
@@ -102,16 +102,28 @@ export default function GerenciamentoTipo() {
                                             value={nameType}
                                             onChange={(e) => setNmaeType(e.target.value)}
                                         />
-                                        <Button style={{ marginBottom: 6 }} onClick={() => putType(ty)} variant="outlined" color="green"><Check style={{ width: '15px'}} /></Button>
-                                        <Button style={{ marginBottom: 6 }} onClick={() => setEditField(!editField)} variant="outlined" color="danger"><Close style={{ width: '15px'}}/></Button>
+                                        <div style={{display:'flex', flexDirection:'row'}}>
+                                            <div style={{ marginBottom: 6, padding: 3 }}>
+                                                <Button style={{ marginBottom: 6, backgroundColor:'#0C6B35' }} onClick={() => putType(ty)} variant="outlined" color="green"><Check style={{ width: '25px', color:'#fff'}} /></Button>
+                                            </div>
+                                            <div style={{ marginBottom: 6, padding: 3 }}>
+                                                <Button style={{ marginBottom: 6,backgroundColor:'#ff1616' }} onClick={() => setEditField(!editField)} variant="outlined" color="danger"><Close style={{ width: '25px', color:'#fff'}}/></Button>
+                                            </div>
+                                        </div>
                                     </div>
                                     :
-                                    <div key={index}>
+                                    <div key={index} style={{display:'flex', flexDirection:'column'}}>
                                         <Typography>{ty}</Typography>
-                                        <Button style={{ marginBottom: 6 }} onClick={() => handleEditField(ty)} variant="outlined" color="primary"><Edit style={{ width: '15px'}} /></Button>
-                                        <Button style={{ marginBottom: 6 }} onClick={() => deleteType(ty)} variant="outlined" color="secondary"><Delete style={{ width: '15px'}} /></Button><Divider />
+                                        <div className='btnFlex'>
+                                            <div style={{ marginBottom: 6, padding: 3 }}>
+                                                <Button style={{ marginBottom: 6 }} onClick={() => handleEditField(ty)} variant="outlined"><Edit style={{ width: '25px', color:'#0C3162'}} /></Button>
+                                            </div>
+                                            <div style={{ marginBottom: 6, padding: 3 }}>
+                                                <Button style={{ marginBottom: 6 }} onClick={() => deleteType(ty)} variant="outlined" color="secondary"><Delete style={{ width: '25px', color:'#ff1616'}} /></Button>
+                                            </div>
+                                        </div>
                                     </div>
-                            }
+                            }<Divider />
 
                         </div>
                     ))

@@ -1,0 +1,22 @@
+.lisType{
+    display: block;
+    justify-content: center;
+    flex-direction: row;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    
+
+}
+
+.typeMap{
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+}
+
+.btnFlex{
+    justify-content: end;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
