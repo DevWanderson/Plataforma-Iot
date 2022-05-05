@@ -28,7 +28,7 @@ import {
     DialogActions,
     DialogContentText
 } from '@material-ui/core';
-import { Add, ArrowBack } from '@material-ui/icons';
+import { Add, ArrowBack, Edit } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import api from '../../Components/Connections/api'
@@ -44,6 +44,19 @@ const AdicionarTipoBtn = withStyles((theme) => ({
         padding: '5px 2px',
         margin: '10px',
     }
+    
+}))(Button)
+const AdicionarTipoBtnn = withStyles((theme) => ({
+    root: {
+        color: '#FFF',
+        backgroundColor: '#004AAD',
+        '&:hover': {
+            backgroundColor: '#03377D'
+        },
+        padding: '5px 2px',
+        margin: '10px',
+    }
+    
 }))(Button)
 
 function Alert(props) {
@@ -324,7 +337,11 @@ export default function CadastroEvery() {
                                 <Link to="/dispositivos-cadastrados/cadastroEverynet/cadastroTipo">
                                     <AdicionarTipoBtn variant="contained" color="primary"><Add /></AdicionarTipoBtn>
                                 </Link>
-                                {/* <Button variant='outlined'>Editar</Button> */}
+                                
+                                <Link to="/gerenciamento-tipo">
+                                    <AdicionarTipoBtnn variant="contained" color="primary"><Edit /></AdicionarTipoBtnn>
+                                </Link>
+                                
                                 {/* </Grid>*/}
                             </FormGroup>
 
