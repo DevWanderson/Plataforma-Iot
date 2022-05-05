@@ -21,7 +21,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import { Home, DeviceHub, NotificationsActive, Ballot, ExitToApp } from '@material-ui/icons';
 import { AiFillHome } from "react-icons/ai";
-import { FcHome, FcMultipleDevices, FcScatterPlot, FcLineChart, FcGenealogy, FcFeedback, FcExport } from "react-icons/fc";
+import { FcHome, FcMultipleDevices, FcScatterPlot, FcLineChart, FcGenealogy, FcFeedback, FcExport, FcSettings, FcDocument } from "react-icons/fc";
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import { makeStyles } from '@material-ui/core/styles';
 import DataUsageIcon from '@material-ui/icons/DataUsage';
@@ -212,6 +212,18 @@ export default function DrawerHeader(props) {
                     <ListItem onClick={() => setMobileOpen(false)} className={classes.menuButtonSelect}>
                         <FcFeedback size={24} />
                         <ListItemText>Gerenciamento de Alertas</ListItemText>
+                    </ListItem>
+                </Link>
+                <Link to="/gerenciamento-de-alertas" style={{ textDecoration: 'none', color: '#131313' }}>
+                    <ListItem onClick={() => setMobileOpen(false)} className={classes.menuButtonSelect}>
+                        <FcDocument size={24} />
+                        <ListItemText>Guia do Usuário</ListItemText>
+                    </ListItem>
+                </Link>
+                <Link to="/gerenciamento-de-alertas" style={{ textDecoration: 'none', color: '#131313' }}>
+                    <ListItem onClick={() => setMobileOpen(false)} className={classes.menuButtonSelect}>
+                        <FcSettings size={24} />
+                        <ListItemText>Configurações</ListItemText>
                     </ListItem>
                 </Link>
 

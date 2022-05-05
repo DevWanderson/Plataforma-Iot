@@ -151,7 +151,7 @@ export default function Home() {
                                     <VibrationIcon className={classesIconPC.vibration}></VibrationIcon>
                                 </div>
                                 <span>{alertasGerencia.length}</span>
-                                <p>Total de alertas </p>
+                                <p>Alertas cadastrados </p>
                             </div>
                         </div>
                         <div className="dataDevicesHome">
@@ -194,7 +194,7 @@ export default function Home() {
                         </div>
                         <div className="divGraf">
                             <Paper style={{ width: 470, height: 400, borderRadius: 10 }}>
-                                <h2 style={{paddingLeft:10, paddingTop:15}}>Leitura dos Dispositivos</h2>
+                                <h2 style={{paddingLeft:10, paddingTop:15, alignContent:'center', paddingLeft:100}}>Atividades por Dispositivos</h2>
                                 <Chart
                                     options={{pieHole: 0.4}}
                                     chartType="PieChart"
