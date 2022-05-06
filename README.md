@@ -4,7 +4,7 @@ A [**Plataforma IoT**](https://iotibti.ddns.net/login) é um projeto open-source
 
 ## Documentação
 
-A documentação completa do projeto está disponível [aqui](https://drive.google.com/file/d/1gar1PWFsIDBeW1nNEudpEiHwaWMlu_Gh/view).
+A documentação completa do projeto está disponível [aqui](https://drive.google.com/file/d/18kojKf36a3xYHdwMTTikw-jN1E237XR3/view?usp=sharing).
 
 ## Guia do Usuário
 
