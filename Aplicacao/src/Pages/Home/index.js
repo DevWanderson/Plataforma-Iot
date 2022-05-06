@@ -115,9 +115,9 @@ export default function Home() {
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 100 },
-        { field: 'nomeDispositivo', headerName: 'Nome do dispositivo', width: 250 },
-        { field: 'tipo', headerName: 'Tipo', width: 150 },
-        { field: 'vistoPorUltimo', headerName: 'Visto por último', width: 250 }
+        { field: 'nomeDispositivo', headerName: 'Nome do dispositivo', width: 350 },
+        { field: 'tipo', headerName: 'Tipo', width: 350 },
+        { field: 'vistoPorUltimo', headerName: 'Visto por último', width: 250 },
     ];
 
     const rows = setorDados.map((row, i) => {
