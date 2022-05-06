@@ -44,6 +44,7 @@ jobs:
           remote_path: '/home/iotuser/plataforma/dados/' # Pasta de destino
           args: '-o ConnectTimeout=5'
 
+
   # deploy_aplicacao: # Faz deploy da Aplicação no servidor Azure
   #   runs-on: ubuntu-latest
   #   name: deploy
