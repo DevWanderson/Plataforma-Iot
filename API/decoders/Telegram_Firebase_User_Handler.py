@@ -2,21 +2,20 @@ import telebot
 import pymongo
 import pyrebase
 import time
-import config
 
-myclient = pymongo.MongoClient(config.mongo_uri)
-bot = telebot.TeleBot(config.telegram_token, parse_mode=None) 
-tb = telebot.AsyncTeleBot(config.telegram_token)
+myclient = pymongo.MongoClient("mongodb://ibti:ibti@52.179.6.118:27017/")
+bot = telebot.TeleBot("1764004221:AAEBgIYb2AcEnUxQUCbkRoDkk-5WiQ3ifMg", parse_mode=None) 
+tb = telebot.AsyncTeleBot("1764004221:AAEBgIYb2AcEnUxQUCbkRoDkk-5WiQ3ifMg")
 
 firebaseConfig = {
-    'apiKey': config.firebase_api_key,
-    'authDomain': config.firebase_authDomain,
-    'databaseURL': config.firebase_databaseURL,
-    'projectId': config.firebase_projectId,
-    'storageBucket': config.firebase_storageBucket,
-    'messagingSenderId': config.firebase_messagingSenderId,
-    'appId': config.firebase_appId,
-    'measurementId': config.firebase_measurementId
+    'apiKey': "AIzaSyAvYUBSED7D5BoDWwPVJa7jsVP8rLQzdqo",
+    'authDomain': "plataformaiot-64c64.firebaseapp.com",
+    'databaseURL': "https://plataformaiot-64c64-default-rtdb.firebaseio.com",
+    'projectId': "plataformaiot-64c64",
+    'storageBucket': "plataformaiot-64c64.appspot.com",
+    'messagingSenderId': "800863963175",
+    'appId': "1:800863963175:web:e3317b573e629a43726602",
+    'measurementId': "G-QJRT4QQ8QQ"
 } 
 
 firebase = pyrebase.initialize_app(firebaseConfig)

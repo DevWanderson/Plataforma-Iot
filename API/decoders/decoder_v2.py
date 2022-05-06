@@ -67,3 +67,65 @@ class Decode:
         print("#### DECODER DONE ####")
         print (str(output_dict))
         return output_dict
+
+""""
+
+dict = {
+    "name": "winext_gps",
+
+    "variables": {
+        "moving": {
+            "bytes" : [1, 1],
+            "signed" : False,
+            "if_comp" : "gt",
+            "if_arg" : 0,
+            "if_do" : "sum",
+            "arg_do" : 0,
+            "else" : "mux",
+            "arg_else" : 1,
+            "operations" : ["sum"],
+            "op_args": [0]
+        },
+        "charging": {
+            "bytes" : [2, 2],
+            "signed" : False
+        },
+        "lowvoltage": {
+            "bytes" : [3, 3],
+            "signed" : False,
+            "operations" : ["mask", "shiftright"],
+            "op_args": [128, 7]
+        },
+        "bateria": {
+            "bytes" : [3, 3],
+            "signed" : False,
+            "operations" : ["mask", "div"],
+            "op_args": [127, 10]
+        },
+        "lat": {
+            "bytes" : [4, 6],
+            "signed" : True,
+            "operations" : ["div", "mux"],
+            "op_args": [8388607, 90]
+        },
+        "long": {
+            "bytes" : [7, 9],
+            "signed" : True,
+            "operations" : ["div", "mux"],
+            "op_args": [8388607, 180]
+        }
+    },
+    "size": 10,
+    "order": "big",
+    "global": True
+}
+
+payload_json_full = {}
+payload_json_full["params"] = {}
+payload_json_full["meta"] = {}
+payload_json_full["params"]["payload"] = "AQAAI+llR93KRw==" #"AQAAKOmntN3uFg=="
+payload_json_full["meta"]["time"] = 1626872661
+
+Decode.decode(payload_json_full, dict)
+"""
+

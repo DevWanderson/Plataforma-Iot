@@ -10,11 +10,10 @@ import pytz
 from tzlocal import get_localzone
 import nacl.secret
 import nacl.utils
-import config
 
 br = pytz.timezone('Brazil/East')
 
-myclient = pymongo.MongoClient(config.mongo_local)
+myclient = pymongo.MongoClient("mongodb://ibti:ibti@localhost:27017/")
 mydb = myclient["data"]
 db_meta = myclient["metadata"]
 mycol = mydb["logs"]
@@ -103,9 +102,11 @@ def on_message(client, userdata, msg):
                                 entrada = json.loads(k.decrypt(base64.b64decode(payload['data'])))
                             else:
                                 print("Else ", payload)
-                                #entrada = payload
+                                entrada = payload
                                 entrada.pop("_type", None)
                             try:
+                                print('entrada: ', entrada)
+
                                 saida["ts"] = entrada["tst"]
                                 saida["lat"] = entrada["lat"]
                                 saida["long"] = entrada["lon"]
@@ -119,6 +120,19 @@ def on_message(client, userdata, msg):
                                 #client2.connect("localhost", 1883)
                                 #topic_pub = 'ibtioutput/' + i['MQTTuser'] + '/' + j
                                 #client2.publish(topic_pub, str(saida))
+
+                                saida["dev"] = str(j)
+                                saida.pop("_id", None)
+                                saida['type'] = i['devices'][str(j)]['type']
+                                if 'department' in i['devices'][str(j)].keys():
+                                    saida['department'] = i['devices'][str(j)]['department']
+                                else:
+                                    saida['department'] = 'Todos'
+                                saida['login'] = i['login']
+                                collection = metabasedb[saida['login']] # <---- ALTERAÇÃO DE COLEÇÃO 
+                                print('Metabase dict: ', saida)
+                                y = collection.insert_one(saida)
+
                                 saida["dev"] = str(j)
                                 saida['type'] = i['devices'][str(j)]['type']
                                 if 'department' in i['devices'][str(j)].keys():

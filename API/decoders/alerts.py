@@ -3,6 +3,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import telegram_alert
 import pymongo
+import time
 
 debug = True
 
@@ -12,9 +13,11 @@ class Alerts:
             name_device = ""
             telegram_id = 0
             user_name = ""
+            dev_id = ""
             for kk in lista_usuarios:
                 if dev in kk['devices'].keys() and name_device == '':
                     name_device = kk['devices'][dev]['name']
+                    dev_id = kk['devices'][dev]['id']
                     if "telegram_id" in kk.keys():
                         telegram_id = int(kk["telegram_id"])   
                         user_name = kk["user"]
@@ -24,8 +27,8 @@ class Alerts:
                 print('----> Email encontrado: ' + ii['alerts'][jj]['email'])
                 smtp_server = "smtp.gmail.com"
                 port = 587  
-                sender_email = "plataformaiot@ibti.org.br"
-                password = 'Ibti2021'
+                sender_email = "plataformaiotibti@gmail.com"
+                password = 'Ibti@2022'
                 context = ssl.create_default_context()
                 server = smtplib.SMTP(smtp_server,port)
                 server.ehlo() 
@@ -65,6 +68,18 @@ class Alerts:
             if 'n_alerts' in user_item.keys():
                 alerts_quant = int(user_item['n_alerts'])
             col_users.update_one({'user':user_name}, { '$set': {'n_alerts': alerts_quant + 1}})
+            #armazenando alerta no database alerts collection dev_id
+            alert_dict = {}
+            alert_dict['msg'] = str_alert
+            alert_dict['ts'] = int(time.time())
+            alert_dict['dev_name'] = name_device
+            if telegram_id != '':
+                alert_dict['mode'] = 'Telegram'
+            else:
+                alert_dict['mode'] = 'Email'
+            myclient = pymongo.MongoClient("mongodb://ibti:ibti@localhost:27017/")
+            mydb = myclient["alerts"]
+            mydb[dev_id].insert_one(alert_dict)
         except Exception as e:
             # Print any error messages to stdout
             print(e)

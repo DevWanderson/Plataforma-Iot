@@ -1,7 +1,6 @@
 import telebot
-import config
 
-tb = telebot.AsyncTeleBot(config.telegram_token)
+tb = telebot.AsyncTeleBot("1764004221:AAEBgIYb2AcEnUxQUCbkRoDkk-5WiQ3ifMg")
 
 class Telegram:
     def send_alert(msg, user_id):
