@@ -213,6 +213,12 @@ export default function Home() {
                             <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
                         </div>
                     </div>
+                    <div className="listDevicesHomeG">
+                        <div style={{ height: 300, width: 1000 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
+                            <h2>Alertas salvos</h2>
+                            <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
+                        </div>
+                    </div>
                 </div>
             }
 

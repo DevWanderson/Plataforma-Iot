@@ -229,7 +229,7 @@ export default function Dispositivos() {
     async function updateDisp(dev) {
         let eui = dev.device
         const user = JSON.parse(localStorage.getItem('Auth_user')).uid
-        alert(`Aqui ${JSON.parse(localStorage.getItem('Auth_user')).uid}`)
+        
 
 
         const data = {
