@@ -214,18 +214,18 @@ export default function DrawerHeader(props) {
                         <ListItemText>Gerenciamento de Alertas</ListItemText>
                     </ListItem>
                 </Link>
-                <Link to="/gerenciamento-de-alertas" style={{ textDecoration: 'none', color: '#131313' }}>
+                <a href='https://drive.google.com/file/d/18kojKf36a3xYHdwMTTikw-jN1E237XR3/view?usp=sharing' style={{ textDecoration: 'none', color: '#131313' }} target="_blank">
                     <ListItem onClick={() => setMobileOpen(false)} className={classes.menuButtonSelect}>
                         <FcDocument size={24} />
                         <ListItemText>Guia do Usuário</ListItemText>
                     </ListItem>
-                </Link>
-                <Link to="/gerenciamento-de-alertas" style={{ textDecoration: 'none', color: '#131313' }}>
+                </a>
+                {/* <Link to="/gerenciamento-de-alertas" style={{ textDecoration: 'none', color: '#131313' }}>
                     <ListItem onClick={() => setMobileOpen(false)} className={classes.menuButtonSelect}>
                         <FcSettings size={24} />
                         <ListItemText>Configurações</ListItemText>
                     </ListItem>
-                </Link>
+                </Link> */}
 
             </List>
         </div>

@@ -12,13 +12,13 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import alerts
-import config
 
 admin_client = False
 
 br = pytz.timezone('Brazil/East')
 
-myclient = pymongo.MongoClient(config.mongo_local)
+
+myclient = pymongo.MongoClient("mongodb://ibti:ibti@localhost:27017/")
 mydb = myclient["data"]
 db_meta = myclient["metadata"]
 mycol = mydb["logs"]
@@ -121,8 +121,11 @@ def on_message(client, userdata, msg):
                         saida['type'] = tipo
                         saida['department'] = department
                         saida['login'] = login
-                        collection = mydb['metabase'] # <---- ALTERAÇÃO DE COLEÇÃO 
+                        collection = metabasedb[saida['login']] # <---- ALTERAÇÃO DE COLEÇÃO 
+                        print('Metabase dict: ', saida)
                         y = collection.insert_one(saida)
+                        mongo_col = mydb['metabase'] # <----- ALTERAÇÃO DE COLEÇÃO
+                        y = mongo_col.insert_one(saida)
                         #client2.publish("/ibti/kafkaout", str(saida))
                         #client2.disconnect()
                         last_seen = 'devices.' + str(dev) + '.last_seen'
@@ -163,8 +166,67 @@ def on_message(client, userdata, msg):
                             print (e)
                             print("## Alerta terminado com erro ##")
                             print()
+
+                        """"
+                        
+                        for ii in lista_alertas:
+                            if (dev in ii['device_eui']):
+                                print('# ALERTA ENCONTRADO #')
+                                for jj in ii['vars'].keys():
+                                    #print('Variavel: ', jj)
+                                    #print('Chaves: ', ii['vars'][jj].keys())
+                                    query = {'device_eui':dev}
+                                    dict_alert = col_alerts.find_one(query)
+                                    if ('ts' in ii['vars'][jj].keys() and 'period' in ii['vars'][jj].keys()):
+                                        ts_alert = int(dict_alert['vars'][jj]['ts'])
+                                        print('ts: ', int(saida['ts']))
+                                        print('ts: ', ts_alert)
+                                        print('soma ts: ', ts_alert + int(ii['vars'][jj]['period']))
+                                        if (int(saida['ts']) >= ts_alert + int(ii['vars'][jj]['period'])):
+                                            #saida[jj] = saida[jj] + 101
+                                            print('Variavel: ', jj)
+                                            print('Valor: ', saida[jj])
+                                            print('Mensagem: ', ii['vars'][jj]['msg'])
+                                            print('Condição: ', ii['vars'][jj]['if'])
+                                            print('Argumento: ', ii['vars'][jj]['arg_if'])
+                                            print('Email: ', ii['email'])
+                                            if ('gt' in ii['vars'][jj]['if']):
+                                                if (saida[jj] > ii['vars'][jj]['arg_if']):
+                                                    str_alert = (ii['vars'][jj]['msg'].format(arg_if = ii['vars'][jj]['arg_if'], var = saida[jj]))
+                                                    print(str_alert)
+                                                    try:
+                                                        server = smtplib.SMTP(smtp_server,port)
+                                                        server.ehlo() # Can be omitted
+                                                        server.starttls(context=context) # Secure the connection
+                                                        server.ehlo() # Can be omitted
+                                                        server.login(sender_email, password)
+                                                        message = MIMEMultipart("alternative")
+                                                        try:
+                                                            name_device = ""
+                                                            for kk in lista_usuarios:
+                                                                if dev in kk['devices'].keys() and name_device == '':
+                                                                    name_device = kk['devices'][dev]['name']
+                                                                    print (name_device)
+                                                                    break
+                                                            message['Subject'] = 'Alerta de ' + str(name_device)
+                                                        except:
+                                                            message['Subject'] = 'Alerta de ' + str(dev)
+                                                        part1 = MIMEText(str_alert, "plain")
+                                                        message.attach(part1)
+                                                        server.sendmail(sender_email, ii['email'], message.as_string())
+                                                        update_field = 'vars.' + jj + '.ts'
+                                                        col_alerts.update_one({'device_eui':dev}, { '$set': {update_field: saida["ts"]}})
+                                                        print ('Email enviado')
+                                                    except Exception as e:
+                                                        # Print any error messages to stdout
+                                                        print(e)
+                                                    finally:
+                                                        server.quit() 
+                                                        """
                         break
                 
+                        
+
             except Exception as e:
                 print(e)
                 saida_erro = {}
