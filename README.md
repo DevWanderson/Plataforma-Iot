@@ -33,6 +33,4 @@ Colete e visualize os dados do seu dispositivo IoT seguindo o [guia do usuário]
 ## Suporte
 
 ## Licenças e Direitos Autorais
-Falta adicionar a licença MIT 
-Guia: 
-https://docs.github.com/pt/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository
+This project uses the MIT license. See (https://github.com/IBTI-DF/Plataforma-Iot/blob/main/LICENSE) for more information
