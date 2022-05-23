@@ -225,7 +225,7 @@
     display: flex;
     width: 100%;
     padding-top: 30px;
-    margin-top: 40px;
+    margin-top: 60px;
     /*flex-direction: column;*/
     justify-content:space-evenly;
     
@@ -325,6 +325,16 @@
     .divMapHome{
         display: flex;
         width: 100%;
+        margin-bottom: 10px;
+        justify-content: center;
+    }
+    .divGraf{
+        display: flex;
+        width: 100%;
+        /*margin-top: 10px;*/
+        margin-bottom: 10px;
+        justify-content: center;
+        /*margin-right: -58px;*/
     }
     .containerHome{
         position: relative;
@@ -388,7 +398,7 @@
     }
     
     .squareDataHome{
-        width: 95%;
+        width: 100%;
         height: 15rem;
         background-color: #FFF8CD;
         border-radius: 10px;
@@ -415,7 +425,7 @@
         font-size: 35px;
     }
     .squareDataHomeAlert{
-        width: 95%;
+        width: 100%;
         height: 15rem;
         background-color: #F4C8C8;
         border-radius: 10px;
@@ -442,7 +452,7 @@
         font-size: 35px;
     }
     .squareDataHomeRouter{
-        width: 95%;
+        width: 100%;
         height: 15rem;
         background-color: #D0F2FF;
         border-radius: 10px;
@@ -469,7 +479,7 @@
         font-size: 35px;
     }
     .squareDataHomeBattery{
-        width: 95%;
+        width: 100%;
         height: 15rem;
         border-radius: 10px;
         background-color: #C9FACE;
@@ -518,6 +528,36 @@
         border-radius: 50%;
         padding: 20px;
         background-image: linear-gradient(135deg, rgba(0, 123, 85, 0) 0%, rgba(0, 123, 85, 0.24) 100%);
+    }
+    .divMapGraf{
+            width: 100%;
+            display: grid;
+            flex-direction: row;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            border-radius: 10px;
+            padding: 10px;
+            justify-content: center;
+            margin: 0px 0px;
+            box-shadow: 0px 0px 0px 0px rgb(43 43 43 / 80%);
+    }
+    .listDevicesHome{
+        display: flex;
+        width: 100%;
+        /*flex-direction: column;*/
+        justify-content:center;
+        
+        /*margin-right: -55px;*/
+        
+    }
+    .listDevicesHomeG{
+        display: flex;
+        width: 100%;
+        /*flex-direction: column;*/
+        justify-content:center;
+        
+        /*margin-right: -55px;*/
+        
     }
     
 }

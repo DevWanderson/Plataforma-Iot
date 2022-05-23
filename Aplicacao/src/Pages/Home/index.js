@@ -136,7 +136,7 @@ export default function Home() {
     return (
 
         <React.Fragment>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight: 0 }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', paddingLeft:190 }}>
                 <ReqData />
             </div>
             {data.loadState.statusLoad === true ?
@@ -208,13 +208,13 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="listDevicesHome">
-                        <div style={{ height: 300, width: 1000 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
+                        <div style={{ height: 300, width: 990 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
                             <h2>Dispositivos</h2>
                             <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
                         </div>
                     </div>
                     <div className="listDevicesHomeG">
-                        <div style={{ height: 300, width: 1000 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
+                        <div style={{ height: 300, width: 990 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
                             <h2>Alertas salvos</h2>
                             <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
                         </div>
