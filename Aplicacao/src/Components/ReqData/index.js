@@ -76,6 +76,17 @@ export default function ReqData({ props }) {
             })
     }
 
+    async function handleDevices() {
+        await api.get(`saved_alerts?login=${user}`)
+            .then((res) => {
+                // const devs = Object.keys(res.data).map(dev => ({ ...res.data[dev], device: dev }))
+                dispatch(atualizarDevices(res.data))
+            })
+            .catch((err) => {
+
+            })
+    }
+
     async function selectDeviveTypes() {
         await api.get(`types?login=${user}`)
             .then((res) => {

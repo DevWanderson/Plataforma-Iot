@@ -116,7 +116,7 @@ export default function Home() {
     const columns = [
         { field: 'id', headerName: 'ID', width: 100 },
         { field: 'nomeDispositivo', headerName: 'Nome do dispositivo', width: 350 },
-        { field: 'tipo', headerName: 'Tipo', width: 350 },
+        { field: 'tipo', headerName: 'Tipo', width: 180 },
         { field: 'vistoPorUltimo', headerName: 'Visto por último', width: 250 },
     ];
 
@@ -208,17 +208,17 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="listDevicesHome">
-                        <div style={{ height: 300, width: 990 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
+                        <div style={{ height: 300, width: 990 }}><Paper style={{ borderRadius: 10, padding: 10, paddingBottom: 30 }}>
                             <h2>Dispositivos</h2>
                             <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
                         </div>
                     </div>
-                    <div className="listDevicesHomeG">
+                    {/* <div className="listDevicesHomeG">
                         <div style={{ height: 300, width: 990 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
                             <h2>Alertas salvos</h2>
                             <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             }
 
