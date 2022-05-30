@@ -13,4 +13,4 @@ Funcionalidades
 - Gerenciamento de alertas;
 - Cadastro de alertas;
 - Bot Telegram para recebimento de alertas e gerenciamento;
-- Recebimento de alertas, via e-mail e telegram.
+- Recebimento de alertas, via e-mail e telegram. 
