@@ -15,6 +15,7 @@ import LoadReducer from './Reducers/ReduxLoad/LoadReducer';
 import typeSelected from './Reducers/ReduxAlertType/AlertReducer';
 import DevicesReducer from './Reducers/ReduxDevsInfo/Reducer';
 import GerenciaAlertas from './Reducers/ReduxGerenciamentoAlerts/AlertGeReducer';
+import SavedAlerts from './Reducers/SavedAlerts/AlertReducer';
 
 const Reducer = combineReducers({
     deviceState: DeviceReducer,
@@ -25,6 +26,7 @@ const Reducer = combineReducers({
     alertasState: GerenciaAlertas,
     typeSelected,
     devsInfoState: DevicesReducer,
+    savedAlertsState: SavedAlerts,
 })
 
 const loggerMiddleware = createLogger();
