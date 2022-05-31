@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9. Gerenciamento de alertas &mdash; documentação PlataformaIoT 0.1</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="prev" title="8. Gerenciamento de setores" href="gerenciamento-de-setores.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> PlataformaIoT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">1. Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="funcionalidades.html">2. Funcionalidades</a></li>
+<li class="toctree-l1"><a class="reference internal" href="como-acessar-a-plataforma.html">3. Como acessar a plataforma ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="estrutura-da-plataforma.html">4. Estrutura da plataforma</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gerenciamento-de-dispositivos.html">5. Gerenciamento de dispositivos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetria.html">6. Telemetria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analytics.html">7. Analytics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gerenciamento-de-setores.html">8. Gerenciamento de setores</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">9. Gerenciamento de alertas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cadastrando-um-alerta">9.1. Cadastrando um alerta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cadastrando-um-alerta-atraves-do-bot-telegram">9.2. Cadastrando um alerta através do Bot Telegram</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PlataformaIoT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">9. </span>Gerenciamento de alertas</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/gerenciamento-de-alertas.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gerenciamento-de-alertas">
+<h1><span class="section-number">9. </span>Gerenciamento de alertas<a class="headerlink" href="#gerenciamento-de-alertas" title="Link permanente para este título"></a></h1>
+<p>Em gerenciamento de alertas é possível realizar o cadastro e exclusão, a mensagem a ser enviada, a lógica dos alertas referentes à determinado dispositivo.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v31.png"><img alt="_images/v31.png" src="_images/v31.png" style="width: 100%;" /></a>
+</figure>
+<section id="cadastrando-um-alerta">
+<h2><span class="section-number">9.1. </span>Cadastrando um alerta<a class="headerlink" href="#cadastrando-um-alerta" title="Link permanente para este título"></a></h2>
+<ol class="arabic simple">
+<li><p>No menu lateral clique em “Gerenciamento de Alertas”.</p></li>
+<li><p>Clique em “+Criar Novo Alerta”.</p></li>
+<li><p>Selecione o tipo e o setor.</p></li>
+<li><p>Após selecionar o dispositivo desejado clique em próximo.</p></li>
+<li><p>Na Página de criação das lógicas do alerta selecione as variáveis, operações, o valor   e clique em “+ Adicionar operação”.</p></li>
+</ol>
+<p>Todas as operações lógicas dos alertas são exibidas na lista de operações, além de exibir as operações também é possível excluí-las.</p>
+<ol class="arabic simple" start="6">
+<li><p>Após ter adicionado as operações necessárias  e criado a lógica do alerta clique em próximo.</p></li>
+<li><p>Criando o corpo do alerta. A criação do corpo do alerta exigirá informações como o nome do alerta, o intervalo de tempo, o e-mail que receberá os alertas e a mensagem de alerta. Essa etapa é bem simples, basta apenas preencher os campos conforme o exemplo abaixo.</p></li>
+<li><p>Após a inserção das informações do corpo de alerta clique em “próximo ”.</p></li>
+<li><p>Confirme os dados e finalize o cadastro de alerta clicando no botão “finalizar”.</p></li>
+</ol>
+<ol class="arabic simple" start="9">
+<li><p>Deletando um alerta. Para excluir um alerta vá até o gerenciamento de alertas através do menu lateral e clique no botão de exclusão que possui o ícone de uma lixeira.</p></li>
+<li><p>Após clicar no botão de exclusão do alerta uma mensagem de confirmação será exibida basta clicar no botão “confirmar”.</p></li>
+</ol>
+</section>
+<section id="cadastrando-um-alerta-atraves-do-bot-telegram">
+<h2><span class="section-number">9.2. </span>Cadastrando um alerta através do Bot Telegram<a class="headerlink" href="#cadastrando-um-alerta-atraves-do-bot-telegram" title="Link permanente para este título"></a></h2>
+<ol class="arabic simple">
+<li><p>No menu lateral clique em “Gerenciamento de Alertas”.</p></li>
+<li><p>clique no botão com o ícone do telegram.</p></li>
+<li><p>Abra o aplicativo do telegram no seu smartphone ou o telegram desktop e siga os passos conforme a imagem abaixo.</p></li>
+<li><p>No app do telegram pressione a lupa que está no canto superior direito da tela ou no caso do telegram desktop à esquerda na parte superior clique em pesquisar e procure pelo bot digitando PlataformaIoT ou &#64;PlataformaIoTIBTIbot.</p></li>
+<li><p>selecione o bot clicando em  “PlataformaIoT”.</p></li>
+<li><p>Pressione o botão “Começar” e o bot explicará o que você tem que fazer para usá-lo corretamente.</p></li>
+<li><p>O bot pedirá para digitar o e-mail que deve ser o mesmo utilizado na plataforma.</p></li>
+<li><p>Após ter digitado o e-mail digite a mesma senha utilizada no login da plataforma.</p></li>
+<li><p>Depois de ter informado corretamente o login e senha, o bot do telegrama retornará a uma mensagem de sucesso e o recebimento de alertas pelo telegrama estará funcionando.</p></li>
+<li><p>Para desconectar-se basta apenas digitar o comando /logout.</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="gerenciamento-de-setores.html" class="btn btn-neutral float-left" title="8. Gerenciamento de setores" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Instituto Brasília de Tecnologia e Inovação - IBTI.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
