@@ -15,6 +15,7 @@ import NotificationsActive from '@material-ui/icons/NotificationsActive'
 import DevicesMap from '../../Components/Map/Map-dashboard';
 import Load from '../../Components/Loading/index'
 import api from '../../Components/Connections/api';
+import DataAlertsGrid from '../../Components/DataAlertsGrid/dataAlertsGrid';
 import ReqData from '../../Components/ReqData';
 import { Chart } from 'react-google-charts';
 
@@ -99,6 +100,13 @@ export default function Home() {
 
     async function selectKey() {
         await api.get(`/user?login=${user}`)
+            .then((res) => {
+                setAppKey(res.data)
+            })
+    }
+
+    async function selectKey() {
+        await api.get(`/saved_alerts?login=${user}`)
             .then((res) => {
                 setAppKey(res.data)
             })
@@ -213,12 +221,12 @@ export default function Home() {
                             <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
                         </div>
                     </div>
-                    {/* <div className="listDevicesHomeG">
+                    <div className="listDevicesHomeG">
                         <div style={{ height: 300, width: 990 }}><Paper style={{ borderRadius: 10, padding: 10 }}>
                             <h2>Alertas salvos</h2>
-                            <DataGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
+                            <DataAlertsGrid autoHeight rows={rows} columns={columns} pageSize={4} /></Paper>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             }
 
