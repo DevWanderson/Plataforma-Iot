@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. Gerenciamento de dispositivos &mdash; documentação PlataformaIoT 0.1</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="next" title="6. Telemetria" href="telemetria.html" />
+    <link rel="prev" title="4. Estrutura da plataforma" href="estrutura-da-plataforma.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> PlataformaIoT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">1. Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="funcionalidades.html">2. Funcionalidades</a></li>
+<li class="toctree-l1"><a class="reference internal" href="como-acessar-a-plataforma.html">3. Como acessar a plataforma ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="estrutura-da-plataforma.html">4. Estrutura da plataforma</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Gerenciamento de dispositivos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cadastro-de-dispositivo-lorawan">5.1. Cadastro de dispositivo LoRaWAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#passo-a-passo-de-como-cadastrar-um-dispositivo-lorawan">5.2. Passo a passo de como cadastrar um dispositivo LoRaWAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cadastro-de-dispositivo-mqtt">5.3. Cadastro de dispositivo MQTT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cadastrando-um-dispositivo-mqtt">5.4. Cadastrando um dispositivo MQTT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cadastro-de-dispositivo-http">5.5. Cadastro de dispositivo HTTP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="telemetria.html">6. Telemetria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analytics.html">7. Analytics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gerenciamento-de-setores.html">8. Gerenciamento de setores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gerenciamento-de-alertas.html">9. Gerenciamento de alertas</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PlataformaIoT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">5. </span>Gerenciamento de dispositivos</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/gerenciamento-de-dispositivos.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gerenciamento-de-dispositivos">
+<h1><span class="section-number">5. </span>Gerenciamento de dispositivos<a class="headerlink" href="#gerenciamento-de-dispositivos" title="Link permanente para este título"></a></h1>
+<p>Navegando através do menu lateral, é possível acessar a tela de cadastro dos dispositivos. Nela é possível realizar o gerenciamento dos dispositivos que serão utilizados na plataforma, desde o cadastro do dispositivo, adição de variável, adição de tipo e edição e exclusão dos dispositivos, entre outros.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v08.png"><img alt="_images/v08.png" src="_images/v08.png" style="width: 100%;" /></a>
+</figure>
+<div class="admonition attention">
+<p class="admonition-title">Atenção</p>
+<p>Caso não tenha nenhum  dispositivo cadastrado a mensagem “nenhum resultado encontrado” será exibida.</p>
+</div>
+<p>Caso tenha um dispositivo cadastrado pode-se verificar o nome do dispositivo, o setor em que está cadastrado, o status, a data de ativação, o tipo (se é um rastreador, sensor de temperatura ou umidade) e o EUI do dispositivo.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v09.png"><img alt="_images/v09.png" src="_images/v09.png" style="width: 100%;" /></a>
+</figure>
+<section id="cadastro-de-dispositivo-lorawan">
+<h2><span class="section-number">5.1. </span>Cadastro de dispositivo LoRaWAN<a class="headerlink" href="#cadastro-de-dispositivo-lorawan" title="Link permanente para este título"></a></h2>
+<p>Para adicionar um dispositivo LoRaWAN são necessários alguns dados fornecidos pelo fabricante do dispositivo como: Device EUI, Application EUI e Application key.</p>
+<ul class="simple">
+<li><p>Device EUI - um ID de dispositivo final global no espaço de endereço IEEE EUI64 que identifica exclusivamente o dispositivo final (o usuário pode derivar seu próprio Device EUI).</p></li>
+<li><p>Application EUI - é um ID de aplicativo global no espaço de endereço IEEE EUI64 que identifica exclusivamente a entidade capaz de processar o quadro JoinReq. A AppEUI é armazenada no dispositivo final antes que o procedimento de ativação seja executado (A Application EUI pode ser diferente para cada dispositivo ou também pode ser a mesma para todos os dispositivos. Também depende do tipo de servidor de aplicativos que você está usando).</p></li>
+<li><p>Application key - é uma chave raiz específica para o dispositivo final. Sempre que um dispositivo final se conecta a uma rede por meio da ativação pelo ar (OTAA), o Application key é usado para derivar as chaves de sessão NwkSKey e AppSKey específicas para aquele dispositivo final para criptografar e verificar a comunicação da rede e os dados do aplicativo (O Application key deve ser exclusivo para cada dispositivo e o usuário pode derivar seu próprio Application key).</p></li>
+</ul>
+<p>O conjunto destes códigos são armazenados em cada dispositivo pelo fabricante como os códigos padrão para esse dispositivo particular. Cada dispositivo é fornecido com uma etiqueta com o EUI e as demais informações necessárias para sua utilização. Além dos dados obrigatórios fornecidos pelo fabricante, também são necessários inserir o nome do dispositivo que o identifica, device address que é o identificador de controle de acesso e a chave de sessão network session key que se assemelha ao Application Session Key.</p>
+<p>Também é necessário registrar um tipo no dispositivo. Isto é, se não tiver registrado anteriormente. Para o cadastro do tipo você precisa inserir as seguintes informações:</p>
+<ul class="simple">
+<li><p>Checkbox (True) - É utilizado como filtro para definir o tipo como global ou único do dispositivo.</p></li>
+<li><p>Nome do Tipo - Identificador do tipo.</p></li>
+<li><p>Ordem do Bits de Dados - Ordem de leitura dos dados, Little Endian (de trás para frente) ou Big Endian (frente para trás).</p></li>
+<li><p>Tamanho do Byte - Tamanho do payload que será enviado.</p></li>
+<li><p>Adicionar Variáveis (Caso tenha variáveis) - Será utilizado para lidar com as informações do payload.</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Nome da Variável - Identifica a variável</p></li>
+<li><p>Byte inicial - Define o bit inicial da informação</p></li>
+<li><p>Byte final - Define o bit final da informação</p></li>
+<li><p>Sinalizada (False) - Torna o tipo global ou específico para um dispositivo.</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Adicionar operação - As operações podem ser soma, divisão, multiplicação, máscara, ARGS. A utilização das operações depende da informação que será extraída. Cada operação é descrita no datasheet do dispositivo.</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</section>
+<section id="passo-a-passo-de-como-cadastrar-um-dispositivo-lorawan">
+<h2><span class="section-number">5.2. </span>Passo a passo de como cadastrar um dispositivo LoRaWAN<a class="headerlink" href="#passo-a-passo-de-como-cadastrar-um-dispositivo-lorawan" title="Link permanente para este título"></a></h2>
+<ol class="arabic simple">
+<li><p>No menu lateral clique em “Dispositivos”.</p></li>
+</ol>
+<figure class="align-left">
+<a class="reference internal image-reference" href="_images/v10.png"><img alt="_images/v10.png" src="_images/v10.png" style="width: 70%;" /></a>
+</figure>
+<ol class="arabic simple" start="2">
+<li><p>Caso você não tenha nenhum dispositivo cadastrado, clique em “+Dispositivo”.</p></li>
+</ol>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v08.png"><img alt="_images/v08.png" src="_images/v08.png" style="width: 100%;" /></a>
+</figure>
+<p>Após  clicar em “+dispositivo” será redirecionado a página de seleção dos tipos de conexão, esse tipo vai depender do dispositivo que será cadastrado eles podem ser LoRaWAN, MQTT, HTTP ou Sigfox.</p>
+<p>3.  Antes de cadastrar um dispositivo é preciso escolher a tecnologia que utilizará para conectá-lo
+à plataforma.  Para este tutorial, selecione a opção “LoRaWAN” na página de seleção de tipos de conexão.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v11.png"><img alt="_images/v11.png" src="_images/v11.png" style="width: 100%;" /></a>
+</figure>
+<ol class="arabic simple" start="4">
+<li><p>Agora que a tecnologia de conexão foi escolhida, temos que cadastrar o tipo para isso na tela de cadastro de dispositivos clique no botão “+” na seção tipo.</p></li>
+</ol>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v12.png"><img alt="_images/v12.png" src="_images/v12.png" style="width: 100%;" /></a>
+</figure>
+<ol class="arabic simple" start="5">
+<li><p>Ao pressionar o botão, é exibida uma janela de cadastro de de tipo, como na imagem a seguir.  Nela temos os campos que são necessários para cadastrar o tipo, são eles nome do tipo, ordem dos bits de dados e tamanho de byte.</p></li>
+</ol>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v13.png"><img alt="_images/v13.png" src="_images/v13.png" style="width: 100%;" /></a>
+</figure>
+<ol class="arabic simple" start="6">
+<li><p>Clique em “+VARIÁVEL” e cadastre os dados das variáveis e  das operacões.</p></li>
+</ol>
+<p>Preencha o campo “nome da variável 1” com o nome que queira dar a essa variável.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v14.png"><img alt="_images/v14.png" src="_images/v14.png" style="width: 100%;" /></a>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>É possivel adicionar quantas variável forem necessária, assim como exclui-las.</p>
+</div>
+<p>Preencha o campo “Byte inicial 1” e “Byte final 1” conforme o payload do dispositivo (consulte o datasheet do dispositivo).</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v15.png"><img alt="_images/v15.png" src="_images/v15.png" style="width: 100%;" /></a>
+</figure>
+<p>Por fim, deve-se cadastrar a operação, clique em “adicionar operação ” e adicione todas as operações que forem necessárias (consulte o datasheet do dispositivo).</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v16.png"><img alt="_images/v16.png" src="_images/v16.png" style="width: 100%;" /></a>
+</figure>
+<ol class="arabic simple" start="7">
+<li><p>Finalize o cadastro do tipo clicando no botão cadastrar.</p></li>
+</ol>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v17.png"><img alt="_images/v17.png" src="_images/v17.png" style="width: 100%;" /></a>
+</figure>
+<ol class="arabic simple" start="8">
+<li><p>Após o cadastro do tipo e ainda na tela de cadastro dos dispositivos LoRaWAN preencha os campos conforme à imagem abaixo com as suas informações do datasheet e da etiqueta de identificação do dispositivo .</p></li>
+</ol>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v18.png"><img alt="_images/v18.png" src="_images/v18.png" style="width: 100%;" /></a>
+</figure>
+<ol class="arabic simple" start="9">
+<li><p>Finalize o cadastro clicando no botão cadastrar.</p></li>
+</ol>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v17.png"><img alt="_images/v17.png" src="_images/v17.png" style="width: 100%;" /></a>
+</figure>
+</section>
+<section id="cadastro-de-dispositivo-mqtt">
+<h2><span class="section-number">5.3. </span>Cadastro de dispositivo MQTT<a class="headerlink" href="#cadastro-de-dispositivo-mqtt" title="Link permanente para este título"></a></h2>
+<p>Na tela Cadastro MQTT realiza-se o cadastro de dispositivos que utilizam o protocolo MQTT. Para isso é necessário inserir as informações nos campos obrigatórios, que são: nome, que serve para identificar o dispositivo,  EUI que é o endereço único de identificação do dispositivo (id), adicionar uma variável ou selecionar uma existente. Abaixo tem-se a comunicação com o dispositivo e as informações que são exibidas após os campos de cadastro.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v19.png"><img alt="_images/v19.png" src="_images/v19.png" style="width: 100%;" /></a>
+</figure>
+</section>
+<section id="cadastrando-um-dispositivo-mqtt">
+<h2><span class="section-number">5.4. </span>Cadastrando um dispositivo MQTT<a class="headerlink" href="#cadastrando-um-dispositivo-mqtt" title="Link permanente para este título"></a></h2>
+<p>Dos passos 01 ao 03 são iguais para todos os dispositivos.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v20.png"><img alt="_images/v20.png" src="_images/v20.png" style="width: 100%;" /></a>
+</figure>
+<ol class="arabic simple" start="4">
+<li><p>Antes de cadastrar um dispositivo MQTT é preciso adicionar suas variáveis, para isso na tela de cadastro de dispositivos MQTT clique no botão “+Adicionar Variáveis”.</p></li>
+</ol>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v21.png"><img alt="_images/v21.png" src="_images/v21.png" style="width: 100%;" /></a>
+</figure>
+<ol class="arabic simple" start="5">
+<li><p>Após clicar no botão “+Adicionar Variáveis” preencha os campos adicionar variável e unidade e clique em  “adicionar” e posteriormente em “salvar” . A imagem abaixo ilustra os campos que são necessários para adicionar as variáveis do dispositivo MQTT.</p></li>
+</ol>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v22.png"><img alt="_images/v22.png" src="_images/v22.png" style="width: 100%;" /></a>
+</figure>
+<ol class="arabic simple" start="6">
+<li><p>Após o cadastro das variáveis e ainda na tela de cadastro dos dispositivos MQTT finalize o cadastro inserindo o nome e um EUI para o dispositivo.</p></li>
+</ol>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v23.png"><img alt="_images/v23.png" src="_images/v23.png" style="width: 100%;" /></a>
+</figure>
+<ol class="arabic simple" start="7">
+<li><p>Finalize o cadastro clicando no botão cadastrar.</p></li>
+</ol>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v17.png"><img alt="_images/v17.png" src="_images/v17.png" style="width: 100%;" /></a>
+</figure>
+</section>
+<section id="cadastro-de-dispositivo-http">
+<h2><span class="section-number">5.5. </span>Cadastro de dispositivo HTTP<a class="headerlink" href="#cadastro-de-dispositivo-http" title="Link permanente para este título"></a></h2>
+<p>Na tela de cadastro HTTP são cadastrados dispositivos com o protocolo HTTP, mantém-se o padrão do cadastro de dispositivos MQTT onde é necessário inserir as informações nos campos obrigatórios. O campo nome é utilizado para identificar o dispositivo e o EUI que é o endereço único de identificação do dispositivo (ID). A adição de variáveis também segue o padrão do cadastro na tela MQTT.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/v24.png"><img alt="_images/v24.png" src="_images/v24.png" style="width: 100%;" /></a>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="estrutura-da-plataforma.html" class="btn btn-neutral float-left" title="4. Estrutura da plataforma" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="telemetria.html" class="btn btn-neutral float-right" title="6. Telemetria" accesskey="n" rel="next">Próximo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Instituto Brasília de Tecnologia e Inovação - IBTI.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
