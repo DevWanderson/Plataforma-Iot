@@ -181,7 +181,7 @@ export default function DrawerHeader(props) {
                 <Link to="/home" style={{ textDecoration: 'none', color: '#131313' }}>
                     <ListItem onClick={() => setMobileOpen(false)} className={classes.menuButtonSelect} >
                         <FcHome size={24} />
-                        <ListItemText>Dashboard</ListItemText>
+                        <ListItemText>Home</ListItemText>
                     </ListItem>
                 </Link>
                 <Link to="/dispositivos-cadastrados" style={{ textDecoration: 'none', color: '#131313' }}>

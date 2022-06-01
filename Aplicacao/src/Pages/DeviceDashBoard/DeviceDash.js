@@ -167,7 +167,7 @@ export default function DeviceDash(props) {
 
                                 <div>
                                     {/* eslint-disable-next-line eqeqeq */}
-                                    <h3>Dispositivo: <span>{typeDevice == undefined ? '' : typeDevice[keyType[0]]}</span></h3>
+                                    <h3 style={{ fontSize: 19,color: '#000000de' }}>Dispositivo: <span>{typeDevice == undefined ? '' : typeDevice[keyType[0]]}</span></h3>
                                 </div>
                                 <div className='divDeviceTypeDataDash'>
                                     {/* eslint-disable-next-line eqeqeq */}
@@ -212,8 +212,8 @@ export default function DeviceDash(props) {
                                     Object.keys(dataDevice[0]).map((item, i) => {
                                         return (
                                             <div className='infoDevice' key={i}>{/* aqui organiza os dados */}
-                                                <h5>{item}:</h5>
-                                                <span style={{ fontSize: 19, marginTop: -2, color: '#a09f9f' }}>{dataDevice[0][item]}</span>
+                                                <h5 style={{ fontSize: 19,color: '#000000de' }}>{item}:</h5>
+                                                <span style={{ fontSize: 19, marginTop: -2, color: '#a09f9f', fontWeight: 'bold' }}>{dataDevice[0][item]}</span>
                                             </div>
                                         )
                                     })
