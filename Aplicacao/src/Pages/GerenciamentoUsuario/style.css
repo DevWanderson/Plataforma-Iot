@@ -1,0 +1,84 @@
+.titleConfig {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    margin-top: 100px;
+    justify-content: space-between;
+}
+
+
+.paperCard{
+    width: 32%;
+    height: 150px;
+    text-align: center;
+    padding: 20px;
+}
+
+.btnEditUser{
+    margin-top: 18%;
+    margin-left: 38%;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 110px;
+    background-color: transparent;
+    border-radius: 20px;
+    border: 1px solid rgb(237, 86, 86);
+    color: rgb(237, 86, 86);
+    cursor: pointer;
+}
+
+.btnEditUser:hover{
+    background-color: rgb(237, 86, 86);
+    color: #FFF;
+}
+
+.btnEditType{
+    margin-top: 18%;
+    margin-left: 68%;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 110px;
+    background-color: transparent;
+    border-radius: 20px;
+    border: 1px solid rgb(51, 133, 255);
+    color: rgb(51, 133, 255);
+    cursor: pointer;
+}
+
+.btnEditType:hover{
+    background-color: rgb(51, 133, 255);
+    color: #FFF;
+}
+
+.btnUserContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.btnEditPass{
+    height: 25px;
+    margin-top: 18%;
+    width: 110px;
+    background-color: transparent;
+    border-radius: 20px;
+    border: 1px solid rgb(51, 133, 255);
+    color: rgb(51, 133, 255);
+    cursor: pointer;
+}
+
+.btnEditPass:hover{
+    background-color: rgb(51, 133, 255);
+    color: #FFF;
+}
