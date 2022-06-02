@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../Components/Connections/api';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'
 import './style.css';
 
 import {
@@ -48,6 +49,7 @@ export default function GerenciamentoTipo() {
         }
         await api.put(`types?login=${user}&type=${type}`, data)
             .then((res) => {
+                console.log(res.data)
                 if (res.data === '') {
                     console.log('Erro ao editar')
                 }
@@ -83,16 +85,16 @@ export default function GerenciamentoTipo() {
     return (
         <Container>
             <div>
-                <Typography style={{fontSize:22, color:"#454545", paddingTop:60 }}>Iniciando gerenciamento de Tipo</Typography><Divider/><br/>
+                <Typography style={{ fontSize: 22, color: "#454545", paddingTop: 60 }}>Iniciando gerenciamento de Tipo</Typography><Divider /><br />
             </div>
             <div className='lisType'>
                 {
                     getType.map((ty, index) => (
                         <div className='typeMap'>
-                            <Typography style={{fontSize:19, color:"#737373" }} >
+                            <Typography style={{ fontSize: 19, color: "#737373" }} >
                                 Nome do Tipo:
                             </Typography>
-                            
+
                             {
                                 editField && putTypes == ty ?
                                     <div>
@@ -102,24 +104,26 @@ export default function GerenciamentoTipo() {
                                             value={nameType}
                                             onChange={(e) => setNmaeType(e.target.value)}
                                         />
-                                        <div style={{display:'flex', flexDirection:'row'}}>
+                                        <div style={{ display: 'flex', flexDirection: 'row' }}>
                                             <div style={{ marginBottom: 6, padding: 3 }}>
-                                                <Button style={{ marginBottom: 6, backgroundColor:'#0C6B35' }} onClick={() => putType(ty)} variant="outlined" color="green"><Check style={{ width: '25px', color:'#fff'}} /></Button>
+                                                <Button style={{ marginBottom: 6, backgroundColor: '#0C6B35' }} onClick={() => putType(ty)} variant="outlined" color="green"><Check style={{ width: '25px', color: '#fff' }} /></Button>
                                             </div>
                                             <div style={{ marginBottom: 6, padding: 3 }}>
-                                                <Button style={{ marginBottom: 6,backgroundColor:'#ff1616' }} onClick={() => setEditField(!editField)} variant="outlined" color="danger"><Close style={{ width: '25px', color:'#fff'}}/></Button>
+                                                <Button style={{ marginBottom: 6, backgroundColor: '#ff1616' }} onClick={() => setEditField(!editField)} variant="outlined" color="danger"><Close style={{ width: '25px', color: '#fff' }} /></Button>
                                             </div>
                                         </div>
                                     </div>
                                     :
-                                    <div key={index} style={{display:'flex', flexDirection:'column'}}>
-                                        <Typography>{ty}</Typography>
+                                    <div key={index} style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <Link to={{ pathname: '/gerenciamento-tipo/editar-tipo/' + ty }} >
+                                            <Typography>{ty}</Typography>
+                                        </Link>
                                         <div className='btnFlex'>
                                             <div style={{ marginBottom: 6, padding: 3 }}>
-                                                <Button style={{ marginBottom: 6 }} onClick={() => handleEditField(ty)} variant="outlined"><Edit style={{ width: '25px', color:'#0C3162'}} /></Button>
+                                                <Button style={{ marginBottom: 6 }} onClick={() => handleEditField(ty)} variant="outlined"><Edit style={{ width: '25px', color: '#0C3162' }} /></Button>
                                             </div>
                                             <div style={{ marginBottom: 6, padding: 3 }}>
-                                                <Button style={{ marginBottom: 6 }} onClick={() => deleteType(ty)} variant="outlined" color="secondary"><Delete style={{ width: '25px', color:'#ff1616'}} /></Button>
+                                                <Button style={{ marginBottom: 6 }} onClick={() => deleteType(ty)} variant="outlined" color="secondary"><Delete style={{ width: '25px', color: '#ff1616' }} /></Button>
                                             </div>
                                         </div>
                                     </div>
