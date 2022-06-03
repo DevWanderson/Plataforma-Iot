@@ -1,10 +1,113 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Container, TextField, Typography, Checkbox, FormControlLabel, Divider } from '@material-ui/core';
+import './style.css'
+
+export default function EditType() {
+
+    const editVar = useSelector((state) => state.editTypeState.editType)
+
+    return (
+        <Container>
+
+            <div className='containerInput'>
+                <TextField style={{ margin: 10, width: '30%' }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="Name" />
+                <Typography variant='h5'>Váriaveis</Typography>
+                <div className='var'>
+                    <div style={{ display: "flex" }}>
+                        <TextField style={{ margin: 10, width: '21%', marginBottom: 25 }} variant='outlined' value={editVar.variables} InputLabelProps={{ shrink: true }} label="LAT" />
+                        <TextField style={{ margin: 10, width: '21%', marginBottom: 25 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="BYTE" />
+                        <TextField style={{ margin: 10, width: '21%', marginBottom: 25 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="BYTE" />
+                    </div>
+                    <FormControlLabel
+                        style={{ marginLeft: 2 }}
+                        control={
+                            <Checkbox
+                                checked={true}
+                                onChange={() => { }}
+                                color="primary"
+                            />
+
+                        }
+                        label="SIGNED"
+                    />
+                    <Divider style={{marginBottom:20}}/>
+                    <div style={{ display: "flex" }}>
+                        <TextField style={{ margin: 10, width: '21%', marginBottom: 20 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="LONG" />
+                        <TextField style={{ margin: 10, width: '21%', marginBottom: 20 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="BYTE" />
+                        <TextField style={{ margin: 10, width: '21%', marginBottom: 20 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="BYTE" />
+                    </div>
+                    <FormControlLabel
+                        style={{ marginLeft: 2 }}
+                        control={
+                            <Checkbox
+                                checked={true}
+                                onChange={() => { }}
+                                color="primary"
+                            />
+
+                        }
+                        label="SIGNED"
+                    />
+                    <Divider style={{marginBottom:20}}/>
+                    <div style={{ display: "flex" }}>
+                        <TextField style={{ margin: 10, width: '21%', marginBottom: 20 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="ALTITUDE" />
+                        <TextField style={{ margin: 10, width: '21%', marginBottom: 20 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="BYTE" />
+                        <TextField style={{ margin: 10, width: '21%', marginBottom: 20 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="BYTE" />
+                    </div>
+                    <FormControlLabel
+                        style={{ marginLeft: 2 }}
+                        control={
+                            <Checkbox
+                                checked={true}
+                                onChange={() => { }}
+                                color="primary"
+                            />
+
+                        }
+                        label="SIGNED"
+                    />
+
+                    <Divider style={{marginBottom:20}}/>
+                    <div style={{ display: "flex" }}>
+                        <TextField style={{ margin: 10, width: '21%', marginBottom: 20 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="VELOCIDADE" />
+                        <TextField style={{ margin: 10, width: '21%', marginBottom: 20 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="BYTE" />
+                        <TextField style={{ margin: 10, width: '21%', marginBottom: 20 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="BYTE" />
+                    </div>
+                    <FormControlLabel
+                        style={{ marginLeft: 2 }}
+                        control={
+                            <Checkbox
+                                checked={true}
+                                onChange={() => { }}
+                                color="primary"
+                            />
+
+                        }
+                        label="SIGNED"
+                    />
+                    <Divider style={{marginBottom:20}}/>
+                    <div style={{ display: "flex" }}>
+                        <TextField style={{ margin: 10, width: '5%', marginBottom: 20 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="SIZE" />
+                        <TextField style={{ margin: 10, width: '5%', marginBottom: 20 }} variant='outlined' value={editVar.name} InputLabelProps={{ shrink: true }} label="ORDER" />
+                    </div>
+                    <FormControlLabel
+                        style={{ marginLeft: 2 }}
+                        control={
+                            <Checkbox
+                                checked={true}
+                                onChange={() => { }}
+                                color="primary"
+                            />
+
+                        }
+                        label="GLOBAL"
+                    />
 
 
-export default function EditType(props){
-    return(
-        <div>
-
-        </div>
+                </div>
+                <button className='btnSalvar'>Salvar</button>
+            </div>
+        </Container>
     )
 }

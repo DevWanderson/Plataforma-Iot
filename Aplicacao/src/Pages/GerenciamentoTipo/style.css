@@ -20,3 +20,35 @@
     align-items: center;
     padding: 5px;
 }
+
+.containerInput{
+    margin-top: 100px;
+
+}
+
+.inputsName{
+    width: 30%;
+    
+}
+
+.var{
+    
+}
+
+.inputs{
+    margin: 20px;
+    margin-bottom: 20px;
+}
+
+.btnSalvar{
+    margin-left: 90%;
+    width: 10%;
+    height: 40px;
+    background-color: rgb(38, 149, 38);
+    border-radius: 10px;
+    border: 1px solid rgb(38, 149, 38);
+    color: #FFF;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: -28px;
+}
