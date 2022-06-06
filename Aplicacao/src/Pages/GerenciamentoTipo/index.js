@@ -36,7 +36,7 @@ export default function GerenciamentoTipo() {
 
     useEffect(() => {
         getTypes();
-    }, [/* getType */])
+    }, [getType])
 
     
 
@@ -115,7 +115,6 @@ export default function GerenciamentoTipo() {
     return (
         <Container>
             <div>
-                {JSON.stringify(editar)}
                 <Typography style={{ fontSize: 22, color: "#454545", paddingTop: 60 }}>Iniciando gerenciamento de Tipo</Typography><Divider /><br />
             </div>
             <div className='lisType'>
