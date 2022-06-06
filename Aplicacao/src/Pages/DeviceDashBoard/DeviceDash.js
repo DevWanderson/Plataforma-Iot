@@ -138,7 +138,7 @@ export default function DeviceDash(props) {
     }, [data]);
 
     useEffect(() => {
-
+       
 
     }, [typeDevice, keyType])
 
@@ -167,21 +167,24 @@ export default function DeviceDash(props) {
 
                                 <div>
                                     {/* eslint-disable-next-line eqeqeq */}
-                                    <h3 style={{ fontSize: 19,color: '#000000de' }}>Dispositivo: <span>{typeDevice == undefined ? '' : typeDevice[keyType[0]]}</span></h3>
+                                    <h3 style={{ fontSize: 19, color: '#000000de' }}>Dispositivo: <span>{typeDevice == undefined ? '' : typeDevice.name}</span></h3>
                                 </div>
                                 <div className='divDeviceTypeDataDash'>
+                                    {console.log(typeDevice)}
+                                    {console.log(keyType)}
+                                    
                                     {/* eslint-disable-next-line eqeqeq */}
-                                    {keyType.length == 7 || keyType.length == 8 ? <p>EUI: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[6]]}</span> </p> : <p>EUI: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[8]]}</span> </p>}
+                                    {<p>EUI: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice.id}</span> </p>}
                                     {/* eslint-disable-next-line eqeqeq */}
-                                    <p>Tipo: <span>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[1]]}</span> </p>
+                                    <p>Tipo: <span>{typeDevice == undefined ? 'N/A' : typeDevice.type}</span> </p>
                                     {/* eslint-disable-next-line eqeqeq */}
-                                    <p>Status: <span>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[2]] == 0 ? 'Inativo' : "Ativo"}</span> </p>
+                                    <p>Status: <span>{typeDevice == undefined ? 'N/A' : typeDevice.status == 0 ? 'Inativo' : "Ativo"}</span> </p>
                                     {/* eslint-disable-next-line eqeqeq */}
-                                    <p>Data de ativação: <span>{typeDevice == undefined || isNaN(typeDevice[keyType[3]]) ? 'N/A' : stampToDate(typeDevice[keyType[3]])}</span></p>
+                                    <p>Data de ativação: <span>{typeDevice == undefined || isNaN(typeDevice.act_date) ? 'N/A' : stampToDate(typeDevice.act_date)}</span></p>
                                     {/* eslint-disable-next-line eqeqeq */}
-                                    <p>Visto por último: <span>{typeDevice == undefined || isNaN(typeDevice[keyType[4]]) ? 'N/A' : stampToDateAndHour(typeDevice[keyType[4]])}</span>  </p>
+                                    <p>Visto por último: <span>{typeDevice == undefined || isNaN(typeDevice.last_seen) ? 'N/A' : stampToDateAndHour(typeDevice.last_seen)}</span>  </p>
                                     {/* eslint-disable-next-line eqeqeq */}
-                                    <p>Setor: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice[keyType[7]]}</span> </p>
+                                    <p>Setor: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice.department}</span> </p>
                                 </div></Paper>
 
                         </div>
@@ -212,7 +215,7 @@ export default function DeviceDash(props) {
                                     Object.keys(dataDevice[0]).map((item, i) => {
                                         return (
                                             <div className='infoDevice' key={i}>{/* aqui organiza os dados */}
-                                                <h5 style={{ fontSize: 19,color: '#000000de' }}>{item}:</h5>
+                                                <h5 style={{ fontSize: 19, color: '#000000de' }}>{item}:</h5>
                                                 <span style={{ fontSize: 19, marginTop: -2, color: '#a09f9f', fontWeight: 'bold' }}>{dataDevice[0][item]}</span>
                                             </div>
                                         )
