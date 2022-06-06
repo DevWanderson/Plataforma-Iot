@@ -38,7 +38,7 @@ export default function GerenciamentoTipo() {
         getTypes();
     }, [getType])
 
-    
+
 
 
     async function deleteType(tipo) {
@@ -98,7 +98,7 @@ export default function GerenciamentoTipo() {
         await api.get(`types?login=${user}&type_name=${type}`)
             .then((res) => {
                 dispach(editType(res.data))
-                
+
             })
             .catch((err) => {
                 console.log(err)
@@ -153,11 +153,7 @@ export default function GerenciamentoTipo() {
                                     </div>
                                     :
                                     <div key={index} style={{ display: 'flex', flexDirection: 'column' }}>
-                                        <Link to={{ pathname: "/gerenciamento-tipo/editar-tipo", state: ty }}>
-
-                                            <Typography>{ty}</Typography>
-                                        </Link>
-
+                                        <Typography>{ty}</Typography>
                                         <div className='btnFlex'>
                                             <div style={{ marginBottom: 6, padding: 3 }}>
                                                 {/* <Button style={{ marginBottom: 6 }} onClick={() => handleEditField(ty)} variant="outlined"><Edit style={{ width: '25px', color: '#0C3162' }} /></Button> */}
