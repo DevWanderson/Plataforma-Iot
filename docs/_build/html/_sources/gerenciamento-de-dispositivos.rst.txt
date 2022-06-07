@@ -58,6 +58,9 @@ Passo a passo de como cadastrar um dispositivo LoRaWAN
     :width: 70%
     :align: left
 
+.. figure:: images/v00.png
+    :width: 70%
+    :align: center
 
 2. Caso você não tenha nenhum dispositivo cadastrado, clique em “+Dispositivo”.
 

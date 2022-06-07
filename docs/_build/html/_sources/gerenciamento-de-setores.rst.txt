@@ -12,13 +12,17 @@ Cadastrando um setor
     :width: 70%
     :align: left
 
+.. figure:: images/v00.png
+    :width: 70%
+    :align: center
+
 02. Na tela de gerenciamento preencha o campo setor e clique em "+Cadastrar Setor” para cadastrar um novo setor
 
 .. figure:: images/v28.png
     :width: 1000%
     :align: center 
 
-03. Excluindo um setor. Para um setor vá até o gerenciamento de setores através do menu lateral e clique no botão de exclusão que possui o ícone de uma lixeira.
+03. Excluindo um setor. Vá até o gerenciamento de setores através do menu lateral e clique no botão de exclusão que possui o ícone de uma lixeira.
 
 .. figure:: images/v29.png
     :width: 100%
