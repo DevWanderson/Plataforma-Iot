@@ -1,15 +1,15 @@
-import { USER } from './SavedAlerts';
+import { ALERTS } from './AlertActions';
 
 const initialSater = {
-    userLogado: []
+    saveAlerts: []
 }
 
 export default (state = initialSater, { type, payload }) => {
     switch (type) {
-        case USER:
+        case ALERTS:
             return {
                 ...state,
-                userLogado: payload
+                saveAlerts: payload
             }
         default:
             return state

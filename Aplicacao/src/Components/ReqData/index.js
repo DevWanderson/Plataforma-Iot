@@ -7,6 +7,7 @@ import { setor, dadosSetor } from '../../Reducers/ReduxSetor/SetorActions';
 import { alertasGeral } from '../../Reducers/ReduxGerenciamentoAlerts/AlertGeActions';
 import { dadosType } from '../../Reducers/ReduxTypes/TypeActions';
 import { statusLoad } from '../../Reducers/ReduxLoad/LoadActions';
+import { saveAlerts } from '../../Reducers/SavedAlerts/AlertActions';
 import { setDevice } from '../../Utils/stateControllers';
 import { useLocation } from 'react-router-dom'
 import Setor from '../Setor';
@@ -34,6 +35,7 @@ export default function ReqData({ props }) {
         selectDeviveTypes()
         selectSetor()
         selectDataSetor()
+        getAlertData()
         
     }, [selectedDevice, selectedSetor])
 
@@ -67,17 +69,6 @@ export default function ReqData({ props }) {
     }
     async function handleDevices() {
         await api.get(`devices?login=${user}`)
-            .then((res) => {
-                // const devs = Object.keys(res.data).map(dev => ({ ...res.data[dev], device: dev }))
-                dispatch(atualizarDevices(res.data))
-            })
-            .catch((err) => {
-
-            })
-    }
-
-    async function handleDevices() {
-        await api.get(`saved_alerts?login=${user}`)
             .then((res) => {
                 // const devs = Object.keys(res.data).map(dev => ({ ...res.data[dev], device: dev }))
                 dispatch(atualizarDevices(res.data))
@@ -136,6 +127,15 @@ export default function ReqData({ props }) {
 
         dispatch(statusLoad(false))
 
+    }
+    async function getAlertData () {
+        await api.get(`saved_alerts?limit=1&login=${user}`)
+            .then((res) =>{
+                dispatch(saveAlerts(res.data))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
 

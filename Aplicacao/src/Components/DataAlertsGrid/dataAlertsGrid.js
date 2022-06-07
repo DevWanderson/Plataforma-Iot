@@ -1,49 +1,37 @@
 import React, {useEffect, useState} from 'react';
-import { useSelector } from 'react-redux';
 import { DataGrid} from "@material-ui/data-grid";
-/* import { DataGrid } from '@mui/x-data-grid'; */
-import axios from 'axios';
 import api from '../Connections/api';
+import { useDispatch, useSelector } from 'react-redux';
 
-function DataGridForAlerts() {
-    const [data, setData] = useState([]);
+
+function DataGridForAlert() {
+    const alertasSalvos = useSelector((state) => state.savedAlertsState.saveAlerts);
     
-    /* const userUID = JSON.parse(localStorage.getItem('Auth_user'))
-    let user = userUID ? userUID.uid : null */
-
-    const getAlertsData = async () => {
-        await api.get(`/saved_alerts?limited1&login=${user}`)
-            .then((res) =>{
-                setData(res.data)
-            })
-    } 
-    useEffect(() => {
-        getAlertsData();
-    }, []);
 
     const columns = [
-        {field: "msg", headerName:"Mensagem", width:200},
+        {field: "msg", headerName:"Mensagem", width:300},
         {field: "ts", headerName:"Times", width:200},
-        {field: "dev_name", headerName:"Dispositivo", width:200},
+        {field: "dev_name", headerName:"Dispositivo", width:230},
         {field: "mode", headerName:"Canal", width:200},
 
     ];
 
-    const rows = data.map((row) => {
+    const rows = alertasSalvos && alertasSalvos.map((row, i) => {
         return(
             {
-        msg: row.msg,
-        ts: row.ts,
-        dev_name: row.dev_name,
-        mode: row.mode,
+                id: i + 1,
+                dev_name: row[0].dev_name,
+                mode: row[0].mode,
+                msg: row[0].msg,
+                ts: row[0].ts,
             })
 
     })
 
-    console.log(data);
+    console.log(rows);
 
     return (
-        <div style={{height:500, width:"100%"}}>
+        <div style={{height:300, width:"100%"}}>
             <DataGrid
                 rows={rows}
                 columns={columns}
@@ -53,4 +41,4 @@ function DataGridForAlerts() {
     );
 }
 
-export default DataGridForAlerts;
+export default DataGridForAlert;

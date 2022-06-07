@@ -181,7 +181,7 @@ export default function DrawerHeader(props) {
                 <Link to="/home" style={{ textDecoration: 'none', color: '#131313' }}>
                     <ListItem onClick={() => setMobileOpen(false)} className={classes.menuButtonSelect} >
                         <FcHome size={24} />
-                        <ListItemText>Dashboard</ListItemText>
+                        <ListItemText>Home</ListItemText>
                     </ListItem>
                 </Link>
                 <Link to="/dispositivos-cadastrados" style={{ textDecoration: 'none', color: '#131313' }}>
@@ -220,12 +220,12 @@ export default function DrawerHeader(props) {
                         <ListItemText>Guia do Usuário</ListItemText>
                     </ListItem>
                 </a>
-                {/* <Link to="/gerenciamento-de-alertas" style={{ textDecoration: 'none', color: '#131313' }}>
+                <Link to="/gerenciamento-usuario" style={{ textDecoration: 'none', color: '#131313' }}>
                     <ListItem onClick={() => setMobileOpen(false)} className={classes.menuButtonSelect}>
                         <FcSettings size={24} />
                         <ListItemText>Configurações</ListItemText>
                     </ListItem>
-                </Link> */}
+                </Link>
 
             </List>
         </div>

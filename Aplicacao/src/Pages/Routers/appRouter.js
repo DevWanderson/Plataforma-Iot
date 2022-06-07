@@ -23,6 +23,8 @@ import CadastroHttp from '../CadastroHttp';
 import GerenciaSetor from '../GerenciaSetor';
 import DrawerHeader from '../../Components/DrawerHeader';
 import GerenciamentoTipo from '../GerenciamentoTipo';
+import EditType from '../GerenciamentoTipo/editType';
+import GerenciamentoUsuario from '../GerenciamentoUsuario';
 
 export default function Router() {
     return (
@@ -34,6 +36,7 @@ export default function Router() {
                 <Route path="/dispositivos-cadastrados/cadastroEverynet" component={CadastroEvery} />
                 <Route path="/dispositivos-cadastrados/cadastroMqtt" component={CadastroMqtt} />
                 <Route path="/dispositivos-cadastrados/descricao" component={Descricao} />
+                <Route path="/gerenciamento-tipo/editar-tipo" component={EditType} />
                 <Route path="/dispositivos-cadastrados" component={Dispositivo} />
                 <Route path="/graphic" component={Graph} />
                 <Route path="/mapa" component={Map} />
@@ -45,6 +48,8 @@ export default function Router() {
                 <Route path="/cadastro-http" component={CadastroHttp} />
                 <Route path="/gerenciamento-setor" component={GerenciaSetor}/>
                 <Route path="/gerenciamento-tipo" component={GerenciamentoTipo}/>
+                <Route path="/gerenciamento-usuario" component={GerenciamentoUsuario}/>
+
                 <Route component={Home} />
             </Switch>
         </Provider>
