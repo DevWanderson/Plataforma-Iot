@@ -72,6 +72,7 @@ export default function ReqData({ props }) {
             .then((res) => {
                 // const devs = Object.keys(res.data).map(dev => ({ ...res.data[dev], device: dev }))
                 dispatch(atualizarDevices(res.data))
+                console.log(res.data)
             })
             .catch((err) => {
 

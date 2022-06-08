@@ -170,8 +170,7 @@ export default function DeviceDash(props) {
                                     <h3 style={{ fontSize: 19, color: '#000000de' }}>Dispositivo: <span>{typeDevice == undefined ? '' : typeDevice.name}</span></h3>
                                 </div>
                                 <div className='divDeviceTypeDataDash'>
-                                    {console.log(typeDevice)}
-                                    {console.log(keyType)}
+                                    
                                     
                                     {/* eslint-disable-next-line eqeqeq */}
                                     {<p>EUI: <span ref={conditionRequest}>{typeDevice == undefined ? 'N/A' : typeDevice.id}</span> </p>}
