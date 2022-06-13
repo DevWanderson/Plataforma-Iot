@@ -80,7 +80,7 @@ export default function GerenciamentoTipo() {
         console.log(tipo)
         setEditField(true)
         setNmaeType(tipo)
-        setPutTypes(tipo)
+        //setPutTypes(tipo)
     }
 
     async function getTypes() {
