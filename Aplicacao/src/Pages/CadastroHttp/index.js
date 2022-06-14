@@ -403,7 +403,7 @@ export default function CadastroHttp() {
                                         QRCODE
                                     </Typography>
                                     <Typography className={comunicacao.content}>
-                                        <button onClick={() => handleOpenModalQr()} style={{ background: 'transparent', border: 'none', textDecoration: 'underline', cursor: 'pointer' }}>{qrCode ? qrCode : '{vazio}'}</button>
+                                        <button onClick={() => handleOpenModalQr()} style={{ background: 'transparent', border: 'none', textDecoration: 'underline', cursor: 'pointer', fontFamily:'Arial' }}>{qrCode ? ' iotibti.ddns.net:8000/http_in' : '{vazio}'}</button>
                                     </Typography>
                                 </Grid>
                             </Grid>
