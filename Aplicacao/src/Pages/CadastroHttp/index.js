@@ -5,6 +5,7 @@ import { Delete } from '@material-ui/icons';
 import { verificarExistenciaEUI } from '../../Utils/verificarExistenciaEUI';
 import ButtonsCadastro from '../../Components/ButtonsCadastro';
 import LoadingCadastro from '../../Components/LoadingCadastro';
+import { QRCodeCanvas } from 'qrcode.react'
 import ErroSnack from '../../Components/ErroSnack/erroSnack';
 import {
     Container,
@@ -30,7 +31,7 @@ import {
     DialogActions,
     Hidden,
 
-    
+
 } from '@material-ui/core';
 
 import { Add, ArrowBack } from '@material-ui/icons';
@@ -138,16 +139,20 @@ export default function CadastroHttp() {
     const uri = 'iotibti.ddns.net'
     const [nameDevice, setNameDevice] = useState('');
     const [openModal, setOpenModal] = useState(false);
+    const [openModalQr, setOpenModalQr] = useState(false);
+    const [qrCodeUser, setQrCodeUser] = useState('')
+    const qrCode = qrCodeUser
 
     const [dispositivoEUI, setDispositivoEUI] = useState('');
     const [appKey, setAppKey] = useState('');
     const topico = `ibti/${appKey.MQTTuser ? appKey.MQTTuser : 'user não gerado'}/${dispositivoEUI ? dispositivoEUI : '{vazio}'}`
     const [cadastro, setCadastro] = useState()
-    
-    
+
+
     /////////////// Message /////////////////////
     const [openMessage, setOpenMessage] = React.useState(false);
     const [txtMessage, setTxtMessage] = React.useState('')
+
     const dispatch = useDispatch();
     const showMessage = () => {
         setOpenMessage(true);
@@ -164,6 +169,18 @@ export default function CadastroHttp() {
         setOpenMessage(false);
     };
 
+    async function QRCode() {
+        //https://iotibti.ddns.net:8000/token?login=sSaR00DpyhR3151N534tXPd4d4m1
+        await api.get(`token?login=${userUID}`)
+            .then((res) => {
+                setQrCodeUser(res.data)
+                console.log(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     async function selectKey() {
         await api.get(`/user?login=${userUID}`)
             .then((res) => {
@@ -174,6 +191,7 @@ export default function CadastroHttp() {
 
     useEffect(() => {
         selectKey()
+        QRCode()
     }, [])
     /////////////////////////////////////////////
 
@@ -206,7 +224,7 @@ export default function CadastroHttp() {
 
                 await api.post('/devices?login=' + user + '&dev_type=mqtt', data)
                     .then((res) => {
-                        
+
                         if (res.data == '') {
                             setLoading({ openBackdrop: false, showSuccess: false }) //fecha o círculo de loading
                             console.log("Erro ao cadastrar")
@@ -237,13 +255,6 @@ export default function CadastroHttp() {
 
     const noSpecialCarac = /\W|_/;
 
-    const errorInput = () =>{
-        return(
-           <>
-           </>
-        )
-    }
-
     //criação de campos
     const [campoVar, setCampoVar] = useState([]);
     const [addCampo, setAddCampo] = useState('');
@@ -256,14 +267,15 @@ export default function CadastroHttp() {
         setOpenModal(true)
     }
 
-    function handleOpenSnack(){
-        setOpenSnack(true)
-    }
-    function handleCloseSnack(){
-        setOpenSnack(false)
+    function handleCloseModalQr() {
+        setOpenModalQr(false)
     }
 
-    function saveVariaveis(){
+    function handleOpenModalQr() {
+        setOpenModalQr(true)
+    }
+
+    function saveVariaveis() {
         setSaveVar([...campoVar])
         setOpenModal(false)
     }
@@ -283,8 +295,8 @@ export default function CadastroHttp() {
     function handleInput() {
         if (addCampo === '' || unidade === '') {
             alert('Digite no campo em branco')
-        //return <ErroSnack open={handleOpenSnack} duration={2000} close={handleCloseSnack} descriptionErro="Erro ao Salvar" closeAlert={handleCloseSnack}/>
-            
+            //return <ErroSnack open={handleOpenSnack} duration={2000} close={handleCloseSnack} descriptionErro="Erro ao Salvar" closeAlert={handleCloseSnack}/>
+
         }
         else {
             let newVar = [...campoVar]
@@ -350,8 +362,8 @@ export default function CadastroHttp() {
                                     required
                                 />
                                 <div className="divCombo">
-                                    
-                                    <button onClick={handleOpenModal}><Add/> Adicionar Variáveis</button>
+
+                                    <button onClick={handleOpenModal}><Add /> Adicionar Variáveis</button>
                                 </div>
                             </FormGroup>
                             <ButtonsCadastro Cadastro={Cadastro} />
@@ -384,6 +396,14 @@ export default function CadastroHttp() {
                                     </Typography>
                                     <Typography className={comunicacao.content}>
                                         {dispositivoEUI ? dispositivoEUI : '{vazio}'}
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12} sm={4}>
+                                    <Typography className={comunicacao.title}>
+                                        QRCODE
+                                    </Typography>
+                                    <Typography className={comunicacao.content}>
+                                        <button onClick={() => handleOpenModalQr()} style={{ background: 'transparent', border: 'none', textDecoration: 'underline', cursor: 'pointer' }}>{qrCode ? qrCode : '{vazio}'}</button>
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -489,12 +509,26 @@ export default function CadastroHttp() {
                                     </Hidden>
                                 ))
                             }
-                            
+
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button color="primary" onClick={saveVariaveis}>Salvar</Button>
                         <Button color="primary" onClick={handleCloseModal}>Cancelar</Button>
+                    </DialogActions>
+                </Dialog>
+
+                <Dialog fullWidth={30} open={openModalQr} onClose={handleCloseModalQr}>
+                    <DialogTitle onClose={handleCloseModal} >
+                        <Typography variant="h6" className="titleDialog">QRCODE</Typography>
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText style={{alignItems:'center', justifyContent:'center', display:'flex'}}>
+                            <QRCodeCanvas value={qrCodeUser} size={220}/>
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button color="primary" onClick={handleCloseModalQr}>Fechar</Button>
                     </DialogActions>
                 </Dialog>
 
