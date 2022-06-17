@@ -97,7 +97,7 @@ export default function DeviceDash(props) {
 
     useEffect(() => {
         console.log(typeDevice == undefined ? 'N/A' : typeDevice.custom)
-        console.log(data.deviceState.selectedDevice)
+        console.log(selectedDevice[0])
         setSelectedDevice(data.deviceState.selectedDevice ? data.deviceState.selectedDevice : selectedDevice);
         setDataDevice(data.deviceState.dadosDevice.length > 0 ? [...data.deviceState.dadosDevice] : [{ "dado": "sem dado" }]);
         setTypeDevice(data.setorState.dadosSetor.filter(filterDevice => filterDevice.device === selectedDevice)[0])
@@ -138,17 +138,17 @@ export default function DeviceDash(props) {
         setRowsDashSquare(dataDevice[0]);
         // console.log(data) 
         // console.log(conditionRequest.current.innerHTML)
-
+        customDevice()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     useEffect(() => {
-        customDevice()
+        
 
     }, [typeDevice, keyType])
 
     async function customDevice() {
-        api.get(`khomp_temp_mb?login=${user}&dev=${selectedDevice}`)
+      await api.get(`khomp_temp_mb?login=${user}&dev=${selectedDevice}`)
             .then((res) => {
                 setCustom(res.data)
                 console.log(res.data)
@@ -175,7 +175,7 @@ export default function DeviceDash(props) {
                 <React.Fragment>
                     {
                         typeDevice == undefined ? 'N/A' : typeDevice.custom ?
-                            <iframe src={custom} width="100%" style={{ height: 1000, border: 'none' }} />
+                            <iframe src={custom} width="100%" style={{ height: '90rem', border: 'none' }} />
                             :
                             <div className='divDataDeviceDash' >
 
