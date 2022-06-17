@@ -55,6 +55,7 @@ export default function Home() {
     const [appKey, setAppKey] = useState('');
     const [allActiveDevices, setAllActiveDevices] = useState([]);
     const [dash, setDash] = useState([]);
+    const [linkDash, setLinkDash] = useState('');
     const classesIconPC = useStylePC();
     const userUID = JSON.parse(localStorage.getItem('Auth_user'))
     let user = userUID ? userUID.uid : null
@@ -105,12 +106,23 @@ export default function Home() {
             })
     }
 
+    async function dashHome(){
+        await api.get(`home_mb?login=${user}`)
+        .then((res) => {
+            setLinkDash(res.data)
+        })
+        .catch((err) =>{
+            console.log(err);
+        })
+    }
+
     useEffect(() => {
         console.log("chamando req...")
         // selectData();
         selectKey();
         dataDash()
         console.log(dash)
+        dashHome()
     }, [])
 
 
@@ -146,7 +158,7 @@ export default function Home() {
                 <Load />
                 :
                 <div className="containerHome">
-                    <div className="divDataDeviceHome">
+                    {/* <div className="divDataDeviceHome">
                         <div className="dataDevicesHomeAlert">
                             <div className="squareDataHomeAlert">
                                 <div className='circleIconSVibration'>
@@ -185,9 +197,8 @@ export default function Home() {
                                 <p>Alertas Enviados</p>
                             </div>
                         </div>
-
-
-                    </div>
+                    </div> */}
+                    <iframe src={linkDash} width="100%" style={{ height: 700, border:'none' }}/>
                     <div className="divMapGraf">
                         <div className="divMapHome">
                             <Paper style={{ width: 470, height: 400 }}>
