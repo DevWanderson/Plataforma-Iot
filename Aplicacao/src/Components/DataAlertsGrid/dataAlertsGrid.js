@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { DataGrid} from "@material-ui/data-grid";
 import api from '../Connections/api';
 import { useDispatch, useSelector } from 'react-redux';
+import { stampToDate, stampToDateAndHour } from '../../Utils/timeStampToDate'
 
 
 function DataGridForAlert() {
@@ -23,7 +24,7 @@ function DataGridForAlert() {
                 dev_name: row[0].dev_name,
                 mode: row[0].mode,
                 msg: row[0].msg,
-                ts: row[0].ts,
+                ts: stampToDateAndHour(row[0].ts),
             })
 
     })

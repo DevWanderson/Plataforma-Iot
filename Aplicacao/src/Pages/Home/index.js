@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { stampToDateAndHour } from '../../Utils/timeStampToDate'
+import { stampToDateAndHour, stampToDate } from '../../Utils/timeStampToDate'
 import { lastTsBeforeOf } from '../../Utils/functions';
 import { Paper } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
@@ -18,6 +18,7 @@ import api from '../../Components/Connections/api';
 import DataGridForAlert from '../../Components/DataAlertsGrid/dataAlertsGrid';
 import ReqData from '../../Components/ReqData';
 import { Chart } from 'react-google-charts';
+
 
 // import { selectData } from '../../Utils/timeStampToDate'
 
