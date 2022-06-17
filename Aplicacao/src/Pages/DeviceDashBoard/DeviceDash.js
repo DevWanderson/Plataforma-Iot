@@ -96,8 +96,6 @@ export default function DeviceDash(props) {
 
 
     useEffect(() => {
-        console.log(typeDevice == undefined ? 'N/A' : typeDevice.custom)
-        console.log(selectedDevice[0])
         setSelectedDevice(data.deviceState.selectedDevice ? data.deviceState.selectedDevice : selectedDevice);
         setDataDevice(data.deviceState.dadosDevice.length > 0 ? [...data.deviceState.dadosDevice] : [{ "dado": "sem dado" }]);
         setTypeDevice(data.setorState.dadosSetor.filter(filterDevice => filterDevice.device === selectedDevice)[0])
